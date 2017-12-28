@@ -2,7 +2,7 @@
 //  TMDbAppTests.swift
 //  TMDbAppTests
 //
-//  Created by Eduardo Sanches Bocato on 22/12/17.
+//  Created by Eduardo Sanches Bocato on 28/12/17.
 //  Copyright © 2017 Eduardo Sanches Bocato. All rights reserved.
 //
 
