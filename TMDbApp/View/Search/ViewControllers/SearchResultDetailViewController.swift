@@ -16,7 +16,7 @@ fileprivate enum TableViewSection {
 
 fileprivate struct ViewDefaults {
     static let overviewTableViewCellHeight: CGFloat = 250
-    static let similarTableViewCellHeight: CGFloat = 250
+    static let similarMoviesTableViewCellHeight: CGFloat = 300
 }
 
 class SearchResultDetailViewController: UIViewController {
@@ -28,12 +28,21 @@ class SearchResultDetailViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var genresLabel: UILabel!
     
+    
     // MARK: Constants
     let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.black]
     let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.darkGray]
     
     // MARK: Properties
     var movie: Movie!
+    fileprivate var similarMoviesResponse: SearchResponse?
+    fileprivate var similarMovies: [Movie]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+            }
+        }
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -57,11 +66,55 @@ class SearchResultDetailViewController: UIViewController {
     
     // MARK: - Data
     func loadViewData() {
+        loadMovieData()
+        loadSimilarMoviesFirstPage()
+    }
+    
+    func loadMovieData() {
         guard let backdropPathURLString = movie.backdropPathURLString, let title = movie.title, let releaseDate = movie.releaseDate, let formattedReleaseDate = Date.new(from: releaseDate, format: "yyyy-MM-dd")?.stringWithFormat("dd/MM/yyyy"), let genresString = movie.genresString else { return }
         backdropImageView.setImage(with: backdropPathURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
         titleLabel.attributedText = attributedString(with: "Title: ", text: title)
         releaseDateLabel.attributedText = attributedString(with: "Release date: ", text: formattedReleaseDate)
         genresLabel.attributedText = attributedString(with: "Genres: ", text: genresString)
+    }
+    
+    // MARK: - API Calls
+    func loadSimilarMoviesFirstPage() {
+        view.startLoading(.whiteLarge, tintColor: .amethyst, backgroundColor: UIColor.white)
+        fetchSimilarMovies(success: { (response, serviceResponse) in
+            self.similarMoviesResponse = response
+            self.similarMovies = response?.results
+        }, completion: {
+            self.view.stopLoading()
+        })
+    }
+
+//    func fetchSimilarMovies(forPage page: Int!, completion: (() -> Void)? = nil) {
+//        fetchSimilarMovies(success: { (response, serviceResponse) in
+//            guard let response = response, let currentSimilarMovies = self.similarMovies else { return }
+//            self.similarMoviesResponse = response
+//            if let similarMoviesResponseResults = response.results, similarMoviesResponseResults.count > 0 {
+//                let resultsPlusNextPage = currentSimilarMovies + similarMoviesResponseResults
+//                self.similarMovies = resultsPlusNextPage
+//            }
+//        }, completion: {
+//            completion?()
+//        })
+//    }
+    
+    func fetchSimilarMovies(forPage page: Int = 1, success: @escaping ((_ searchResponse: SearchResponse?, _ serviceResponse: ServiceResponse?) -> Void), completion: (() -> Void)? = nil){
+        guard let movieId = movie.id else { return }
+        MoviesService().getSimilarMovies(for: movieId, page: page, success: { (response, serviceResponse) in
+            success(response, serviceResponse)
+        }, onFailure:  { (serviceResponse) in
+            let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry", rightButtonActionClosure: {
+                self.loadSimilarMoviesFirstPage()
+            })
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+        }, onCompletion: {
+            completion?()
+        })
     }
     
 }
@@ -92,8 +145,10 @@ extension SearchResultDetailViewController: UITableViewDataSource {
             })
             return cell
         case TableViewSection.similar.hashValue:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: similarTableViewCell.identifier, for: indexPath)
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: SimilarMoviesTableViewCell.identifier, for: indexPath) as! SimilarMoviesTableViewCell
+            cell.dataSource = self
+            cell.delegate = self
+            return cell
         default: // We won't get here...
             return UITableViewCell()
         }
@@ -113,7 +168,7 @@ extension SearchResultDetailViewController: UITableViewDataSource {
         case TableViewSection.overview.hashValue:
             return "Overview"
         case TableViewSection.similar.hashValue:
-            return "similar"
+            return "Similar Movies"
         default:
             return nil
         }
@@ -129,13 +184,44 @@ extension SearchResultDetailViewController: UITableViewDelegate {
         case TableViewSection.overview.hashValue:
             return ViewDefaults.overviewTableViewCellHeight
         case TableViewSection.similar.hashValue:
-            return ViewDefaults.similarTableViewCellHeight
+            return ViewDefaults.similarMoviesTableViewCellHeight
         default: // We won't get here...
             return 0
         }
     }
     
 }
+
+// MARK: - SimilarMoviesTableViewCellDataSource
+extension SearchResultDetailViewController: SimilarMoviesTableViewCellDataSource {
+    
+    func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return
+    }
+    
+    func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+    }
+    
+}
+
+// MARK: - SimilarMoviesTableViewCellDelegate
+extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
+    
+    func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        debugPrint("similarMoviesTableViewCell:collectionView:didSelectItemAt")
+    }
+    
+    func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        (cell as? SimilarMovieCollectionViewCell)?.cancelDownloadTask()
+    }
+    
+    func similarMoviesTableViewCellScrollViewDidScroll(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, scrollView: UIScrollView) {
+        debugPrint("similarMoviesTableViewCellScrollViewDidScroll:collectionView:scrollView")
+    }
+    
+}
+
 
 // MARK: - Instantiation
 extension SearchResultDetailViewController {

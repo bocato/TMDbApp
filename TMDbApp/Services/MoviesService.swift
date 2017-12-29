@@ -16,7 +16,7 @@ class MoviesService {
         let url = URL(string: Environment.shared.baseURL + "/movie/\(movieId)/similar" + queryParameters)!
         
         Service.shared.request(httpMethod: .get, url: url).response(succeed: { (response: SearchResponse?, _ serviceResponse: ServiceResponse?) in
-            success(searchResponse, serviceResponse)
+            success(response, serviceResponse)
         }, failed: { errorResponse in
             failure?(errorResponse)
         }, completed: {

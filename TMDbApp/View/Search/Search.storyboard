@@ -273,7 +273,7 @@
                                             <outlet property="posterImageView" destination="CHd-Bx-Eem" id="qcg-Rh-vad"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostersTableViewCell" rowHeight="291" id="tSI-tM-Dqx">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SimilarMoviesTableViewCell" rowHeight="291" id="tSI-tM-Dqx" customClass="SimilarMoviesTableViewCell" customModule="TMDbApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="617.5" width="375" height="291"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tSI-tM-Dqx" id="Bv6-fX-2Lv">
@@ -283,15 +283,15 @@
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tja-9U-yb0">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="290.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GZW-lW-A4u">
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GZW-lW-A4u" customClass="UPCarouselFlowLayout" customModule="TMDbApp" customModuleProvider="target">
                                                         <size key="itemSize" width="162" height="236"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                     </collectionViewFlowLayout>
                                                     <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pVD-jH-KHP">
-                                                            <rect key="frame" x="0.0" y="0.0" width="162" height="236"/>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SimilarMovieCollectionViewCell" id="pVD-jH-KHP" customClass="SimilarMovieCollectionViewCell" customModule="TMDbApp" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="27.5" width="162" height="236"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="236"/>
@@ -308,8 +308,15 @@
                                                                 <constraint firstItem="Rec-t3-PvR" firstAttribute="top" secondItem="pVD-jH-KHP" secondAttribute="top" constant="5" id="TWR-cq-EWL"/>
                                                                 <constraint firstAttribute="trailing" secondItem="Rec-t3-PvR" secondAttribute="trailing" constant="5" id="hQI-1A-me1"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outlet property="posterImageView" destination="Rec-t3-PvR" id="JaC-fh-WT4"/>
+                                                            </connections>
                                                         </collectionViewCell>
                                                     </cells>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="tSI-tM-Dqx" id="Z6B-U0-7wC"/>
+                                                        <outlet property="delegate" destination="tSI-tM-Dqx" id="Nbq-KV-BDy"/>
+                                                    </connections>
                                                 </collectionView>
                                             </subviews>
                                             <constraints>
@@ -319,6 +326,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="tja-9U-yb0" secondAttribute="trailing" id="oGF-eu-vXE"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionView" destination="tja-9U-yb0" id="mg3-Tx-jgJ"/>
+                                            <outlet property="collectionViewLayout" destination="GZW-lW-A4u" id="Dab-5P-dle"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
