@@ -64,6 +64,7 @@
 		E5BA11F31FF67B25003D1484 /* UPCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA11F21FF67B25003D1484 /* UPCarouselFlowLayout.swift */; };
 		E5DB96161FF694FA00AC1903 /* SwiftyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */; };
 		E5DB96181FF6A00B00AC1903 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */; };
+		E5DB961A1FF6A39A00AC1903 /* TMDBNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		E5BA11F21FF67B25003D1484 /* UPCarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPCarouselFlowLayout.swift; sourceTree = "<group>"; };
 		E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyLoadingView.swift; sourceTree = "<group>"; };
 		E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMDBNavigationViewController.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FB64AABA747F5586CFB9760A /* Pods_TMDbAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -557,6 +559,7 @@
 		E5DB96141FF694E200AC1903 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */,
 				E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */,
 			);
 			path = CustomUI;
@@ -882,6 +885,7 @@
 				E55CEDF41FED866300D290D6 /* FavoritesViewController.swift in Sources */,
 				E55F04E51FF511320006F569 /* DateExtension.swift in Sources */,
 				E55CEE381FED933000D290D6 /* JSON.swift in Sources */,
+				E5DB961A1FF6A39A00AC1903 /* TMDBNavigationViewController.swift in Sources */,
 				E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */,
 				E54A00641FF5FF8A0049C7BD /* RealmMovie.swift in Sources */,
 				E55CEE2D1FED8C7B00D290D6 /* UIViewExtension.swift in Sources */,

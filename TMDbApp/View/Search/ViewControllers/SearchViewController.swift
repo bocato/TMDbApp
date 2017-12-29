@@ -77,6 +77,7 @@ class SearchViewController: UIViewController {
     func configureViewElements() {
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.largeTitleDisplayMode = .always
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
