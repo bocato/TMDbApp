@@ -19,6 +19,8 @@
 		E54A005D1FF5D59B0049C7BD /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */; };
 		E54A005F1FF5DFC20049C7BD /* SearchResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005E1FF5DFC20049C7BD /* SearchResultDetailViewController.swift */; };
 		E54A00621FF5F15D0049C7BD /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00611FF5F15D0049C7BD /* Photo.swift */; };
+		E54A00641FF5FF8A0049C7BD /* RealmMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00631FF5FF8A0049C7BD /* RealmMovie.swift */; };
+		E54A00661FF5FFEE0049C7BD /* FavoriteMoviesDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00651FF5FFEE0049C7BD /* FavoriteMoviesDatabaseManager.swift */; };
 		E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF11FED866300D290D6 /* AppDelegate.swift */; };
 		E55CEDF41FED866300D290D6 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */; };
 		E55CEDF71FED866300D290D6 /* Favorites.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E55CEDF51FED866300D290D6 /* Favorites.storyboard */; };
@@ -93,6 +95,8 @@
 		E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		E54A005E1FF5DFC20049C7BD /* SearchResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailViewController.swift; sourceTree = "<group>"; };
 		E54A00611FF5F15D0049C7BD /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		E54A00631FF5FF8A0049C7BD /* RealmMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMovie.swift; sourceTree = "<group>"; };
+		E54A00651FF5FFEE0049C7BD /* FavoriteMoviesDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMoviesDatabaseManager.swift; sourceTree = "<group>"; };
 		E55CEDEE1FED866300D290D6 /* TMDbApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDbApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E55CEDF11FED866300D290D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +230,23 @@
 			path = NYTPhotoViewer;
 			sourceTree = "<group>";
 		};
+		E54A00671FF600EE0049C7BD /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				E54A00651FF5FFEE0049C7BD /* FavoriteMoviesDatabaseManager.swift */,
+				E54A00681FF601020049C7BD /* Models */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		E54A00681FF601020049C7BD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E54A00631FF5FF8A0049C7BD /* RealmMovie.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E55CEDE51FED866300D290D6 = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +276,7 @@
 				E55F04931FF294970006F569 /* Router */,
 				E55CEE221FED884D00D290D6 /* Commons */,
 				E55CEE211FED884900D290D6 /* Convenience */,
+				E54A00671FF600EE0049C7BD /* Persistence */,
 				E55CEE1F1FED884000D290D6 /* Services */,
 				E55CEE201FED884500D290D6 /* Model */,
 				E55CEE241FED889500D290D6 /* View */,
@@ -670,6 +692,8 @@
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/NYTPhotoViewer/NYTPhotoViewer.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -677,6 +701,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NYTPhotoViewer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,6 +857,7 @@
 				E55F04E51FF511320006F569 /* DateExtension.swift in Sources */,
 				E55CEE381FED933000D290D6 /* JSON.swift in Sources */,
 				E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */,
+				E54A00641FF5FF8A0049C7BD /* RealmMovie.swift in Sources */,
 				E55CEE2D1FED8C7B00D290D6 /* UIViewExtension.swift in Sources */,
 				E54A00621FF5F15D0049C7BD /* Photo.swift in Sources */,
 				E55F04E71FF511320006F569 /* UITableViewCellExtension.swift in Sources */,
@@ -841,6 +868,7 @@
 				E55F04A01FF2AF8C0006F569 /* TabBarViewController.swift in Sources */,
 				E55F04C41FF3B1290006F569 /* NavigationRouter.swift in Sources */,
 				E55F04E81FF511320006F569 /* UIViewControllerExtension.swift in Sources */,
+				E54A00661FF5FFEE0049C7BD /* FavoriteMoviesDatabaseManager.swift in Sources */,
 				E55CEE361FED8DB100D290D6 /* SplashViewController.swift in Sources */,
 				E54A00531FF5C2B20049C7BD /* ApplicationData.swift in Sources */,
 				E55F04B51FF2CBE00006F569 /* ServiceError.swift in Sources */,
