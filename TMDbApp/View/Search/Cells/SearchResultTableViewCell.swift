@@ -15,8 +15,9 @@ class SearchResultTableViewCell: UITableViewCell {
     @IBOutlet fileprivate weak var movieLabel: UILabel!
     
     // MARK: Constants
-    let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.black]
-    let textAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
+    let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.black]
+    let dateAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
+    let genresAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
     
     // MARK: Computed Properties
     var invalidInfoAttributedTitleAndYear: NSAttributedString {
@@ -30,11 +31,20 @@ class SearchResultTableViewCell: UITableViewCell {
     }
 
     // MARK: - Configuration
+    private func getGenresString(for movie: Movie?) -> String? {
+        guard let movie = movie, let genreIds = movie.genreIds else { return nil }
+        let genres = genreIds.flatMap { id -> String? in
+            return ApplicationData.shared.movieGenres?.filter( { $0.id == id } ).first?.name
+        }
+        return genres.joined(separator: ", ")
+    }
+    
     private func createMovieLabelAttributedString(for movie: Movie!) -> NSAttributedString {
         // TODO: Add Genres
-        guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy") else { return invalidInfoAttributedTitleAndYear }
+        guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy"), let genresString = getGenresString(for: movie) else { return invalidInfoAttributedTitleAndYear }
         let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
-        attributedString.append(NSAttributedString(string: " (\(year))", attributes: textAttributes))
+        attributedString.append(NSAttributedString(string: " (\(year))", attributes: dateAttributes))
+        attributedString.append(NSAttributedString(string: "\n" + genresString, attributes: genresAttributes))
         return attributedString
     }
     

@@ -192,6 +192,10 @@ extension SearchViewController: UITableViewDelegate {
         return ViewDefaults.defaultSearchCellHeight
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
 }
 
 // MARK: - Instantiation
