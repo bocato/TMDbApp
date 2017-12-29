@@ -54,7 +54,7 @@ class Service {
 extension URLRequest {
     
     private func setUnknowErrorFor(serviceResponse: inout ServiceResponse) {
-        serviceResponse.serviceError = ServiceError(statusCode: nil, error: "Unexpected.", message: "An unexpected error has occured. Check your internet connextion and try again.")
+        serviceResponse.serviceError = ServiceError(statusMessage: "An unexpected error has occured. Check your internet connection and try again.", statusCode: -999)
     }
     
     private func mapErrors(statusCode: Int, error: Error?, serviceResponse: inout ServiceResponse) {
@@ -72,7 +72,7 @@ extension URLRequest {
         
         serviceResponse.rawResponse = jsonString
         
-        if serializedValue.message == nil {
+        if serializedValue.statusMessage == nil {
             setUnknowErrorFor(serviceResponse: &serviceResponse)
         } else {
             serviceResponse.serviceError = serializedValue

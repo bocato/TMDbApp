@@ -53,6 +53,11 @@ extension Movie {
         return Environment.shared.baseURLForImages + posterPath
     }
     
+    var backdropPathURLString: String? {
+        guard let backdropPath = backdropPath else { return nil }
+        return Environment.shared.baseURLForImages + backdropPath
+    }
+    
     var genres: [Genre]? {
         guard let genreIds = self.genreIds else { return nil }
         return genreIds.flatMap({ (id) -> Genre? in

@@ -11,8 +11,13 @@ import Foundation
 struct ServiceError: Codable, Error {
     
     // MARK: - Properties
-    var statusCode: Int? // This is coming from the service
-    var error: String? // This is coming from the service
-    var message: String? // This is coming from the service
+    var statusMessage: String?
+    var statusCode: Int?
+    
+    // MARK: CodingKeys
+    enum CodingKeys : String, CodingKey {
+        case statusMessage = "status_message"
+        case statusCode = "status_code"
+    }
     
 }
