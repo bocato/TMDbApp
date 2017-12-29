@@ -13,58 +13,32 @@ class SplashViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    // MARK: - Properties
-    var timer: Timer?
-    var remainingSeconds: Int = 3 {
-        didSet {
-            if remainingSeconds <= 0 {
-                stopTimer()
-                activityIndicator.stopAnimating()
-                NavigationRouter().perform(segue: .home)
-            }
-        }
+    // MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        loadGenres()
     }
+    
+    // MARK: - Layout
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    // MARK: - Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        startMockLoader()
+    // MARK: - API Calls
+    func loadGenres() {
+        self.activityIndicator.startAnimating()
+        GenresService().getGenres(onSuccess: { (movieGenres, serviceResponse) in
+            ApplicationData.shared.movieGenres = movieGenres
+            NavigationRouter().perform(segue: .home)
+        }, onFailure: { (serviceResponse) in
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: "An unexpected error ocurred.", leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry", rightButtonActionClosure: {
+                self.loadGenres()
+            })
+            self.present(bottomAlertController, animated: true, completion: nil)
+        }, onCompletion: {
+            self.activityIndicator.stopAnimating()
+        })
     }
-    
-    // MARK: - Actions
-    func startMockLoader () {
-        activityIndicator.startAnimating()
-        startTimer()
-    }
-    
-    @objc private func onTick(_ timer: Timer?) {
-        remainingSeconds -= 1
-    }
-    
-    // MARK: - Timer
-    private func startTimer() {
-        if timer != nil {
-            stopTimer()
-        }
-        timer = Timer(fireAt: Date(timeIntervalSinceNow: 0.0),
-                      interval: 1.0,
-                      target: self,
-                      selector: #selector(onTick(_:)),
-                      userInfo: nil,
-                      repeats: true)
-        RunLoop.current.add(timer!, forMode: .commonModes)
-    }
-    
-    private func stopTimer() {
-        if let timer = timer {
-            timer.invalidate()
-            self.timer = nil
-        }
-    }
-    
 }
 
 extension SplashViewController {

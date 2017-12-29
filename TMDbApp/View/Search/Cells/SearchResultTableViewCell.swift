@@ -31,6 +31,7 @@ class SearchResultTableViewCell: UITableViewCell {
 
     // MARK: - Configuration
     private func createMovieLabelAttributedString(for movie: Movie!) -> NSAttributedString {
+        // TODO: Add Genres
         guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy") else { return invalidInfoAttributedTitleAndYear }
         let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
         attributedString.append(NSAttributedString(string: " (\(year))", attributes: textAttributes))

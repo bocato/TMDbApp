@@ -10,6 +10,12 @@
 		166F8A7BAC68B63484E563C7 /* Pods_TMDbApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0F3684AFA6DBFB3F36D23BC /* Pods_TMDbApp.framework */; };
 		3BE5E611FE805F6233070211 /* Pods_TMDbAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A65698B67D5BFFDED208C616 /* Pods_TMDbAppTests.framework */; };
 		E4E6DD20AF43FC8338BF00C0 /* Pods_TMDbAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB64AABA747F5586CFB9760A /* Pods_TMDbAppUITests.framework */; };
+		E54A004F1FF5C15C0049C7BD /* GenresService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A004E1FF5C15C0049C7BD /* GenresService.swift */; };
+		E54A00511FF5C1E10049C7BD /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00501FF5C1E10049C7BD /* Genre.swift */; };
+		E54A00531FF5C2B20049C7BD /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00521FF5C2B20049C7BD /* ApplicationData.swift */; };
+		E54A00561FF5C42E0049C7BD /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E54A00551FF5C42E0049C7BD /* Modals.storyboard */; };
+		E54A00591FF5C4C90049C7BD /* BottomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00581FF5C4C90049C7BD /* BottomAlertController.swift */; };
+		E54A005B1FF5C9C90049C7BD /* GenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005A1FF5C9C90049C7BD /* GenresResponse.swift */; };
 		E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF11FED866300D290D6 /* AppDelegate.swift */; };
 		E55CEDF41FED866300D290D6 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */; };
 		E55CEDF71FED866300D290D6 /* Favorites.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E55CEDF51FED866300D290D6 /* Favorites.storyboard */; };
@@ -75,6 +81,12 @@
 		A0F3684AFA6DBFB3F36D23BC /* Pods_TMDbApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A65698B67D5BFFDED208C616 /* Pods_TMDbAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD5CD93E15A4DCA50642C8AD /* Pods-TMDbApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbApp/Pods-TMDbApp.release.xcconfig"; sourceTree = "<group>"; };
+		E54A004E1FF5C15C0049C7BD /* GenresService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresService.swift; sourceTree = "<group>"; };
+		E54A00501FF5C1E10049C7BD /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		E54A00521FF5C2B20049C7BD /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
+		E54A00551FF5C42E0049C7BD /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
+		E54A00581FF5C4C90049C7BD /* BottomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertController.swift; sourceTree = "<group>"; };
+		E54A005A1FF5C9C90049C7BD /* GenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresResponse.swift; sourceTree = "<group>"; };
 		E55CEDEE1FED866300D290D6 /* TMDbApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDbApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E55CEDF11FED866300D290D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +186,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		E54A004D1FF5C1380049C7BD /* Genres */ = {
+			isa = PBXGroup;
+			children = (
+				E54A00501FF5C1E10049C7BD /* Genre.swift */,
+				E54A005A1FF5C9C90049C7BD /* GenresResponse.swift */,
+			);
+			path = Genres;
+			sourceTree = "<group>";
+		};
+		E54A00541FF5C41E0049C7BD /* Modals */ = {
+			isa = PBXGroup;
+			children = (
+				E54A00551FF5C42E0049C7BD /* Modals.storyboard */,
+				E54A00571FF5C4A60049C7BD /* ViewControllers */,
+			);
+			path = Modals;
+			sourceTree = "<group>";
+		};
+		E54A00571FF5C4A60049C7BD /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E54A00581FF5C4C90049C7BD /* BottomAlertController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		E55CEDE51FED866300D290D6 = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +272,7 @@
 			children = (
 				E55F04AD1FF2CB650006F569 /* Service.swift */,
 				E55F04CF1FF3D74F0006F569 /* SearchService.swift */,
+				E54A004E1FF5C15C0049C7BD /* GenresService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -243,6 +282,7 @@
 			children = (
 				E55F04D51FF3F6580006F569 /* Service */,
 				E55F04D61FF3F65E0006F569 /* Search */,
+				E54A004D1FF5C1380049C7BD /* Genres */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -281,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				E55CEE311FED8D8900D290D6 /* Splash */,
+				E54A00541FF5C41E0049C7BD /* Modals */,
 				E55F049A1FF2AD2D0006F569 /* TabBar */,
 				E55CEE271FED88D300D290D6 /* Favorites */,
 				E55F049D1FF2AF420006F569 /* Search */,
@@ -420,6 +461,7 @@
 		E55F04CA1FF3C6AF0006F569 /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
+				E54A00521FF5C2B20049C7BD /* ApplicationData.swift */,
 			);
 			path = Singletons;
 			sourceTree = "<group>";
@@ -576,6 +618,7 @@
 			files = (
 				E55F049C1FF2AD630006F569 /* TabBar.storyboard in Resources */,
 				E55CEDFC1FED866300D290D6 /* LaunchScreen.storyboard in Resources */,
+				E54A00561FF5C42E0049C7BD /* Modals.storyboard in Resources */,
 				E55CEDF71FED866300D290D6 /* Favorites.storyboard in Resources */,
 				E55F04991FF2AB140006F569 /* Assets.xcassets in Resources */,
 				E55F04A51FF2B0DB0006F569 /* Search.storyboard in Resources */,
@@ -763,6 +806,7 @@
 				E55F04DF1FF422B40006F569 /* UIImageView+Kingfisher.swift in Sources */,
 				E55F04D81FF3F6740006F569 /* SearchResponse.swift in Sources */,
 				E55F04E61FF511320006F569 /* UICollectionViewCellExtensions.swift in Sources */,
+				E54A00591FF5C4C90049C7BD /* BottomAlertController.swift in Sources */,
 				E55F04DA1FF40DDA0006F569 /* UIView+Loading.swift in Sources */,
 				E55F04E91FF511320006F569 /* UICollectionViewExtension.swift in Sources */,
 				E55F04DD1FF421720006F569 /* SearchResultTableViewCell.swift in Sources */,
@@ -778,10 +822,14 @@
 				E55F04C41FF3B1290006F569 /* NavigationRouter.swift in Sources */,
 				E55F04E81FF511320006F569 /* UIViewControllerExtension.swift in Sources */,
 				E55CEE361FED8DB100D290D6 /* SplashViewController.swift in Sources */,
+				E54A00531FF5C2B20049C7BD /* ApplicationData.swift in Sources */,
 				E55F04B51FF2CBE00006F569 /* ServiceError.swift in Sources */,
 				E55F04951FF294AE0006F569 /* TransitionType.swift in Sources */,
+				E54A005B1FF5C9C90049C7BD /* GenresResponse.swift in Sources */,
 				E55F04A81FF2B5540006F569 /* SearchViewController.swift in Sources */,
+				E54A004F1FF5C15C0049C7BD /* GenresService.swift in Sources */,
 				E55CEE301FED8CB400D290D6 /* AlertHelper.swift in Sources */,
+				E54A00511FF5C1E10049C7BD /* Genre.swift in Sources */,
 				E55F04AE1FF2CB650006F569 /* Service.swift in Sources */,
 				E55F04D41FF3F36F0006F569 /* Movie.swift in Sources */,
 				E55F04D01FF3D74F0006F569 /* SearchService.swift in Sources */,

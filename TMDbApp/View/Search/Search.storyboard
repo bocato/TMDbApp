@@ -70,24 +70,57 @@
                                             <outlet property="posterImageView" destination="FTJ-fx-nJ6" id="0tK-Dq-zVt"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchFirstLoadTableViewCell" rowHeight="205" id="HLq-Ae-pF4">
-                                        <rect key="frame" x="0.0" y="159" width="375" height="205"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchFirstLoadTableViewCell" rowHeight="113" id="HLq-Ae-pF4">
+                                        <rect key="frame" x="0.0" y="159" width="375" height="113"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HLq-Ae-pF4" id="HA0-tR-sIE">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="204.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="112.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_magnifier_tool" translatesAutoresizingMaskIntoConstraints="NO" id="NU9-4N-dcR">
-                                                    <rect key="frame" x="123.5" y="38.5" width="128" height="128"/>
+                                                    <rect key="frame" x="157.5" y="26.5" width="60" height="60"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="128" id="SHc-Dm-inR"/>
-                                                        <constraint firstAttribute="width" constant="128" id="Ute-5C-DnT"/>
+                                                        <constraint firstAttribute="height" constant="60" id="SHc-Dm-inR"/>
+                                                        <constraint firstAttribute="width" constant="60" id="Ute-5C-DnT"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="NU9-4N-dcR" firstAttribute="centerY" secondItem="HA0-tR-sIE" secondAttribute="centerY" id="EeF-Iu-ARJ"/>
                                                 <constraint firstItem="NU9-4N-dcR" firstAttribute="centerX" secondItem="HA0-tR-sIE" secondAttribute="centerX" id="WAD-rc-wc4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmptySearchTableViewCell" rowHeight="147" id="haz-8Z-K4d">
+                                        <rect key="frame" x="0.0" y="272" width="375" height="147"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="haz-8Z-K4d" id="jxA-Fu-LbB">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="146.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_squared_sad_face" translatesAutoresizingMaskIntoConstraints="NO" id="YFh-6B-HJS">
+                                                    <rect key="frame" x="157.5" y="23.5" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="rQa-dC-17x"/>
+                                                        <constraint firstAttribute="height" constant="60" id="uwA-dV-3yF"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hNa-nw-9B1">
+                                                    <rect key="frame" x="146.5" y="93.5" width="82.5" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.79991227388381958" green="0.80005055665969849" blue="0.7999035120010376" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hNa-nw-9B1" firstAttribute="centerX" secondItem="YFh-6B-HJS" secondAttribute="centerX" id="1Mk-lr-i9X"/>
+                                                <constraint firstItem="YFh-6B-HJS" firstAttribute="centerY" secondItem="jxA-Fu-LbB" secondAttribute="centerY" constant="-20" id="6hj-J1-dGe"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hNa-nw-9B1" secondAttribute="bottom" constant="10" id="Cc5-YK-Hfj"/>
+                                                <constraint firstItem="hNa-nw-9B1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jxA-Fu-LbB" secondAttribute="leading" constant="20" id="JCe-de-Y8X"/>
+                                                <constraint firstItem="YFh-6B-HJS" firstAttribute="centerX" secondItem="jxA-Fu-LbB" secondAttribute="centerX" id="dMX-xV-NSS"/>
+                                                <constraint firstItem="hNa-nw-9B1" firstAttribute="top" secondItem="YFh-6B-HJS" secondAttribute="bottom" constant="10" id="l0L-ux-Sas"/>
+                                                <constraint firstItem="YFh-6B-HJS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jxA-Fu-LbB" secondAttribute="top" constant="10" id="r98-x7-svq"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hNa-nw-9B1" secondAttribute="trailing" constant="20" id="sNl-mX-Kd8"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -122,9 +155,25 @@
             </objects>
             <point key="canvasLocation" x="408.80000000000001" y="-178.56071964017991"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="EXv-3B-AvR">
+            <objects>
+                <viewController id="tng-ug-TTr" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bzy-LE-OmG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="UsJ-CS-HE9"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i2a-X0-KYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1102" y="-179"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ic_magnifier_tool" width="410" height="410"/>
         <image name="ic_movie_placeholder" width="410" height="410"/>
+        <image name="ic_squared_sad_face" width="410" height="410"/>
     </resources>
 </document>

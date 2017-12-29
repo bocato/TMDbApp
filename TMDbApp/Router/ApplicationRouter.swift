@@ -16,7 +16,7 @@ import UIKit
 class ApplicationRouter {
     
     // MARK: Singleton
-    static var instance = ApplicationRouter()
+    static let instance = ApplicationRouter()
     
     // MARK: - ApplicationStartPoint Enum
     fileprivate enum ApplicationStartPoint {
@@ -80,9 +80,11 @@ class ApplicationRouter {
     }
     
     fileprivate func setRootViewController(_ rootViewController: UIViewController, for window: UIWindow) {
-        window.rootViewController = rootViewController
-        // Add animation?
-        window.makeKeyAndVisible()
+        DispatchQueue.main.async {
+            window.rootViewController = rootViewController
+            // Add animation?
+            window.makeKeyAndVisible()
+        }
     }
     
     func setTabBarAsRoot() {

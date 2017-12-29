@@ -13,13 +13,14 @@ import Kingfisher
 fileprivate enum ViewState {
     case noSearch
     case loading
-    case serviceEmpty
+    case noResults
     case serviceSuccess
 }
 
 fileprivate struct ViewDefaults {
     static let defaultSearchCellHeight = CGFloat(120)
     static let searchFirstLoadCellIdentifier = "SearchFirstLoadTableViewCell"
+    static let emptySearchCellIdentifier = "EmptySearchTableViewCell"
 }
 
 class SearchViewController: UIViewController {
@@ -37,7 +38,10 @@ class SearchViewController: UIViewController {
     }
     fileprivate var viewState: ViewState = .noSearch {
         didSet {
-            self.tableView.isScrollEnabled = viewState == .serviceSuccess
+            DispatchQueue.main.async {
+                self.tableView.isScrollEnabled = self.viewState == .serviceSuccess
+                self.tableView.separatorColor = self.viewState == .serviceSuccess ? UIColor.lightGray : UIColor.clear
+            }
         }
     }
     
@@ -53,17 +57,18 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewElements()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        KingfisherManager.shared.cache.clearMemoryCache()
-        KingfisherManager.shared.cache.clearDiskCache()
+        configureObservers()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
+    }
+    
+    deinit {
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+        removeObserver(self, forKeyPath: "navigationController.navigationBar.frame")
     }
     
     // MARK: - Configuration
@@ -74,6 +79,46 @@ class SearchViewController: UIViewController {
         definesPresentationContext = true
     }
     
+    func configureObservers() {
+        addObserver(self, forKeyPath: "navigationController.navigationBar.frame", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
+    }
+    
+    // MARK: - Observers
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "navigationController.navigationBar.frame" { // this makes the cell have the right size and stay centered
+            DispatchQueue.main.async {
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            }
+        }
+    }
+    
+    // MARK: - Helpers
+    func resetView() {
+        searchResults = nil
+        viewState = .noSearch
+        searchController.searchBar.text = ""
+    }
+    
+    // MARK: - API Calls
+    func performSearch(with searchTerm: String!){
+        viewState = .loading
+        SearchService().findMovie(by: searchTerm, success: { (searchResponse, serviceResponse) in
+            self.searchResults = searchResponse?.results
+            if let _ = self.searchResults, self.searchResults!.count > 0 {
+                self.viewState = .serviceSuccess
+            } else {
+                self.viewState = .noResults
+            }
+        }, onFailure: { (serviceResponse) in
+            self.viewState = .noResults
+            self.searchController.dismiss(animated: false, completion: nil)
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: "An unexpected error ocurred.", leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry Search", rightButtonActionClosure: {
+                self.performSearch(with: searchTerm)
+            })
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+        }, onCompletion: nil)
+    }
+    
 }
 
 // MARK: - UISearchBarDelegate
@@ -82,23 +127,11 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let searchTerm = searchBar.text ?? ""
         searchBar.resignFirstResponder()
-        viewState = .loading
-        SearchService().findMovie(by: searchTerm, success: { (searchResponse, serviceResponse) in
-            self.searchResults = searchResponse?.results
-            if let _ = self.searchResults, self.searchResults!.count > 0 {
-                self.viewState = .serviceSuccess
-            } else {
-                self.viewState = .serviceEmpty
-            }
-        }, onFailure: { (serviceResponse) in
-            debugPrint("Failure")
-        }, onCompletion: nil)
+        performSearch(with: searchTerm)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchResults = nil
-        viewState = .noSearch
-        searchBar.text = ""
+        resetView()
         searchBar.resignFirstResponder()
     }
     
@@ -115,7 +148,7 @@ extension SearchViewController: SkeletonTableViewDataSource {
             return Int(floor(Float(tableView.bounds.size.height)/Float(ViewDefaults.defaultSearchCellHeight)))
         case .serviceSuccess:
             return searchResults!.count
-        case .serviceEmpty:
+        case .noResults:
             return 1
         }
     }
@@ -127,10 +160,7 @@ extension SearchViewController: SkeletonTableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewState {
         case .noSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ViewDefaults.searchFirstLoadCellIdentifier, for: indexPath)
-            cell.hideSkeleton()
-            cell.layoutSubviews()
-            return cell
+            return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.searchFirstLoadCellIdentifier, for: indexPath)
         case .loading:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
             cell.showSkeleton()
@@ -140,11 +170,8 @@ extension SearchViewController: SkeletonTableViewDataSource {
             cell.configure(with: searchResults?[indexPath.row])
             cell.hideSkeleton()
             return cell
-        case .serviceEmpty:
-            // TODO: Create empty cell
-            let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
-             cell.hideSkeleton()
-            return cell
+        case .noResults:
+            return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.emptySearchCellIdentifier, for: indexPath)
         }
     }
     
@@ -159,8 +186,8 @@ extension SearchViewController: SkeletonTableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if viewState == .noSearch || viewState == .serviceEmpty {
-            return tableView.bounds.size.height
+        if viewState == .noSearch || viewState == .noResults {
+            return tableView.frame.size.height
         }
         return ViewDefaults.defaultSearchCellHeight
     }
