@@ -81,11 +81,12 @@
                         <constraints>
                             <constraint firstItem="dEW-Wd-Y0S" firstAttribute="leading" secondItem="Ubr-mB-uQA" secondAttribute="leading" id="1lf-6N-NUS"/>
                             <constraint firstItem="Ubr-mB-uQA" firstAttribute="trailing" secondItem="Uhq-PN-XBt" secondAttribute="trailing" id="5Bj-St-Aks"/>
+                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="height" relation="lessThanOrEqual" secondItem="RDD-9Q-DYN" secondAttribute="height" multiplier="0.8" priority="999" id="AcB-X0-2Xo"/>
                             <constraint firstItem="dEW-Wd-Y0S" firstAttribute="trailing" secondItem="Ubr-mB-uQA" secondAttribute="trailing" id="CmQ-hM-6gJ"/>
                             <constraint firstItem="Ubr-mB-uQA" firstAttribute="bottom" secondItem="dEW-Wd-Y0S" secondAttribute="bottom" id="OKQ-58-n9r"/>
                             <constraint firstItem="dEW-Wd-Y0S" firstAttribute="top" secondItem="Uhq-PN-XBt" secondAttribute="bottom" id="R6g-fT-dXp"/>
                             <constraint firstItem="Uhq-PN-XBt" firstAttribute="leading" secondItem="Ubr-mB-uQA" secondAttribute="leading" id="jWm-sO-7ra"/>
-                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="height" secondItem="RDD-9Q-DYN" secondAttribute="height" multiplier="0.3" id="nnd-1b-ON5"/>
+                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="height" relation="greaterThanOrEqual" secondItem="RDD-9Q-DYN" secondAttribute="height" multiplier="0.3" id="nnd-1b-ON5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ubr-mB-uQA"/>
                     </view>

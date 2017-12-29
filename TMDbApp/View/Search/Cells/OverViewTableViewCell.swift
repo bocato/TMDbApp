@@ -13,6 +13,7 @@ class OverViewTableViewCell: UITableViewCell {
     // MARK: - IBOutlets
     @IBOutlet weak var posterImageView: UIImageView!
     @IBOutlet private weak var overviewTextView: UITextView!
+    @IBOutlet private weak var favoriteButton: UIButton!
     
     // MARK: - Properties
     private var posterImageViewTapActionClosure: ((_ cell: OverViewTableViewCell) -> ())? = nil
@@ -29,8 +30,17 @@ class OverViewTableViewCell: UITableViewCell {
         guard let posterURLString = movie?.posterURLString, let overview = movie?.overview else { return }
         posterImageView.setImage(with: posterURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
         overviewTextView.text = overview
+        configureFavoriteButton(for: movie)
         self.posterImageViewTapActionClosure = posterImageViewTapActionClosure
         self.addToFavoritesButtonActionClosure = addToFavoritesButtonActionClosure
+    }
+    
+    func configureFavoriteButton(for movie: Movie!){
+        let isFavorite = ApplicationData.shared.isThisMovieAFavorite(movie)
+        let favoriteButtonTitle = isFavorite ? "Remove from Favorites" : "Add to Favorites"
+        favoriteButton.setTitle(favoriteButtonTitle, for: UIControlState.normal)
+        favoriteButton.backgroundColor = isFavorite ? UIColor.red : UIColor(from: "#3366ff")
+        favoriteButton.alpha = isFavorite ? 0.75 : 1
     }
     
     private func configureImageViewGestureRecognizer(){

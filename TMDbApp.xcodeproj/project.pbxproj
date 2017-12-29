@@ -65,6 +65,7 @@
 		E5DB96161FF694FA00AC1903 /* SwiftyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */; };
 		E5DB96181FF6A00B00AC1903 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */; };
 		E5DB961A1FF6A39A00AC1903 /* TMDBNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */; };
+		E5DB961C1FF6AE1200AC1903 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyLoadingView.swift; sourceTree = "<group>"; };
 		E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMDBNavigationViewController.swift; sourceTree = "<group>"; };
+		E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FB64AABA747F5586CFB9760A /* Pods_TMDbAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -421,6 +423,7 @@
 				E55F04EB1FF51DA60006F569 /* UIImage+ProjectResources.swift */,
 				E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */,
 				E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */,
+				E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -911,6 +914,7 @@
 				E54A004F1FF5C15C0049C7BD /* GenresService.swift in Sources */,
 				E5BA11EC1FF67321003D1484 /* SimilarMovieCollectionViewCell.swift in Sources */,
 				E54A00511FF5C1E10049C7BD /* Genre.swift in Sources */,
+				E5DB961C1FF6AE1200AC1903 /* UIColorExtension.swift in Sources */,
 				E55F04AE1FF2CB650006F569 /* Service.swift in Sources */,
 				E55F04D41FF3F36F0006F569 /* Movie.swift in Sources */,
 				E55F04D01FF3D74F0006F569 /* SearchService.swift in Sources */,

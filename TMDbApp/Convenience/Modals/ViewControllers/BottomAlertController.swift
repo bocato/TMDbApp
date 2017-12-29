@@ -69,6 +69,9 @@ class BottomAlertController: UIViewController {
         super.viewWillAppear(animated)
         leftButton.isHidden = leftButtonTitle == nil
         rightButton.isHidden = rightButtonTitle == nil
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        view.frame.size = view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
     }
     
     // MARK: UI Configuration

@@ -220,20 +220,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wwV-4W-aDz">
-                                                    <rect key="frame" x="10" y="28" width="110" height="194"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wwV-4W-aDz">
+                                                    <rect key="frame" x="10" y="23" width="120" height="204"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CHd-Bx-Eem">
-                                                            <rect key="frame" x="0.0" y="0.0" width="110" height="160"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="160"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="110" id="M96-AK-uMh"/>
+                                                                <constraint firstAttribute="width" constant="120" id="M96-AK-uMh"/>
                                                                 <constraint firstAttribute="height" constant="160" id="Tov-OI-ZuB"/>
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gfa-Gi-KWJ">
-                                                            <rect key="frame" x="0.0" y="165" width="110" height="29"/>
+                                                            <rect key="frame" x="0.0" y="170" width="120" height="34"/>
                                                             <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                             <state key="normal" title="Add to Favorites">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
@@ -243,11 +243,11 @@
                                                         </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="194" id="UOO-7Q-IzA"/>
+                                                        <constraint firstAttribute="height" constant="204" id="UOO-7Q-IzA"/>
                                                     </constraints>
                                                 </stackView>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LNT-KV-CS5">
-                                                    <rect key="frame" x="130" y="10" width="235" height="230"/>
+                                                    <rect key="frame" x="140" y="10" width="225" height="230"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -269,6 +269,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="Gfa-Gi-KWJ" id="DVF-vS-yum"/>
                                             <outlet property="overviewTextView" destination="LNT-KV-CS5" id="h7y-6y-4wj"/>
                                             <outlet property="posterImageView" destination="CHd-Bx-Eem" id="qcg-Rh-vad"/>
                                         </connections>
