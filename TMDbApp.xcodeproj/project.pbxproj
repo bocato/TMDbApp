@@ -67,6 +67,8 @@
 		E5DB961A1FF6A39A00AC1903 /* TMDBNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */; };
 		E5DB961C1FF6AE1200AC1903 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */; };
 		E5DB961F1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */; };
+		E5DB96221FF6C6F600AC1903 /* PresentFavoriteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96211FF6C6F600AC1903 /* PresentFavoriteAnimationController.swift */; };
+		E5DB96241FF6CB1600AC1903 /* DismissFavoriteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96231FF6CB1600AC1903 /* DismissFavoriteAnimationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +159,8 @@
 		E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMDBNavigationViewController.swift; sourceTree = "<group>"; };
 		E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5DB96211FF6C6F600AC1903 /* PresentFavoriteAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentFavoriteAnimationController.swift; sourceTree = "<group>"; };
+		E5DB96231FF6CB1600AC1903 /* DismissFavoriteAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissFavoriteAnimationController.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FB64AABA747F5586CFB9760A /* Pods_TMDbAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -398,6 +402,7 @@
 			children = (
 				E55CEDF51FED866300D290D6 /* Favorites.storyboard */,
 				E55CEE281FED88DC00D290D6 /* ViewControllers */,
+				E5DB96201FF6C6CF00AC1903 /* Animation */,
 				E5DB961D1FF6B54000AC1903 /* Cells */,
 			);
 			path = Favorites;
@@ -577,6 +582,15 @@
 				E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		E5DB96201FF6C6CF00AC1903 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				E5DB96211FF6C6F600AC1903 /* PresentFavoriteAnimationController.swift */,
+				E5DB96231FF6CB1600AC1903 /* DismissFavoriteAnimationController.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -895,6 +909,7 @@
 				E5DB961F1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift in Sources */,
 				E55F04DA1FF40DDA0006F569 /* UIView+Loading.swift in Sources */,
 				E5DB96161FF694FA00AC1903 /* SwiftyLoadingView.swift in Sources */,
+				E5DB96221FF6C6F600AC1903 /* PresentFavoriteAnimationController.swift in Sources */,
 				E55F04E91FF511320006F569 /* UICollectionViewExtension.swift in Sources */,
 				E55F04DD1FF421720006F569 /* SearchResultTableViewCell.swift in Sources */,
 				E55CEDF41FED866300D290D6 /* FavoritesViewController.swift in Sources */,
@@ -936,6 +951,7 @@
 				E5BA11F31FF67B25003D1484 /* UPCarouselFlowLayout.swift in Sources */,
 				E55F04B31FF2CBCB0006F569 /* ServiceResponse.swift in Sources */,
 				E55CEE3B1FED938700D290D6 /* ApplicationRouter.swift in Sources */,
+				E5DB96241FF6CB1600AC1903 /* DismissFavoriteAnimationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

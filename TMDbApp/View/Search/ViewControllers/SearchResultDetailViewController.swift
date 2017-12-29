@@ -22,6 +22,11 @@ fileprivate struct ViewDefaults {
 class SearchResultDetailViewController: UIViewController {
 
     // MARK: IBOutlets
+    @IBOutlet weak var contentContainerView: UIView!
+    @IBOutlet private weak var contentContainerViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var contentContainerViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var contentContainerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var contentContainerViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewHeader: UIView!
     @IBOutlet weak var backdropImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -46,6 +51,15 @@ class SearchResultDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadViewData()
+    }
+    
+    // MARK: - Configuration
+    func positionContainer(left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) {
+        contentContainerViewLeadingConstraint.constant = left
+        contentContainerViewTrailingConstraint.constant = right
+        contentContainerViewTopConstraint.constant = top
+        contentContainerViewBottomConstraint.constant = bottom
+        view.layoutIfNeeded()
     }
     
     // MARK: - Helpers
