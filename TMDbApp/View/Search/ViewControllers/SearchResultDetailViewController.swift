@@ -42,14 +42,7 @@ class SearchResultDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewElements()
         loadViewData()
-    }
-    
-    // MARK: - Configuration
-    func configureViewElements() {
-        self.navigationItem.largeTitleDisplayMode = .never
-        self.title = "Details"
     }
     
     // MARK: - Helpers
@@ -133,7 +126,13 @@ extension SearchResultDetailViewController: UITableViewDataSource {
                     self.tabBarController?.present(photosViewController, animated: true, completion: nil)
                 }
             }, addToFavoritesButtonActionClosure: { _ in
-                debugPrint("addToFavoritesButtonActionClosure")
+                if ApplicationData.shared.addFavorite(self.movie) {
+                    let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(self.movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
+                    self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+                } else {
+                    let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
+                    self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+                }
             })
             return cell
         case TableViewSection.similar.hashValue:
@@ -204,7 +203,9 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDataSource
 extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
     
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        debugPrint("similarMoviesTableViewCell:collectionView:didSelectItemAt")
+        if let movie = similarMovies?[indexPath.row] {
+            NavigationRouter().perform(segue: .similarMovieDetails, from: self, info: movie, animation: nil, completion: nil)
+        }
     }
     
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

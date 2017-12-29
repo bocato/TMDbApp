@@ -19,6 +19,7 @@ class NavigationRouter {
     public enum Segue {
         case home
         case searchResultDetail
+        case similarMovieDetails
     }
     
     // MARK: - Storyboards
@@ -45,7 +46,18 @@ class NavigationRouter {
         case .searchResultDetail:
             let searchResultDetailViewController = SearchResultDetailViewController.instantiate(fromStoryboard: searchStoryboard)
             searchResultDetailViewController.movie = info as! Movie
+            searchResultDetailViewController.navigationItem.largeTitleDisplayMode = .never
+            searchResultDetailViewController.title = "Search Details"
             move(from: from, to: searchResultDetailViewController, transition: .push, animation: nil, completion: nil)
+            return
+        case .similarMovieDetails:
+            let searchResultDetailViewController = SearchResultDetailViewController.instantiate(fromStoryboard: searchStoryboard)
+            searchResultDetailViewController.movie = info as! Movie
+            let navigationController = UINavigationController(rootViewController: searchResultDetailViewController)
+            searchResultDetailViewController.configureXButtonOnRightBarButtonItem()
+            navigationController.navigationItem.largeTitleDisplayMode = .never
+            searchResultDetailViewController.title = "Similar Movie Details"
+            move(from: from, to: navigationController, transition: .present, animation: nil, completion: nil)
             return
         default:
             return
