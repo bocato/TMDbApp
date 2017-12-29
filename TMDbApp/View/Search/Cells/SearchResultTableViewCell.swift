@@ -30,18 +30,10 @@ class SearchResultTableViewCell: UITableViewCell {
         
     }
 
-    // MARK: - Configuration
-    private func getGenresString(for movie: Movie?) -> String? {
-        guard let movie = movie, let genreIds = movie.genreIds else { return nil }
-        let genres = genreIds.flatMap { id -> String? in
-            return ApplicationData.shared.movieGenres?.filter( { $0.id == id } ).first?.name
-        }
-        return genres.joined(separator: ", ")
-    }
-    
+    // MARK: - Configuration    
     private func createMovieLabelAttributedString(for movie: Movie!) -> NSAttributedString {
         // TODO: Add Genres
-        guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy"), let genresString = getGenresString(for: movie) else { return invalidInfoAttributedTitleAndYear }
+        guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy"), let genresString = movie.genresString else { return invalidInfoAttributedTitleAndYear }
         let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
         attributedString.append(NSAttributedString(string: " (\(year))", attributes: dateAttributes))
         attributedString.append(NSAttributedString(string: "\n" + genresString, attributes: genresAttributes))

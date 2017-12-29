@@ -16,12 +16,14 @@ import UIKit
 class NavigationRouter {
     
     // MARK: Segue Enum
-    enum Segue {
+    public enum Segue {
         case home
+        case searchResultDetail
     }
     
     // MARK: - Storyboards
-    fileprivate lazy var homeStoryboard: UIStoryboard = UIStoryboard(name: "Home", bundle: nil)
+    fileprivate lazy var searchStoryboard: UIStoryboard = UIStoryboard(name: "Search", bundle: nil)
+    
     
     // MARK: - Navigation Methods
     private func move(from: UIViewController!, to: UIViewController!, transition: TransitionType!, animation: Any? = nil, completion: (()->Void)? = nil) {
@@ -35,11 +37,15 @@ class NavigationRouter {
         }
     }
     
-    func perform(segue: Segue!, from: UIViewController? = nil, transition: TransitionType? = nil, animation: Any? = nil, completion: (()->Void)? = nil) {
+    func perform(segue: Segue!, from: UIViewController? = nil, info: Any? = nil, animation: Any? = nil, completion: (()->Void)? = nil) {
         switch segue {
         case .home:
-            // TODO: Add Animation
             ApplicationRouter.instance.setTabBarAsRoot()
+            return
+        case .searchResultDetail:
+            let searchResultDetailViewController = SearchResultDetailViewController.instantiate(fromStoryboard: searchStoryboard)
+            searchResultDetailViewController.movie = info as! Movie
+            move(from: from, to: searchResultDetailViewController, transition: .push, animation: nil, completion: nil)
             return
         default:
             return

@@ -218,7 +218,8 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let movie = self.searchResults?[indexPath.row] else { return }
+        NavigationRouter().perform(segue: .searchResultDetail, from: self, info: movie, animation: nil, completion: nil)
     }
     
 }

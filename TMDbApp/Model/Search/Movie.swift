@@ -53,4 +53,24 @@ extension Movie {
         return Environment.shared.baseURLForImages + posterPath
     }
     
+    var genres: [Genre]? {
+        guard let genreIds = self.genreIds else { return nil }
+        return genreIds.flatMap({ (id) -> Genre? in
+            ApplicationData.shared.movieGenres?.filter( { $0.id == id } ).first
+        })
+    }
+    
+    var genresString: String? {
+        guard let genres = self.genres else { return nil }
+        return genres.flatMap({ (genre) -> String? in
+            return genre.name
+        }).joined(separator: ", ")
+        
+//        guard let genreIds = self.genreIds else { return nil }
+//        let genres = genreIds.flatMap { id -> String? in
+//            return ApplicationData.shared.movieGenres?.filter( { $0.id == id } ).first?.name
+//        }
+//        return genres.joined(separator: ", ")
+    }
+    
 }

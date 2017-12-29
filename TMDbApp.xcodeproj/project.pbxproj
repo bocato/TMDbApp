@@ -17,6 +17,8 @@
 		E54A00591FF5C4C90049C7BD /* BottomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00581FF5C4C90049C7BD /* BottomAlertController.swift */; };
 		E54A005B1FF5C9C90049C7BD /* GenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005A1FF5C9C90049C7BD /* GenresResponse.swift */; };
 		E54A005D1FF5D59B0049C7BD /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */; };
+		E54A005F1FF5DFC20049C7BD /* SearchResultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005E1FF5DFC20049C7BD /* SearchResultDetailViewController.swift */; };
+		E54A00621FF5F15D0049C7BD /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00611FF5F15D0049C7BD /* Photo.swift */; };
 		E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF11FED866300D290D6 /* AppDelegate.swift */; };
 		E55CEDF41FED866300D290D6 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */; };
 		E55CEDF71FED866300D290D6 /* Favorites.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E55CEDF51FED866300D290D6 /* Favorites.storyboard */; };
@@ -89,6 +91,8 @@
 		E54A00581FF5C4C90049C7BD /* BottomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertController.swift; sourceTree = "<group>"; };
 		E54A005A1FF5C9C90049C7BD /* GenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresResponse.swift; sourceTree = "<group>"; };
 		E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
+		E54A005E1FF5DFC20049C7BD /* SearchResultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultDetailViewController.swift; sourceTree = "<group>"; };
+		E54A00611FF5F15D0049C7BD /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		E55CEDEE1FED866300D290D6 /* TMDbApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDbApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E55CEDF11FED866300D290D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +218,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		E54A00601FF5F1500049C7BD /* NYTPhotoViewer */ = {
+			isa = PBXGroup;
+			children = (
+				E54A00611FF5F15D0049C7BD /* Photo.swift */,
+			);
+			path = NYTPhotoViewer;
+			sourceTree = "<group>";
+		};
 		E55CEDE51FED866300D290D6 = {
 			isa = PBXGroup;
 			children = (
@@ -285,6 +297,7 @@
 				E55F04D51FF3F6580006F569 /* Service */,
 				E55F04D61FF3F65E0006F569 /* Search */,
 				E54A004D1FF5C1380049C7BD /* Genres */,
+				E54A00601FF5F1500049C7BD /* NYTPhotoViewer */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -457,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				E55F04A71FF2B5540006F569 /* SearchViewController.swift */,
+				E54A005E1FF5DFC20049C7BD /* SearchResultDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -653,16 +667,18 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TMDbApp/Pods-TMDbApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/NYTPhotoViewer/NYTPhotoViewer.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NYTPhotoViewer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -818,7 +834,9 @@
 				E55CEE381FED933000D290D6 /* JSON.swift in Sources */,
 				E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */,
 				E55CEE2D1FED8C7B00D290D6 /* UIViewExtension.swift in Sources */,
+				E54A00621FF5F15D0049C7BD /* Photo.swift in Sources */,
 				E55F04E71FF511320006F569 /* UITableViewCellExtension.swift in Sources */,
+				E54A005F1FF5DFC20049C7BD /* SearchResultDetailViewController.swift in Sources */,
 				E55F04EC1FF51DA60006F569 /* UIImage+ProjectResources.swift in Sources */,
 				E55F04D21FF3D7DA0006F569 /* URLHelper.swift in Sources */,
 				E54A005D1FF5D59B0049C7BD /* UITableViewExtension.swift in Sources */,

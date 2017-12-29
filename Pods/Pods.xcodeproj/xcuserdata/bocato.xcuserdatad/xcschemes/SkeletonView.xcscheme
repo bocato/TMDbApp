@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BC54C73C5B5959F39369FA1DDFF90389"
+               BlueprintIdentifier = "335135C4FBF7E9A5A43F474B983597B2"
                BuildableName = "SkeletonView.framework"
                BlueprintName = "SkeletonView"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BC54C73C5B5959F39369FA1DDFF90389"
+            BlueprintIdentifier = "335135C4FBF7E9A5A43F474B983597B2"
             BuildableName = "SkeletonView.framework"
             BlueprintName = "SkeletonView"
             ReferencedContainer = "container:Pods.xcodeproj">
