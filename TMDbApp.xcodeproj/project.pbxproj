@@ -16,6 +16,7 @@
 		E54A00561FF5C42E0049C7BD /* Modals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E54A00551FF5C42E0049C7BD /* Modals.storyboard */; };
 		E54A00591FF5C4C90049C7BD /* BottomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A00581FF5C4C90049C7BD /* BottomAlertController.swift */; };
 		E54A005B1FF5C9C90049C7BD /* GenresResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005A1FF5C9C90049C7BD /* GenresResponse.swift */; };
+		E54A005D1FF5D59B0049C7BD /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */; };
 		E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF11FED866300D290D6 /* AppDelegate.swift */; };
 		E55CEDF41FED866300D290D6 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */; };
 		E55CEDF71FED866300D290D6 /* Favorites.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E55CEDF51FED866300D290D6 /* Favorites.storyboard */; };
@@ -87,6 +88,7 @@
 		E54A00551FF5C42E0049C7BD /* Modals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Modals.storyboard; sourceTree = "<group>"; };
 		E54A00581FF5C4C90049C7BD /* BottomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertController.swift; sourceTree = "<group>"; };
 		E54A005A1FF5C9C90049C7BD /* GenresResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresResponse.swift; sourceTree = "<group>"; };
+		E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		E55CEDEE1FED866300D290D6 /* TMDbApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDbApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E55CEDF11FED866300D290D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E55CEDF31FED866300D290D6 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 				E55F04D91FF40DDA0006F569 /* UIView+Loading.swift */,
 				E55F04DE1FF422B40006F569 /* UIImageView+Kingfisher.swift */,
 				E55F04EB1FF51DA60006F569 /* UIImage+ProjectResources.swift */,
+				E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -818,6 +821,7 @@
 				E55F04E71FF511320006F569 /* UITableViewCellExtension.swift in Sources */,
 				E55F04EC1FF51DA60006F569 /* UIImage+ProjectResources.swift in Sources */,
 				E55F04D21FF3D7DA0006F569 /* URLHelper.swift in Sources */,
+				E54A005D1FF5D59B0049C7BD /* UITableViewExtension.swift in Sources */,
 				E55F04A01FF2AF8C0006F569 /* TabBarViewController.swift in Sources */,
 				E55F04C41FF3B1290006F569 /* NavigationRouter.swift in Sources */,
 				E55F04E81FF511320006F569 /* UIViewControllerExtension.swift in Sources */,

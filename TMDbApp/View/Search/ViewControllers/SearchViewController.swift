@@ -29,6 +29,7 @@ class SearchViewController: UIViewController {
     @IBOutlet fileprivate weak var tableView: UITableView!
     
     // MARK: - Properties
+    fileprivate var searchResponse: SearchResponse?
     fileprivate var searchResults: [Movie]? {
         didSet {
             DispatchQueue.main.async {
@@ -44,6 +45,7 @@ class SearchViewController: UIViewController {
             }
         }
     }
+    fileprivate var searchTerm: String?
     
     // MARK: - Computed Properties
     fileprivate var searchController: UISearchController = ({
@@ -94,28 +96,49 @@ class SearchViewController: UIViewController {
     
     // MARK: - Helpers
     func resetView() {
+        searchTerm = nil
+        searchResponse = nil
         searchResults = nil
         viewState = .noSearch
         searchController.searchBar.text = ""
     }
     
     // MARK: - API Calls
-    func performSearch(with searchTerm: String!){
-        viewState = .loading
-        SearchService().findMovie(by: searchTerm, success: { (searchResponse, serviceResponse) in
+    func performBasicSearch() {
+        performSearch(with: searchTerm) { (searchResponse, serviceResponse) in
+            self.searchResponse = searchResponse
             self.searchResults = searchResponse?.results
             if let _ = self.searchResults, self.searchResults!.count > 0 {
                 self.viewState = .serviceSuccess
             } else {
                 self.viewState = .noResults
             }
+        }
+    }
+    
+    func fetchSearchResults(forPage page: Int!) {
+        performSearch(with: searchTerm, page: page) { (searchResponse, serviceResponse) in
+            guard let searchResponse = searchResponse, let currentSearchResults = self.searchResults else { return }
+            self.searchResponse = searchResponse
+            if let searchResults = searchResponse.results, searchResults.count > 0 {
+                self.viewState = .serviceSuccess
+                let resultsPlusNextPage = currentSearchResults + searchResults
+                self.searchResults = resultsPlusNextPage
+            }
+        }
+    }
+    
+    func performSearch(with searchTerm: String!, page: Int = 1, success: @escaping ((_ searchResponse: SearchResponse?, _ serviceResponse: ServiceResponse?) -> Void)){
+        viewState = .loading
+        SearchService().findMovie(by: searchTerm, page: page, success: { (searchResponse, serviceResponse) in
+            success(searchResponse, serviceResponse)
         }, onFailure: { (serviceResponse) in
             self.viewState = .noResults
-            self.searchController.dismiss(animated: false, completion: nil)
-            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: "An unexpected error ocurred.", leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry Search", rightButtonActionClosure: {
-                self.performSearch(with: searchTerm)
-            })
-            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+//            self.searchController.dismiss(animated: false, completion: nil)
+//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: "An unexpected error ocurred.", leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry Search", rightButtonActionClosure: {
+//                self.performSearch(with: searchTerm)
+//            })
+//            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
         }, onCompletion: nil)
     }
     
@@ -125,9 +148,9 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let searchTerm = searchBar.text ?? ""
+        searchTerm = searchBar.text ?? ""
         searchBar.resignFirstResponder()
-        performSearch(with: searchTerm)
+        performBasicSearch()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -163,7 +186,9 @@ extension SearchViewController: SkeletonTableViewDataSource {
             return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.searchFirstLoadCellIdentifier, for: indexPath)
         case .loading:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
-            cell.showSkeleton()
+            if searchResponse!.page == 1 {
+                cell.showSkeleton()
+            }
             return cell
         case .serviceSuccess:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
@@ -194,6 +219,18 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+}
+
+// MARK: - UISCrollViewDelegate
+extension SearchViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if viewState == .serviceSuccess && tableView.scrollDidReachBottom {
+            guard let currentPage = searchResponse?.page, let totalPages = searchResponse?.totalPages, currentPage+1 <= totalPages else { return }
+            fetchSearchResults(forPage: currentPage + 1)
+        }
     }
     
 }
