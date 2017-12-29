@@ -14,4 +14,13 @@ extension UITableView {
         return self.contentOffset.y >= (self.contentSize.height - self.frame.size.height)
     }
     
+    
+    func setAndLayoutTableHeaderView(header: UIView) { //set the tableHeaderView so that the required height can be determined, update the header's frame and set it again
+        self.tableHeaderView = header
+        header.setNeedsLayout()
+        header.layoutIfNeeded()
+        header.frame.size = header.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        self.tableHeaderView = header
+    }
+    
 }

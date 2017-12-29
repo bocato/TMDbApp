@@ -134,8 +134,9 @@ class SearchViewController: UIViewController {
             success(searchResponse, serviceResponse)
         }, onFailure: { (serviceResponse) in
             self.viewState = .noResults
-//            self.searchController.dismiss(animated: false, completion: nil)
-//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: "An unexpected error ocurred.", leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry Search", rightButtonActionClosure: {
+            self.searchController.dismiss(animated: false, completion: nil)
+//            let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
+//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry", rightButtonActionClosure: {
 //                self.performSearch(with: searchTerm)
 //            })
 //            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)

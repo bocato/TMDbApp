@@ -23,12 +23,6 @@ class SearchResultTableViewCell: UITableViewCell {
     var invalidInfoAttributedTitleAndYear: NSAttributedString {
         return NSAttributedString(string: "Unknown", attributes: titleAttributes)
     }
-    
-    // MARK: - Lifecycle
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
 
     // MARK: - Configuration    
     private func createMovieLabelAttributedString(for movie: Movie!) -> NSAttributedString {
@@ -46,6 +40,7 @@ class SearchResultTableViewCell: UITableViewCell {
         movieLabel.attributedText = createMovieLabelAttributedString(for: movie)
     }
     
+    // MARK: KingFisher
     func cancelDownloadTask() {
         posterImageView.cancelDownloadTask()
     }
