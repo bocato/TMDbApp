@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NYTPhotoViewer
 
 class SearchResultDetailViewController: UIViewController {
 
@@ -27,16 +28,40 @@ class SearchResultDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        configureViewElements()
+        configureImageViewGestureRecognizer()
         loadViewData()
     }
     
-    // MARK: - UI
-    func configureUI() {
+    // MARK: - Configuration
+    func configureViewElements() {
         self.navigationItem.largeTitleDisplayMode = .never
         self.title = "Details"
     }
     
+    func configureImageViewGestureRecognizer(){
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchResultDetailViewController.imageViewDidReceiveTouchUpInside(_:)))
+        posterImageView.isUserInteractionEnabled = true
+        posterImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    // MARK: - Selectors
+    @objc func imageViewDidReceiveTouchUpInside(_ sender: UITapGestureRecognizer){
+        if let image = posterImageView.image {
+            let photos = [Photo(image: image)]
+            let photosViewController = NYTPhotosViewController(photos: photos)
+            present(photosViewController, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - Helpers
+    func attributedString(with title: String!, text: String!) ->  NSAttributedString{
+        let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
+        attributedString.append(NSAttributedString(string: text, attributes: textAttributes))
+        return attributedString
+    }
+    
+    // MARK: - Data
     func loadViewData() {
         guard let posterURLString = movie.posterURLString, let title = movie.title, let releaseDate = movie.releaseDate, let formattedReleaseDate = Date.new(from: releaseDate, format: "yyyy-MM-dd")?.stringWithFormat("dd/MM/yyyy"), let genresString = movie.genresString, let overview = movie.overview else { return }
         
@@ -45,13 +70,6 @@ class SearchResultDetailViewController: UIViewController {
         releaseDateLabel.attributedText = attributedString(with: "Release date: ", text: formattedReleaseDate)
         genresLabel.attributedText = attributedString(with: "Genres: ", text: genresString)
         overviewTextView.text = overview
-    }
-
-    // MARK: - Helpers
-    func attributedString(with title: String!, text: String!) ->  NSAttributedString{
-        let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
-        attributedString.append(NSAttributedString(string: text, attributes: textAttributes))
-        return attributedString
     }
     
 }
