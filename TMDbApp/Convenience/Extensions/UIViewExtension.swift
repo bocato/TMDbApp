@@ -10,14 +10,15 @@ import UIKit
 
 public extension UIView {
     
-    func configureShadow(with shadowOffset: CGSize = CGSize(width: 0, height: 5.0),
+    func configureShadow(withShadowOffset shadowOffset: CGSize = CGSize(width: 0, height: 5.0),
                          shadowRadius: CGFloat = 8.0,
-                         shadowColor: CGColor = UIColor.darkGray.cgColor, shadowOpacity: Float = 0.6) {
-        
+                         shadowColor: CGColor = UIColor.darkGray.cgColor,
+                         shadowOpacity: Float = 0.6,
+                         shadowPath: CGPath? =  nil) {
         layer.shadowOffset = shadowOffset
-        layer.shadowRadius = shadowRadius
         layer.shadowColor = shadowColor
         layer.shadowOpacity = shadowOpacity
+        layer.shadowPath = shadowPath
     }
     
     func configureRoundedBorders(with borderWidth: CGFloat = 0.1,

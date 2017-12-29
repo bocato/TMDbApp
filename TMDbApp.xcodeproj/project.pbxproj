@@ -66,6 +66,7 @@
 		E5DB96181FF6A00B00AC1903 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */; };
 		E5DB961A1FF6A39A00AC1903 /* TMDBNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */; };
 		E5DB961C1FF6AE1200AC1903 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */; };
+		E5DB961F1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +156,7 @@
 		E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		E5DB96191FF6A39A00AC1903 /* TMDBNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMDBNavigationViewController.swift; sourceTree = "<group>"; };
 		E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FB64AABA747F5586CFB9760A /* Pods_TMDbAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -396,6 +398,7 @@
 			children = (
 				E55CEDF51FED866300D290D6 /* Favorites.storyboard */,
 				E55CEE281FED88DC00D290D6 /* ViewControllers */,
+				E5DB961D1FF6B54000AC1903 /* Cells */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -566,6 +569,14 @@
 				E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */,
 			);
 			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		E5DB961D1FF6B54000AC1903 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -881,6 +892,7 @@
 				E55F04D81FF3F6740006F569 /* SearchResponse.swift in Sources */,
 				E55F04E61FF511320006F569 /* UICollectionViewCellExtensions.swift in Sources */,
 				E54A00591FF5C4C90049C7BD /* BottomAlertController.swift in Sources */,
+				E5DB961F1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift in Sources */,
 				E55F04DA1FF40DDA0006F569 /* UIView+Loading.swift in Sources */,
 				E5DB96161FF694FA00AC1903 /* SwiftyLoadingView.swift in Sources */,
 				E55F04E91FF511320006F569 /* UICollectionViewExtension.swift in Sources */,
