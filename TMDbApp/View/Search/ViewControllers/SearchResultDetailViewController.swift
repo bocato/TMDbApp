@@ -16,7 +16,7 @@ fileprivate enum TableViewSection {
 
 fileprivate struct ViewDefaults {
     static let overviewTableViewCellHeight: CGFloat = 250
-    static let similarMoviesTableViewCellHeight: CGFloat = 300
+    static let similarMoviesTableViewCellHeight: CGFloat = 250
 }
 
 class SearchResultDetailViewController: UIViewController {
@@ -27,7 +27,7 @@ class SearchResultDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var genresLabel: UILabel!
-    
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: Constants
     let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.black]
@@ -80,12 +80,12 @@ class SearchResultDetailViewController: UIViewController {
     
     // MARK: - API Calls
     func loadSimilarMoviesFirstPage() {
-        view.startLoading(.whiteLarge, tintColor: .amethyst, backgroundColor: UIColor.white)
+//        view.startLoading(.whiteLarge, tintColor: .amethyst, backgroundColor: UIColor.white)
         fetchSimilarMovies(success: { (response, serviceResponse) in
             self.similarMoviesResponse = response
             self.similarMovies = response?.results
         }, completion: {
-            self.view.stopLoading()
+//            self.view.stopLoading()
         })
     }
 
@@ -108,7 +108,9 @@ class SearchResultDetailViewController: UIViewController {
             success(response, serviceResponse)
         }, onFailure:  { (serviceResponse) in
             let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
-            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry", rightButtonActionClosure: {
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: {
+                self.navigationController?.popViewController(animated: true)
+            }, rightButtonTitle: "Retry", rightButtonActionClosure: {
                 self.loadSimilarMoviesFirstPage()
             })
             self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
@@ -122,8 +124,9 @@ class SearchResultDetailViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension SearchResultDetailViewController: UITableViewDataSource {
     
-    func numSections(in collectionSkeletonView: UITableView) -> Int {
-        return 1
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let similarMovies = similarMovies else { return 1 }
+        return similarMovies.count > 0 ? 2 : 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -196,11 +199,14 @@ extension SearchResultDetailViewController: UITableViewDelegate {
 extension SearchResultDetailViewController: SimilarMoviesTableViewCellDataSource {
     
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return
+        guard let similarMovies = similarMovies else { return 0 }
+        return similarMovies.count
     }
     
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimilarMovieCollectionViewCell.identifier, for: indexPath) as! SimilarMovieCollectionViewCell
+        cell.configure(with: similarMovies?[indexPath.row])
+        return cell
     }
     
 }

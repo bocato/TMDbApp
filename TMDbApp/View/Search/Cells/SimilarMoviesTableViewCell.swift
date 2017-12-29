@@ -32,13 +32,18 @@ class SimilarMoviesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         configureCollectionView()
     }
+    
+//    override func draw(_ rect: CGRect) {
+//        super.draw(rect)
+//        configureCollectionView()
+//    }
 
     // MARK: - Configuration
     private func configureCollectionView(){
         
         var itemSize: CGSize {
-            let width = self.collectionView.bounds.size.width * 0.9
-            let height = self.collectionView.bounds.size.height * 0.3
+            let width = self.collectionView.bounds.size.width * 0.5
+            let height = self.collectionView.bounds.size.height * 0.8
             return CGSize(width: width, height: height)
         }
         

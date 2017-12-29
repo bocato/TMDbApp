@@ -297,7 +297,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="236"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rec-t3-PvR">
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rec-t3-PvR">
                                                                         <rect key="frame" x="5" y="5" width="152" height="226"/>
                                                                     </imageView>
                                                                 </subviews>
@@ -353,6 +353,7 @@
                         <outlet property="backdropImageView" destination="0wL-Cj-kg9" id="4Pl-Gi-YM8"/>
                         <outlet property="genresLabel" destination="Oe8-MR-tMt" id="cIu-fg-lxB"/>
                         <outlet property="releaseDateLabel" destination="mGy-fW-Put" id="eCX-We-sZe"/>
+                        <outlet property="tableView" destination="Jff-kB-Wcl" id="bhl-eD-s6J"/>
                         <outlet property="tableViewHeader" destination="d3Y-75-ug0" id="YxC-bJ-Cpg"/>
                         <outlet property="titleLabel" destination="rhW-2w-wDf" id="TCl-EY-ICJ"/>
                     </connections>
