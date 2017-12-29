@@ -21,9 +21,9 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     @IBOutlet fileprivate weak var backdropImageView: UIImageView!
     
     // MARK: Constants
-    let genresAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
-    let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 22), NSAttributedStringKey.foregroundColor: UIColor.black]
-    let dateAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 22), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
+    let genresAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
+    let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.black]
+    let dateAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
     
     // MARK: Computed Properties
     var invalidInfoAttributedTitleAndYear: NSAttributedString {
@@ -39,8 +39,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
     // MARK: - Lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureUIElements()
-        
+        roundedContentView.configureRoundedBorders(with: 1.0, cornerRadius: 14.0, borderColor: UIColor.lightGray.cgColor)
     }
     
     override func layoutSubviews() {
@@ -48,15 +47,10 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         configureShadow()
     }
     
-    
     // MARK: - Configuration
-    private func configureUIElements() {
-        roundedContentView.configureRoundedBorders(with: 1.0, cornerRadius: 14.0, borderColor: UIColor.lightGray.cgColor)
-    }
-    
     private func createMovieLabelAttributedString(for movie: Movie!) -> NSAttributedString {
         guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy"), let genresString = movie.genresString else { return invalidInfoAttributedTitleAndYear }
-        let attributedString = NSMutableAttributedString(string: "\n" + genresString, attributes: genresAttributes)
+        let attributedString = NSMutableAttributedString(string: genresString + "\n", attributes: genresAttributes)
         attributedString.append(NSAttributedString(string: title, attributes: titleAttributes))
         attributedString.append(NSAttributedString(string: " (\(year))", attributes: dateAttributes))
         return attributedString
@@ -66,6 +60,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         guard let movie = movie else { return }
         backdropImageView.setImage(with: movie.backdropPathURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
         movieLabel.attributedText = createMovieLabelAttributedString(for: movie)
+//        movieLabel.text = "CU"
     }
     
     // MARK: - Dinamic Shadow
@@ -96,7 +91,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         if let shadowView = shadowView {
             let shadowPath = UIBezierPath(roundedRect: shadowView.bounds, cornerRadius: 14.0)
             shadowView.layer.masksToBounds = false
-            shadowView.configureShadow(withShadowOffset: CGSize(width: width, height: height), shadowRadius: 8.0, shadowColor: UIColor.black.cgColor, shadowOpacity: 0.35, shadowPath: shadowPath.cgPath)
+            shadowView.configureShadow(withShadowOffset: CGSize(width: width, height: height), shadowRadius: 8.0, shadowColor: UIColor.black.cgColor, shadowOpacity: 0.45, shadowPath: shadowPath.cgPath)
         }
     }
     

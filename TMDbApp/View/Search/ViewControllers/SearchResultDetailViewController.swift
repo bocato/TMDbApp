@@ -38,6 +38,9 @@ class SearchResultDetailViewController: UIViewController {
     fileprivate var similarMoviesResponse: SearchResponse?
     fileprivate var similarMovies: [Movie]?
     var isFetchingSimilarMovies = false
+    var controllerToPresentAlerts: UIViewController? {
+        return self.tabBarController ?? self.navigationController ?? self
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -95,7 +98,7 @@ class SearchResultDetailViewController: UIViewController {
             }, rightButtonTitle: "Retry", rightButtonActionClosure: {
                 self.loadSimilarMoviesFirstPage()
             })
-            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
         }, onCompletion: {
             completion?()
         })
@@ -108,7 +111,7 @@ class SearchResultDetailViewController: UIViewController {
             self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
         } else {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
-            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
         }
     }
     
@@ -119,7 +122,7 @@ class SearchResultDetailViewController: UIViewController {
             self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
         } else {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not remove \(self.movie.title ?? "a movie") from your favorites! \nIt's was probably never there.", buttonTitle: "Ok", actionClosure: nil)
-            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
         }
     }
     
@@ -145,7 +148,7 @@ extension SearchResultDetailViewController: UITableViewDataSource {
                 if let image = cell.posterImageView.image {
                     let photos = [Photo(image: image)]
                     let photosViewController = NYTPhotosViewController(photos: photos)
-                    self.tabBarController?.present(photosViewController, animated: true, completion: nil)
+                    self.controllerToPresentAlerts?.present(photosViewController, animated: true, completion: nil)
                 }
             }, addToFavoritesButtonActionClosure: { cell in
                 if ApplicationData.shared.isThisMovieAFavorite(self.movie) {
