@@ -17,20 +17,20 @@ extension UIView {
         loadingView.frame = self.bounds
         loadingView.tag = loadingViewIdentifier
         loadingView.backgroundColor = backgroundColor
-        
+
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: activityIndicatorStyle)
         activityIndicator.frame = self.bounds
         activityIndicator.tintColor = tintColor
         activityIndicator.startAnimating()
-        
+
         loadingView.addSubview(activityIndicator)
-        
-        
+
+
         DispatchQueue.main.async {
             self.addSubview(loadingView)
         }
     }
-    
+
     func stopLoading() {
         let holderView = self.viewWithTag(loadingViewIdentifier)
         DispatchQueue.main.async {

@@ -73,3 +73,15 @@ extension Movie {
     }
     
 }
+
+extension Movie: Equatable {
+    
+    public static func ==(lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    public static func !=(lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.id != rhs.id
+    }
+    
+}

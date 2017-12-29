@@ -32,11 +32,6 @@ class SimilarMoviesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         configureCollectionView()
     }
-    
-//    override func draw(_ rect: CGRect) {
-//        super.draw(rect)
-//        configureCollectionView()
-//    }
 
     // MARK: - Configuration
     private func configureCollectionView(){

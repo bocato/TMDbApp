@@ -36,13 +36,8 @@ class SearchResultDetailViewController: UIViewController {
     // MARK: Properties
     var movie: Movie!
     fileprivate var similarMoviesResponse: SearchResponse?
-    fileprivate var similarMovies: [Movie]? {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
-            }
-        }
-    }
+    fileprivate var similarMovies: [Movie]?
+    var isFetchingSimilarMovies = false
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -76,37 +71,31 @@ class SearchResultDetailViewController: UIViewController {
         titleLabel.attributedText = attributedString(with: "Title: ", text: title)
         releaseDateLabel.attributedText = attributedString(with: "Release date: ", text: formattedReleaseDate)
         genresLabel.attributedText = attributedString(with: "Genres: ", text: genresString)
+        tableView.setAndLayoutTableHeaderView(header: tableViewHeader)
     }
     
     // MARK: - API Calls
     func loadSimilarMoviesFirstPage() {
-//        view.startLoading(.whiteLarge, tintColor: .amethyst, backgroundColor: UIColor.white)
+        SwiftyLoadingView.show(in: view, withText: "", background: true, activityIndicatorStyle: .whiteLarge, activityIndicatorColor: UIColor.blue)
         fetchSimilarMovies(success: { (response, serviceResponse) in
             self.similarMoviesResponse = response
             self.similarMovies = response?.results
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }, completion: {
-//            self.view.stopLoading()
+            SwiftyLoadingView.hide(for: self.view)
         })
     }
 
-//    func fetchSimilarMovies(forPage page: Int!, completion: (() -> Void)? = nil) {
-//        fetchSimilarMovies(success: { (response, serviceResponse) in
-//            guard let response = response, let currentSimilarMovies = self.similarMovies else { return }
-//            self.similarMoviesResponse = response
-//            if let similarMoviesResponseResults = response.results, similarMoviesResponseResults.count > 0 {
-//                let resultsPlusNextPage = currentSimilarMovies + similarMoviesResponseResults
-//                self.similarMovies = resultsPlusNextPage
-//            }
-//        }, completion: {
-//            completion?()
-//        })
-//    }
-    
     func fetchSimilarMovies(forPage page: Int = 1, success: @escaping ((_ searchResponse: SearchResponse?, _ serviceResponse: ServiceResponse?) -> Void), completion: (() -> Void)? = nil){
         guard let movieId = movie.id else { return }
+        self.isFetchingSimilarMovies = true
         MoviesService().getSimilarMovies(for: movieId, page: page, success: { (response, serviceResponse) in
+            self.isFetchingSimilarMovies = false
             success(response, serviceResponse)
         }, onFailure:  { (serviceResponse) in
+            self.isFetchingSimilarMovies = false
             let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: {
                 self.navigationController?.popViewController(animated: true)
@@ -223,7 +212,20 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
     }
     
     func similarMoviesTableViewCellScrollViewDidScroll(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, scrollView: UIScrollView) {
-        debugPrint("similarMoviesTableViewCellScrollViewDidScroll:collectionView:scrollView")
+        if let similarMovies = similarMovies, similarMovies.count > 0, collectionView.scrollDidReachRightEdge {
+            guard let currentPage = similarMoviesResponse?.page, let totalPages = similarMoviesResponse?.totalPages, currentPage+1 <= totalPages, !self.isFetchingSimilarMovies else { return }
+            fetchSimilarMovies(forPage: currentPage + 1, success: { (response, serviceResponse) in
+                guard let response = response, let currentSimilarMovies = self.similarMovies else { return }
+                self.similarMoviesResponse = response
+                if let similarMoviesResponseResults = response.results, similarMoviesResponseResults.count > 0 && !currentSimilarMovies.elementsEqual(similarMoviesResponseResults)  {
+                    let resultsPlusNextPage = currentSimilarMovies + similarMoviesResponseResults
+                    self.similarMovies = resultsPlusNextPage
+                    DispatchQueue.main.async {
+                        collectionView.reloadData()
+                    }
+                }
+            })
+        }
     }
     
 }

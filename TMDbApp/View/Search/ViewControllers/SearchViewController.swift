@@ -120,7 +120,7 @@ class SearchViewController: UIViewController {
         performSearch(with: searchTerm, page: page) { (searchResponse, serviceResponse) in
             guard let searchResponse = searchResponse, let currentSearchResults = self.searchResults else { return }
             self.searchResponse = searchResponse
-            if let searchResults = searchResponse.results, searchResults.count > 0 {
+            if let searchResults = searchResponse.results, searchResults.count > 0 && !currentSearchResults.elementsEqual(searchResults) {
                 self.viewState = .serviceSuccess
                 let resultsPlusNextPage = currentSearchResults + searchResults
                 self.searchResults = resultsPlusNextPage
@@ -135,11 +135,13 @@ class SearchViewController: UIViewController {
         }, onFailure: { (serviceResponse) in
             self.viewState = .noResults
             self.searchController.dismiss(animated: false, completion: nil)
-//            let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
-//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry", rightButtonActionClosure: {
-//                self.performSearch(with: searchTerm)
-//            })
-//            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: {
+                debugPrint("Cancel touched.")
+            }, rightButtonTitle: "Retry", rightButtonActionClosure: {
+                self.performBasicSearch()
+            })
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
         }, onCompletion: nil)
     }
     

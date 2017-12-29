@@ -9,23 +9,27 @@
 import UIKit
 
 extension UICollectionView {
-  
-  var centerCellIndexPath: IndexPath? {
     
-    if visibleCells.count == 0 {
-      return nil
+    var centerCellIndexPath: IndexPath? {
+        
+        if visibleCells.count == 0 {
+            return nil
+        }
+        
+        var closestCellFromCenter = visibleCells[0]
+        for cell in visibleCells {
+            let closestCellDelta = fabs(closestCellFromCenter.center.x - self.bounds.size.width/2 - self.contentOffset.x)
+            let cellDelta = fabs(cell.center.x - self.bounds.size.width/2 - self.contentOffset.x)
+            if cellDelta < closestCellDelta {
+                closestCellFromCenter = cell
+            }
+        }
+        
+        return indexPath(for: closestCellFromCenter)
     }
     
-    var closestCellFromCenter = visibleCells[0]
-    for cell in visibleCells {
-      let closestCellDelta = fabs(closestCellFromCenter.center.x - self.bounds.size.width/2 - self.contentOffset.x)
-      let cellDelta = fabs(cell.center.x - self.bounds.size.width/2 - self.contentOffset.x)
-      if cellDelta < closestCellDelta {
-        closestCellFromCenter = cell
-      }
+    var scrollDidReachRightEdge: Bool {
+        return self.contentOffset.x >= (self.contentSize.width - self.frame.size.width)
     }
     
-    return indexPath(for: closestCellFromCenter)
-  }
-  
 }

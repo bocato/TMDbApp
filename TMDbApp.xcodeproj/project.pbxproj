@@ -62,6 +62,8 @@
 		E5BA11EC1FF67321003D1484 /* SimilarMovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA11EB1FF67321003D1484 /* SimilarMovieCollectionViewCell.swift */; };
 		E5BA11EE1FF67332003D1484 /* MoviesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA11ED1FF67332003D1484 /* MoviesService.swift */; };
 		E5BA11F31FF67B25003D1484 /* UPCarouselFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BA11F21FF67B25003D1484 /* UPCarouselFlowLayout.swift */; };
+		E5DB96161FF694FA00AC1903 /* SwiftyLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */; };
+		E5DB96181FF6A00B00AC1903 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +149,8 @@
 		E5BA11EB1FF67321003D1484 /* SimilarMovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5BA11ED1FF67332003D1484 /* MoviesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesService.swift; sourceTree = "<group>"; };
 		E5BA11F21FF67B25003D1484 /* UPCarouselFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UPCarouselFlowLayout.swift; sourceTree = "<group>"; };
+		E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyLoadingView.swift; sourceTree = "<group>"; };
+		E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FB64AABA747F5586CFB9760A /* Pods_TMDbAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -347,6 +351,7 @@
 		E55CEE221FED884D00D290D6 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				E5DB96141FF694E200AC1903 /* CustomUI */,
 				E5BA11F11FF67B16003D1484 /* FlowLayouts */,
 			);
 			path = Commons;
@@ -413,6 +418,7 @@
 				E55F04DE1FF422B40006F569 /* UIImageView+Kingfisher.swift */,
 				E55F04EB1FF51DA60006F569 /* UIImage+ProjectResources.swift */,
 				E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */,
+				E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -546,6 +552,14 @@
 				E5BA11F21FF67B25003D1484 /* UPCarouselFlowLayout.swift */,
 			);
 			path = FlowLayouts;
+			sourceTree = "<group>";
+		};
+		E5DB96141FF694E200AC1903 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				E5DB96151FF694FA00AC1903 /* SwiftyLoadingView.swift */,
+			);
+			path = CustomUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -704,6 +718,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -713,6 +728,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -860,6 +876,7 @@
 				E55F04E61FF511320006F569 /* UICollectionViewCellExtensions.swift in Sources */,
 				E54A00591FF5C4C90049C7BD /* BottomAlertController.swift in Sources */,
 				E55F04DA1FF40DDA0006F569 /* UIView+Loading.swift in Sources */,
+				E5DB96161FF694FA00AC1903 /* SwiftyLoadingView.swift in Sources */,
 				E55F04E91FF511320006F569 /* UICollectionViewExtension.swift in Sources */,
 				E55F04DD1FF421720006F569 /* SearchResultTableViewCell.swift in Sources */,
 				E55CEDF41FED866300D290D6 /* FavoritesViewController.swift in Sources */,
@@ -884,6 +901,7 @@
 				E55F04B51FF2CBE00006F569 /* ServiceError.swift in Sources */,
 				E55F04951FF294AE0006F569 /* TransitionType.swift in Sources */,
 				E5BA11EE1FF67332003D1484 /* MoviesService.swift in Sources */,
+				E5DB96181FF6A00B00AC1903 /* ArrayExtension.swift in Sources */,
 				E54A005B1FF5C9C90049C7BD /* GenresResponse.swift in Sources */,
 				E55F04A81FF2B5540006F569 /* SearchViewController.swift in Sources */,
 				E54A004F1FF5C15C0049C7BD /* GenresService.swift in Sources */,
