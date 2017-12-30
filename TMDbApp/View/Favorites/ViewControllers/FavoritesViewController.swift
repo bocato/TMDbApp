@@ -96,7 +96,7 @@ class FavoritesViewController: UIViewController {
     
     @objc func filterBarButtonItemDidReceiveTouchUpInside(_ sender: UIBarButtonItem){
         
-        let alertController = UIAlertController(title: "Sort By:", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Sort Favorites", message: nil, preferredStyle: .actionSheet)
         
         let sortByTitleAction = UIAlertAction(title: "Title", style: .default) { _ in
             if let favoriteMovies = self.favoriteMovies, favoriteMovies.count > 0{
@@ -113,7 +113,7 @@ class FavoritesViewController: UIViewController {
         sortByTitleAction.setValue(UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0), forKey: "titleTextColor")
         alertController.addAction(sortByTitleAction)
         
-        let sortByReleaseDate = UIAlertAction(title: "Release Date", style: .default) { _ in
+        let sortByMostRecentReleaseDate = UIAlertAction(title: "Most Recent", style: .default) { _ in
             if let favoriteMovies = self.favoriteMovies, favoriteMovies.count > 0 {
                 self.favoriteMovies = ApplicationData.favoriteMovies?.sorted(by: { (movie1, movie2) -> Bool in
                     guard let movie1ReleaseDate = movie1.releaseDate, let releaseDate1 = Date.new(from: movie1ReleaseDate, format: "yyyy-MM-dd"), let movie2ReleaseDate = movie2.releaseDate, let releaseDate2 = Date.new(from: movie2ReleaseDate, format: "yyyy-MM-dd") else {
@@ -125,8 +125,23 @@ class FavoritesViewController: UIViewController {
                 alertController.dismiss(animated: true, completion: nil)
             }
         }
-        sortByReleaseDate.setValue(UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0), forKey: "titleTextColor")
-        alertController.addAction(sortByReleaseDate)
+        sortByMostRecentReleaseDate.setValue(UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0), forKey: "titleTextColor")
+        alertController.addAction(sortByMostRecentReleaseDate)
+        
+        let sortByLeastRecentReleaseDate = UIAlertAction(title: "Least Recent", style: .default) { _ in
+            if let favoriteMovies = self.favoriteMovies, favoriteMovies.count > 0 {
+                self.favoriteMovies = ApplicationData.favoriteMovies?.sorted(by: { (movie1, movie2) -> Bool in
+                    guard let movie1ReleaseDate = movie1.releaseDate, let releaseDate1 = Date.new(from: movie1ReleaseDate, format: "yyyy-MM-dd"), let movie2ReleaseDate = movie2.releaseDate, let releaseDate2 = Date.new(from: movie2ReleaseDate, format: "yyyy-MM-dd") else {
+                        return false
+                    }
+                    return releaseDate1 > releaseDate2
+                })
+                self.loadViewData(fetchLocalDatabase: false)
+                alertController.dismiss(animated: true, completion: nil)
+            }
+        }
+        sortByLeastRecentReleaseDate.setValue(UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0), forKey: "titleTextColor")
+        alertController.addAction(sortByLeastRecentReleaseDate)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { _ in
             alertController.dismiss(animated: true, completion: nil)
