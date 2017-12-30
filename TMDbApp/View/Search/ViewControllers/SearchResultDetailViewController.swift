@@ -137,9 +137,6 @@ class SearchResultDetailViewController: UIViewController {
     
     // MARK: - API Calls
     func loadSimilarMoviesFirstPage() {
-        if let similarsCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: TableViewSection.similar.hashValue)) as? SimilarMoviesTableViewCell {
-            similarsCell.startLoading()
-        }
         fetchSimilarMovies(success: { (response, serviceResponse) in
             self.similarMoviesResponse = response
             self.similarMovies = response?.results
@@ -147,9 +144,6 @@ class SearchResultDetailViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }, completion: {
-            if let similarsCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: TableViewSection.similar.hashValue)) as? SimilarMoviesTableViewCell {
-                similarsCell.stopLoading()
-            }
             self.refreshControl.endRefreshing()
         })
     }
