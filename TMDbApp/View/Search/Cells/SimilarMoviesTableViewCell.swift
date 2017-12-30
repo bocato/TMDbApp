@@ -49,6 +49,13 @@ class SimilarMoviesTableViewCell: UITableViewCell {
         
     }
     
+    // MARK: - Helpers
+    func reloadCollectionView(){
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource
