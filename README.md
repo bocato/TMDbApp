@@ -11,3 +11,18 @@ NYTPhotoViewer: image viewer for the posters.
 SnapKit: easy autolayout for viewcode.
 
 RealmSwift: local database / persistence.
+
+# ScreenShots
+
+![alt text](https://www.imageupload.co.uk/images/2017/12/30/screenshot_1.md.jpg)
+
+
+![alt text](https://www.imageupload.co.uk/images/2017/12/30/screenshot_2.md.jpg)
+
+
+![alt text](https://www.imageupload.co.uk/images/2017/12/30/screenshot_3.md.jpg)
+
+
+![alt text](https://www.imageupload.co.uk/images/2017/12/30/screenshot_4.md.jpg)
+
+
