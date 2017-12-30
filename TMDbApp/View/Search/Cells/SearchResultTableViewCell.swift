@@ -11,6 +11,7 @@ import UIKit
 class SearchResultTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
+    @IBOutlet fileprivate weak var starImageView: UIImageView!
     @IBOutlet fileprivate weak var posterImageView: UIImageView!
     @IBOutlet fileprivate weak var movieLabel: UILabel!
     
@@ -38,6 +39,7 @@ class SearchResultTableViewCell: UITableViewCell {
         guard let movie = movie else { return }
         posterImageView.setImage(with: movie.posterURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
         movieLabel.attributedText = createMovieLabelAttributedString(for: movie)
+        starImageView.isHidden = ApplicationData.isThisMovieAFavorite(movie) == false
     }
     
     // MARK: KingFisher
