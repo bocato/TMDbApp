@@ -22,17 +22,18 @@ fileprivate struct ViewDefaults {
 class SearchResultDetailViewController: UIViewController {
 
     // MARK: IBOutlets
-    @IBOutlet weak var contentContainerView: UIView!
+    @IBOutlet private  weak var contentContainerView: UIView!
     @IBOutlet private weak var contentContainerViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var contentContainerViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var contentContainerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var contentContainerViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tableViewHeader: UIView!
-    @IBOutlet weak var backdropImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var releaseDateLabel: UILabel!
-    @IBOutlet weak var genresLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableViewHeader: UIView!
+    @IBOutlet weak var dismissButton: UIButton!
+    @IBOutlet private weak var backdropImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var releaseDateLabel: UILabel!
+    @IBOutlet private weak var genresLabel: UILabel!
+    @IBOutlet private weak var tableView: UITableView!
     
     // MARK: Constants
     let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: UIColor.black]
@@ -42,15 +43,21 @@ class SearchResultDetailViewController: UIViewController {
     var movie: Movie!
     fileprivate var similarMoviesResponse: SearchResponse?
     fileprivate var similarMovies: [Movie]?
-    var isFetchingSimilarMovies = false
-    var controllerToPresentAlerts: UIViewController? {
-        return self.tabBarController ?? self.navigationController ?? self
+    fileprivate var isFetchingSimilarMovies = false
+    fileprivate var controllerToPresentAlerts: UIViewController? {
+        return self.tabBarController ?? ApplicationRouter.instance.topNavigationController ?? ApplicationRouter.instance.topViewController
     }
+    var hideDismissButton = true
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         loadViewData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        dismissButton.isHidden = hideDismissButton
     }
     
     // MARK: - Configuration
@@ -86,7 +93,7 @@ class SearchResultDetailViewController: UIViewController {
     
     // MARK: - API Calls
     func loadSimilarMoviesFirstPage() {
-        SwiftyLoadingView.show(in: view, withText: "", background: true, activityIndicatorStyle: .whiteLarge, activityIndicatorColor: UIColor.blue)
+        SwiftyLoadingView.show(in: view, withText: "", background: false, activityIndicatorStyle: .whiteLarge, activityIndicatorColor: UIColor.blue)
         fetchSimilarMovies(success: { (response, serviceResponse) in
             self.similarMoviesResponse = response
             self.similarMovies = response?.results
@@ -129,7 +136,6 @@ class SearchResultDetailViewController: UIViewController {
         }
     }
     
-    // MARK: - Actions
     func removeThisMovieFromFavorites(){
         if ApplicationData.shared.removeFromFavorites(self.movie) {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You removed \(self.movie.title ?? "a movie") from your favorites!", buttonTitle: "Ok", actionClosure: nil)
@@ -139,6 +145,12 @@ class SearchResultDetailViewController: UIViewController {
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - IBActions
+    @IBAction func dismissButtonDidReceiveTouchUpInside(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     
 }
 
@@ -242,7 +254,7 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
     
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let movie = similarMovies?[indexPath.row] {
-            NavigationRouter().perform(segue: .similarMovieDetails, from: self, info: movie, animation: nil, completion: nil)
+            NavigationRouter().perform(segue: .similarMovieDetails, from: self, info: movie, completion: nil)
         }
     }
     

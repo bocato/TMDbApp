@@ -19,19 +19,23 @@ class FavoritesViewController: UIViewController {
     
     // MARK: - Properties
     private var favoriteMovies: [Movie]?
-    
-    // MARK: - Computed Properties
+    private let presentTransition: BubbleTransition = ({
+        let transition = BubbleTransition()
+        transition.transitionMode = .present
+        transition.bubbleColor = UIColor.white
+        return transition
+    })()
+    private let dismissTransition = DismissFavoriteAnimationController()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        loadViewData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.collectionView.reloadData()
+        loadViewData()
     }
     
     // MARK: - Configuration
@@ -42,6 +46,7 @@ class FavoritesViewController: UIViewController {
     // MARK: API / LocalDatabase Calls
     func loadViewData(){
         favoriteMovies = ApplicationData.shared.favoriteMovies
+        self.collectionView.reloadData()
     }
 
 }
@@ -69,10 +74,10 @@ extension FavoritesViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let movie = favoriteMovies?[indexPath.row] {
-//            presentStoryAnimationController.selectedCardFrame = cell.frame
-//            dismissStoryAnimationController.selectedCardFrame = cell.frame
-//            performSegue(withIdentifier: "presentStory", sender: self)
+        if let movie = favoriteMovies?[indexPath.row], let cell = collectionView.cellForItem(at: indexPath) {
+            presentTransition.startingPoint = cell.center
+            dismissTransition.animatedTransitionStartPoint = cell.center
+            NavigationRouter().perform(segue: .favoriteMovieDetails, from: self, info: movie, completion: nil)
         }
     }
     
@@ -82,25 +87,19 @@ extension FavoritesViewController: UICollectionViewDelegate {
 extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return CGSize(width: collectionView.bounds.width, height: ViewConstants.favoriteCollectionViewCellHeight)
-        } else {
-            // TODO: Check this...
-            let numberOfItemsInRow = 2
-            let rowNumber = indexPath.item/numberOfItemsInRow
-            let compressedWidth = collectionView.bounds.width/3
-            let expandedWidth = (collectionView.bounds.width/3) * 2
-            let isEvenRow = rowNumber % 2 == 0
-            let isFirstItem = indexPath.item % numberOfItemsInRow != 0
-            var width: CGFloat = 0.0
-            if isEvenRow {
-                width = isFirstItem ? compressedWidth : expandedWidth
-            } else {
-                width = isFirstItem ? expandedWidth : compressedWidth
-            }
-            let size = CGSize(width: width, height: ViewConstants.favoriteCollectionViewCellHeight)
-            return size
-        }
+        return CGSize(width: collectionView.bounds.width, height: ViewConstants.favoriteCollectionViewCellHeight)
+    }
+    
+}
+
+extension FavoritesViewController: UIViewControllerTransitioningDelegate {
+
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return presentTransition
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return dismissTransition
     }
     
 }

@@ -30,18 +30,13 @@ class SearchViewController: UIViewController {
     
     // MARK: - Properties
     fileprivate var searchResponse: SearchResponse?
-    fileprivate var searchResults: [Movie]? {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-            }
-        }
-    }
+    fileprivate var searchResults: [Movie]?
     fileprivate var viewState: ViewState = .noSearch {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.isScrollEnabled = self.viewState == .serviceSuccess
                 self.tableView.separatorColor = self.viewState == .serviceSuccess ? UIColor.lightGray : UIColor.clear
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }
         }
     }
@@ -122,9 +117,9 @@ class SearchViewController: UIViewController {
             guard let searchResponse = searchResponse, let currentSearchResults = self.searchResults else { return }
             self.searchResponse = searchResponse
             if let searchResults = searchResponse.results, searchResults.count > 0 && !currentSearchResults.elementsEqual(searchResults) {
-                self.viewState = .serviceSuccess
                 let resultsPlusNextPage = currentSearchResults + searchResults
                 self.searchResults = resultsPlusNextPage
+                self.viewState = .serviceSuccess
             }
         }
     }
@@ -172,7 +167,7 @@ extension SearchViewController: SkeletonTableViewDataSource {
         case .noSearch:
             return 1
         case .loading:
-            return Int(floor(Float(tableView.bounds.size.height)/Float(ViewDefaults.defaultSearchCellHeight)))
+            return Int(floor(Float(tableView.bounds.size.height)/Float(ViewDefaults.defaultSearchCellHeight))) + 1
         case .serviceSuccess:
             return searchResults!.count
         case .noResults:
@@ -190,9 +185,7 @@ extension SearchViewController: SkeletonTableViewDataSource {
             return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.searchFirstLoadCellIdentifier, for: indexPath)
         case .loading:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
-            if searchResponse!.page == 1 {
-                cell.showSkeleton()
-            }
+            cell.showAnimatedSkeleton()
             return cell
         case .serviceSuccess:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
@@ -223,7 +216,7 @@ extension SearchViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let movie = self.searchResults?[indexPath.row] else { return }
-        NavigationRouter().perform(segue: .searchResultDetail, from: self, info: movie, animation: nil, completion: nil)
+        NavigationRouter().perform(segue: .searchResultDetail, from: self, info: movie, completion: nil)
     }
     
 }

@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SearchResultTableViewCell" rowHeight="131" id="cJ9-PO-hqc" customClass="SearchResultTableViewCell" customModule="TMDbApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SearchResultTableViewCell" rowHeight="131" id="cJ9-PO-hqc" customClass="SearchResultTableViewCell" customModule="TMDbApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cJ9-PO-hqc" id="26B-GG-rj6">
@@ -47,6 +47,9 @@
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="lastLineFillPercent">
+                                                            <integer key="value" value="100"/>
+                                                        </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
@@ -59,7 +62,7 @@
                                                 <constraint firstItem="2fI-hd-aqQ" firstAttribute="top" secondItem="26B-GG-rj6" secondAttribute="top" constant="10" id="nAt-kr-NGY"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
                                             </userDefinedRuntimeAttributes>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
@@ -197,12 +200,24 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOZ-NV-i0j">
+                                                    <rect key="frame" x="343" y="10" width="22" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="Gh2-q5-y7S"/>
+                                                        <constraint firstAttribute="height" constant="22" id="PcD-hY-JaI"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button" image="ic_exit"/>
+                                                    <connections>
+                                                        <action selector="dismissButtonDidReceiveTouchUpInside:" destination="tng-ug-TTr" eventType="touchUpInside" id="ted-0S-G1R"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="rhW-2w-wDf" secondAttribute="trailing" constant="10" id="5nS-HI-27o"/>
                                                 <constraint firstItem="Oe8-MR-tMt" firstAttribute="leading" secondItem="d3Y-75-ug0" secondAttribute="leading" constant="10" id="7Zn-S3-isb"/>
                                                 <constraint firstItem="rhW-2w-wDf" firstAttribute="top" secondItem="0wL-Cj-kg9" secondAttribute="bottom" constant="10" id="7bI-NU-Zhz"/>
+                                                <constraint firstItem="WOZ-NV-i0j" firstAttribute="top" secondItem="d3Y-75-ug0" secondAttribute="top" constant="10" id="9Ve-1D-YvF"/>
                                                 <constraint firstAttribute="trailing" secondItem="mGy-fW-Put" secondAttribute="trailing" constant="10" id="Eoq-QL-o2C"/>
                                                 <constraint firstItem="mGy-fW-Put" firstAttribute="leading" secondItem="d3Y-75-ug0" secondAttribute="leading" constant="10" id="HMs-tH-SZ9"/>
                                                 <constraint firstItem="0wL-Cj-kg9" firstAttribute="leading" secondItem="d3Y-75-ug0" secondAttribute="leading" id="HOp-6b-agv"/>
@@ -211,6 +226,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="Oe8-MR-tMt" secondAttribute="trailing" constant="10" id="Xt9-WN-stM"/>
                                                 <constraint firstItem="Oe8-MR-tMt" firstAttribute="top" secondItem="mGy-fW-Put" secondAttribute="bottom" constant="5" id="dpS-5d-Ks1"/>
                                                 <constraint firstItem="0wL-Cj-kg9" firstAttribute="top" secondItem="d3Y-75-ug0" secondAttribute="top" id="kKN-eU-cYY"/>
+                                                <constraint firstAttribute="trailing" secondItem="WOZ-NV-i0j" secondAttribute="trailing" constant="10" id="lNS-uJ-H6k"/>
                                                 <constraint firstAttribute="trailing" secondItem="0wL-Cj-kg9" secondAttribute="trailing" id="w8U-XB-gMY"/>
                                                 <constraint firstItem="mGy-fW-Put" firstAttribute="top" secondItem="rhW-2w-wDf" secondAttribute="bottom" constant="5" id="xPA-61-ir3"/>
                                             </constraints>
@@ -369,6 +385,7 @@
                         <outlet property="contentContainerViewLeadingConstraint" destination="1kY-vc-Amz" id="CT8-eA-Bzr"/>
                         <outlet property="contentContainerViewTopConstraint" destination="kNu-fj-kAt" id="igr-er-UiU"/>
                         <outlet property="contentContainerViewTrailingConstraint" destination="kdd-eV-j78" id="MoG-sQ-dFF"/>
+                        <outlet property="dismissButton" destination="WOZ-NV-i0j" id="2ih-KJ-69e"/>
                         <outlet property="genresLabel" destination="Oe8-MR-tMt" id="cIu-fg-lxB"/>
                         <outlet property="releaseDateLabel" destination="mGy-fW-Put" id="eCX-We-sZe"/>
                         <outlet property="tableView" destination="Jff-kB-Wcl" id="bhl-eD-s6J"/>
@@ -382,6 +399,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_exit" width="410" height="410"/>
         <image name="ic_magnifier_tool" width="410" height="410"/>
         <image name="ic_movie_placeholder" width="410" height="410"/>
         <image name="ic_squared_sad_face" width="410" height="410"/>

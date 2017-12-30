@@ -81,7 +81,7 @@ class ApplicationRouter {
     
     fileprivate func setRootViewController(_ rootViewController: UIViewController, for window: UIWindow) {
         DispatchQueue.main.async {
-            UIView.transition(with: window, duration: 5.0, options: [.curveEaseIn] , animations: {
+            UIView.transition(with: window, duration: 2.5, options: [.curveEaseInOut] , animations: {
                 window.rootViewController = rootViewController
                 window.makeKeyAndVisible()
             }, completion: nil)

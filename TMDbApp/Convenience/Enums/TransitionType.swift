@@ -12,4 +12,5 @@ import Foundation
 public enum TransitionType {
     case push
     case present
+    case presentModally
 }

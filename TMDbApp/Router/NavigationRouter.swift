@@ -20,25 +20,29 @@ class NavigationRouter {
         case home
         case searchResultDetail
         case similarMovieDetails
+        case favoriteMovieDetails
     }
-    
+
     // MARK: - Storyboards
     fileprivate lazy var searchStoryboard: UIStoryboard = UIStoryboard(name: "Search", bundle: nil)
     
     
     // MARK: - Navigation Methods
-    private func move(from: UIViewController!, to: UIViewController!, transition: TransitionType!, animation: Any? = nil, completion: (()->Void)? = nil) {
+    private func move(from: UIViewController!, to: UIViewController!, transition: TransitionType!, completion: (()->Void)? = nil) {
         switch transition {
         case .push:
             from.navigationController?.pushViewController(to, animated: true)
         case .present:
+            from.present(to, animated: true, completion: completion)
+        case .presentModally:
+//            to.modalPresentationStyle = .overCurrentContext
             from.present(to, animated: true, completion: completion)
         default:
             return
         }
     }
     
-    func perform(segue: Segue!, from: UIViewController? = nil, info: Any? = nil, animation: Any? = nil, completion: (()->Void)? = nil) {
+    func perform(segue: Segue!, from: UIViewController? = nil, info: Any? = nil, completion: (()->Void)? = nil) {
         switch segue {
         case .home:
             ApplicationRouter.instance.setTabBarAsRoot()
@@ -48,7 +52,7 @@ class NavigationRouter {
             searchResultDetailViewController.movie = info as! Movie
             searchResultDetailViewController.navigationItem.largeTitleDisplayMode = .never
             searchResultDetailViewController.title = "Search Details"
-            move(from: from, to: searchResultDetailViewController, transition: .push, animation: nil, completion: nil)
+            move(from: from, to: searchResultDetailViewController, transition: .push, completion: nil)
             return
         case .similarMovieDetails:
             let searchResultDetailViewController = SearchResultDetailViewController.instantiate(fromStoryboard: searchStoryboard)
@@ -57,7 +61,15 @@ class NavigationRouter {
             searchResultDetailViewController.configureXButtonOnRightBarButtonItem()
             navigationController.navigationItem.largeTitleDisplayMode = .never
             searchResultDetailViewController.title = "Similar Movie Details"
-            move(from: from, to: navigationController, transition: .present, animation: nil, completion: nil)
+            move(from: from, to: navigationController, transition: .present, completion: nil)
+            return
+        case .favoriteMovieDetails:
+            let searchResultDetailViewController = SearchResultDetailViewController.instantiate(fromStoryboard: searchStoryboard)
+            searchResultDetailViewController.movie = info as! Movie
+            searchResultDetailViewController.title = "Favorite Movie Details"
+            searchResultDetailViewController.hideDismissButton = false
+            searchResultDetailViewController.transitioningDelegate = (from as! FavoritesViewController)
+            move(from: from, to: searchResultDetailViewController, transition: .presentModally, completion: nil)
             return
         default:
             return

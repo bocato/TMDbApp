@@ -11,32 +11,36 @@ import UIKit
 class DismissFavoriteAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
     // MARK: Properties
-    var animatedTransitionStartPointFrame: CGRect = .zero
+    var animatedTransitionStartPoint: CGPoint = .zero
     
     // MARK: - UIViewControllerAnimatedTransitioning
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.15
+        return 0.4
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         let containerView = transitionContext.containerView
         guard let fromViewController = transitionContext.viewController(forKey: .from) as? SearchResultDetailViewController,
-            let toViewController = transitionContext.viewController(forKey: .to) as? FavoritesViewController else {
+            let toViewController = transitionContext.viewController(forKey: .to) else {
                 return
         }
         
-        toViewController.view.isHidden = true
+        toViewController.view.alpha = 0
         containerView.addSubview(toViewController.view)
         
         let duration = transitionDuration(using: transitionContext)
+        let left: CGFloat = 20.0
+        let right: CGFloat = 20.0
+        let top: CGFloat = 20.0
+        let bottom: CGFloat = self.animatedTransitionStartPoint.y
         UIView.animate(withDuration: duration, animations: {
-            fromViewController.positionContainer(left: 20.0,
-                                                 right: 20.0,
-                                                 top: self.animatedTransitionStartPointFrame.origin.y + 20.0,
-                                                 bottom: 0.0)
+            fromViewController.positionContainer(left: left,
+                                                 right: right,
+                                                 top: top,
+                                                 bottom: bottom)
         }) { (_) in
-            toViewController.view.isHidden = false
+            toViewController.view.alpha = 1
             fromViewController.view.removeFromSuperview()
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
