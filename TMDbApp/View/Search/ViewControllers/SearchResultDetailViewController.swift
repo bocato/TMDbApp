@@ -54,13 +54,14 @@ class SearchResultDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadViewData()
         self.view.showAnimatedSkeleton()
+        loadViewData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dismissButton.isHidden = hideDismissButton
+        configureDismissButton()
+        self.tableView.setAndLayoutTableHeaderView(header: self.tableViewHeader)
     }
     
     deinit {
@@ -69,6 +70,11 @@ class SearchResultDetailViewController: UIViewController {
     }
     
     // MARK: - Configuration
+    func configureDismissButton(){
+        dismissButton.isHidden = hideDismissButton
+        dismissButton.configureShadow()
+    }
+    
     func positionContainer(left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) {
         contentContainerViewLeadingConstraint.constant = left
         contentContainerViewTrailingConstraint.constant = right
@@ -106,7 +112,6 @@ class SearchResultDetailViewController: UIViewController {
         titleLabel.attributedText = attributedString(with: "Title: ", text: title)
         releaseDateLabel.attributedText = attributedString(with: "Release date: ", text: formattedReleaseDate)
         genresLabel.attributedText = attributedString(with: "Genres: ", text: genresString)
-        tableView.setAndLayoutTableHeaderView(header: tableViewHeader)
     }
     
     // MARK: - API Calls
@@ -164,11 +169,31 @@ class SearchResultDetailViewController: UIViewController {
         })
     }
     
+    func updateViewData(with movie: Movie!){
+        
+        self.movie = movie
+        self.view.isUserInteractionEnabled = false
+        
+        let whiteView = UIView(frame: self.view.frame)
+        whiteView.backgroundColor = UIColor.white
+        whiteView.alpha = 0.8
+        self.view.addSubview(whiteView)
+        
+        UIView.animate(withDuration: 1.5, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.loadViewData()
+            whiteView.alpha = 0
+        }, completion: { _ in
+            whiteView.removeFromSuperview()
+            self.tableView.scrollRectToVisible(self.tableViewHeader.frame, animated: true)
+            self.view.isUserInteractionEnabled = true
+        })
+        
+    }
+    
     // MARK: - IBActions
     @IBAction func dismissButtonDidReceiveTouchUpInside(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
-    
     
 }
 
@@ -272,7 +297,7 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
     
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let movie = similarMovies?[indexPath.row] {
-            NavigationRouter().perform(segue: .similarMovieDetails, from: self, info: movie, completion: nil)
+           updateViewData(with: movie)
         }
     }
     
