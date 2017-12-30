@@ -13,6 +13,7 @@ enum Images: String {
     case moviePlaceholder = "ic_movie_placeholder"
     case magnifierTool = "ic_magnifier_tool"
     case squaredSadFace = "ic_squared_sad_face"
+    case sadManWithHat = "ic_sad_man_with_hat"
 }
 
 extension UIImage {

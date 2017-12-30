@@ -35,7 +35,6 @@ class NavigationRouter {
         case .present:
             from.present(to, animated: true, completion: completion)
         case .presentModally:
-//            to.modalPresentationStyle = .overCurrentContext
             from.present(to, animated: true, completion: completion)
         default:
             return

@@ -10,6 +10,7 @@ import UIKit
 
 fileprivate struct ViewConstants {
     static let favoriteCollectionViewCellHeight: CGFloat = 320
+    static let noFavoritesCollectionViewCellIdentifier = "NoFavoritesCollectionViewCell"
 }
 
 class FavoritesViewController: UIViewController {
@@ -31,6 +32,7 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        loadViewData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +45,7 @@ class FavoritesViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
     }
     
-    // MARK: API / LocalDatabase Calls
+    // MARK: LocalDatabase Calls
     func loadViewData(){
         favoriteMovies = ApplicationData.favoriteMovies
         self.collectionView.reloadData()
@@ -55,13 +57,18 @@ class FavoritesViewController: UIViewController {
 extension FavoritesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favoriteMovies?.count ?? 0
+        guard let favoriteMovies = favoriteMovies, favoriteMovies.count > 0 else { return 1 }
+        return favoriteMovies.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.identifier, for: indexPath) as! FavoriteCollectionViewCell
-        cell.configure(with: favoriteMovies?[indexPath.row])
-        return cell
+        if let favoriteMovies = favoriteMovies, favoriteMovies.count > 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoriteCollectionViewCell.identifier, for: indexPath) as! FavoriteCollectionViewCell
+            cell.configure(with: favoriteMovies[indexPath.row])
+            return cell
+        } else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: ViewConstants.noFavoritesCollectionViewCellIdentifier, for: indexPath)
+        }
     }
     
 }
@@ -74,10 +81,10 @@ extension FavoritesViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let movie = favoriteMovies?[indexPath.row], let cell = collectionView.cellForItem(at: indexPath) {
+        if let favoriteMovies = favoriteMovies, let cell = collectionView.cellForItem(at: indexPath), favoriteMovies.count > 0 {
             presentTransition.startingPoint = cell.center
             dismissTransition.animatedTransitionStartPoint = cell.center
-            NavigationRouter().perform(segue: .favoriteMovieDetails, from: self, info: movie, completion: nil)
+            NavigationRouter().perform(segue: .favoriteMovieDetails, from: self, info: favoriteMovies[indexPath.row], completion: nil)
         }
     }
     
@@ -87,6 +94,9 @@ extension FavoritesViewController: UICollectionViewDelegate {
 extension FavoritesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let favoriteMovies = favoriteMovies, favoriteMovies.count > 0 else {
+            return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        }
         return CGSize(width: collectionView.bounds.width, height: ViewConstants.favoriteCollectionViewCellHeight)
     }
     

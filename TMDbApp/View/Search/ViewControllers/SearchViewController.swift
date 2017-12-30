@@ -21,6 +21,7 @@ fileprivate struct ViewDefaults {
     static let defaultSearchCellHeight = CGFloat(120)
     static let searchFirstLoadCellIdentifier = "SearchFirstLoadTableViewCell"
     static let emptySearchCellIdentifier = "EmptySearchTableViewCell"
+    static let navigationControllerNavigationBarFrameKeyPath = "navigationController.navigationBar.frame"
 }
 
 class SearchViewController: UIViewController {
@@ -65,7 +66,7 @@ class SearchViewController: UIViewController {
     deinit {
         KingfisherManager.shared.cache.clearMemoryCache()
         KingfisherManager.shared.cache.clearDiskCache()
-        removeObserver(self, forKeyPath: "navigationController.navigationBar.frame")
+        removeObserver(self, forKeyPath: ViewDefaults.navigationControllerNavigationBarFrameKeyPath)
     }
     
     // MARK: - Configuration
@@ -78,12 +79,12 @@ class SearchViewController: UIViewController {
     }
     
     func configureObservers() {
-        addObserver(self, forKeyPath: "navigationController.navigationBar.frame", options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
+        addObserver(self, forKeyPath: ViewDefaults.navigationControllerNavigationBarFrameKeyPath, options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
     }
     
     // MARK: - Observers
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "navigationController.navigationBar.frame" { // this makes the cell have the right size and stay centered
+        if keyPath == ViewDefaults.navigationControllerNavigationBarFrameKeyPath { // this makes the cell have the right size and stay centered
             DispatchQueue.main.async {
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }

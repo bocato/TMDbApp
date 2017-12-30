@@ -89,11 +89,11 @@ class ApplicationRouter {
     }
     
     func setTabBarAsRoot() {
-        if let favoriteMovies = ApplicationData.favoriteMovies, favoriteMovies.count > 0 {
-            startApplication(in: window, startPoint: .favorites)
-        } else {
+//        if let favoriteMovies = ApplicationData.favoriteMovies, favoriteMovies.count > 0 {
+//            startApplication(in: window, startPoint: .favorites)
+//        } else {
             startApplication(in: window, startPoint: .search)
-        }
+//        }
     }
     
 }

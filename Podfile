@@ -12,7 +12,6 @@ target 'TMDbApp' do
   pod 'SnapKit', '~> 4.0.0'
   pod 'RealmSwift', '~> 3.0.2'
   
-
   target 'TMDbAppTests' do
     inherit! :search_paths
     # Pods for testing

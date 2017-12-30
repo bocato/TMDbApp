@@ -17,11 +17,11 @@
             <objects>
                 <viewController storyboardIdentifier="FavoritesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="FavoritesViewController" customModule="TMDbApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CMR-BX-d1e">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="780"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ys5-Xk-Jlx">
                                     <size key="itemSize" width="322" height="373"/>
@@ -76,6 +76,35 @@
                                             <outlet property="roundedContentView" destination="urj-02-WSK" id="A8B-PI-te3"/>
                                         </connections>
                                     </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NoFavoritesCollectionViewCell" id="Yaw-Wv-xj1">
+                                        <rect key="frame" x="26.5" y="383" width="322" height="373"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="322" height="373"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_sad_man_with_hat" translatesAutoresizingMaskIntoConstraints="NO" id="7q1-AB-3bB">
+                                                    <rect key="frame" x="81" y="73.5" width="161" height="186.5"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No favorites yet..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thf-Rg-MhS">
+                                                    <rect key="frame" x="10" y="265" width="302" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="7q1-AB-3bB" firstAttribute="centerY" secondItem="Yaw-Wv-xj1" secondAttribute="centerY" constant="-20" id="3fH-Sw-ney"/>
+                                            <constraint firstItem="Thf-Rg-MhS" firstAttribute="top" secondItem="7q1-AB-3bB" secondAttribute="bottom" constant="5" id="9fe-hv-6uV"/>
+                                            <constraint firstItem="7q1-AB-3bB" firstAttribute="width" secondItem="Yaw-Wv-xj1" secondAttribute="width" multiplier="0.5" id="EfO-Ab-iMG"/>
+                                            <constraint firstItem="7q1-AB-3bB" firstAttribute="height" secondItem="Yaw-Wv-xj1" secondAttribute="height" multiplier="0.5" id="NKO-Qx-mZQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="Thf-Rg-MhS" secondAttribute="trailing" constant="10" id="QEP-A4-vBz"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Thf-Rg-MhS" secondAttribute="bottom" constant="5" id="n55-9e-LPf"/>
+                                            <constraint firstItem="7q1-AB-3bB" firstAttribute="centerX" secondItem="Yaw-Wv-xj1" secondAttribute="centerX" id="qOP-7e-JFW"/>
+                                            <constraint firstItem="Thf-Rg-MhS" firstAttribute="leading" secondItem="Yaw-Wv-xj1" secondAttribute="leading" constant="10" id="xsM-Ku-QdY"/>
+                                        </constraints>
+                                    </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="582-7L-mfb"/>
@@ -93,13 +122,17 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Favorites" largeTitleDisplayMode="always" id="JTf-1t-Di9"/>
+                    <size key="freeformSize" width="375" height="800"/>
                     <connections>
                         <outlet property="collectionView" destination="CMR-BX-d1e" id="QmR-bg-toj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
+            <point key="canvasLocation" x="81" y="125"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_sad_man_with_hat" width="410" height="410"/>
+    </resources>
 </document>
