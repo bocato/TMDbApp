@@ -32,4 +32,6 @@ extension UICollectionView {
         return self.contentOffset.x >= (self.contentSize.width - self.frame.size.width)
     }
     
+    
+    
 }

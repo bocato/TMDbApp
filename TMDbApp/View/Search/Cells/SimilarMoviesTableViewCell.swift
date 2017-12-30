@@ -14,9 +14,11 @@ protocol SimilarMoviesTableViewCellDataSource {
 }
 
 protocol SimilarMoviesTableViewCellDelegate {
+
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath)
     func similarMoviesTableViewCellScrollViewDidScroll(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, scrollView: UIScrollView)
+//    optional func similarMoviesTableViewCellScrollViewDidEndDecelerating(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, scrollView: UIScrollView)
 }
 
 class SimilarMoviesTableViewCell: UITableViewCell {
@@ -50,10 +52,15 @@ class SimilarMoviesTableViewCell: UITableViewCell {
     }
     
     // MARK: - Helpers
-    func reloadCollectionView(){
+    func reloadCollectionView(snapToFirst: Bool = false){
         DispatchQueue.main.async {
             self.collectionView.reloadData()
-            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+            if snapToFirst {
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
+            } else {
+                let lastItemIndex = self.collectionView.numberOfItems(inSection: 0) - 1
+                self.collectionView.scrollToItem(at: IndexPath(item: lastItemIndex, section: 0), at: .centeredHorizontally, animated: false)
+            }
         }
     }
     
@@ -95,5 +102,9 @@ extension SimilarMoviesTableViewCell: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         delegate?.similarMoviesTableViewCellScrollViewDidScroll(self, collectionView: self.collectionView, scrollView: scrollView)
     }
+    
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        delegate?.similarMoviesTableViewCellScrollViewDidEndDecelerating(self, collectionView: collectionView, scrollView: scrollView)
+//    }
     
 }

@@ -207,7 +207,7 @@ class SearchResultDetailViewController: UIViewController {
             whiteView.removeFromSuperview()
             self.tableView.scrollRectToVisible(self.tableViewHeader.frame, animated: true)
             if let similarsCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: TableViewSection.similar.hashValue)) as? SimilarMoviesTableViewCell {
-                similarsCell.reloadCollectionView()
+                similarsCell.reloadCollectionView(snapToFirst: true)
             }
             self.view.isUserInteractionEnabled = true
         })
@@ -338,7 +338,10 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
                 if let similarMoviesResponseResults = response.results, similarMoviesResponseResults.count > 0 && !currentSimilarMovies.elementsEqual(similarMoviesResponseResults)  {
                     let resultsPlusNextPage = currentSimilarMovies + similarMoviesResponseResults
                     self.similarMovies = resultsPlusNextPage
-                    similarMoviesTableViewCell.reloadCollectionView()
+                    DispatchQueue.main.async {
+                        self.isFetchingSimilarMovies = true
+                        similarMoviesTableViewCell.reloadCollectionView()
+                    }
                 }
             })
         }
