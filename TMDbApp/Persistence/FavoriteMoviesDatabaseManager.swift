@@ -98,6 +98,7 @@ class FavoriteMoviesDatabaseManager {
         do {
             try database.write {
                 database.deleteAll()
+                updateHasAnyFavoritesKey(hasAnyFavorites: false)
                 success()
             }
         } catch let error {
