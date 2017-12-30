@@ -45,7 +45,7 @@ class SearchResultDetailViewController: UIViewController {
     fileprivate var similarMovies: [Movie]?
     fileprivate var isFetchingSimilarMovies = false
     fileprivate var controllerToPresentAlerts: UIViewController? {
-        return self.tabBarController ?? ApplicationRouter.instance.topNavigationController ?? ApplicationRouter.instance.topViewController
+        return self.tabBarController ?? self.navigationController ?? self
     }
     var hideDismissButton = true
     
@@ -129,7 +129,7 @@ class SearchResultDetailViewController: UIViewController {
     func addThisMovieToFavorites(){
         if ApplicationData.shared.addToFavorites(self.movie) {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(self.movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
-            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
         } else {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
@@ -139,7 +139,7 @@ class SearchResultDetailViewController: UIViewController {
     func removeThisMovieFromFavorites(){
         if ApplicationData.shared.removeFromFavorites(self.movie) {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You removed \(self.movie.title ?? "a movie") from your favorites!", buttonTitle: "Ok", actionClosure: nil)
-            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
         } else {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not remove \(self.movie.title ?? "a movie") from your favorites! \nIt's was probably never there.", buttonTitle: "Ok", actionClosure: nil)
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
