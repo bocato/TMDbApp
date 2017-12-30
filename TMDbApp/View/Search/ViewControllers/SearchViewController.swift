@@ -42,6 +42,12 @@ class SearchViewController: UIViewController {
         }
     }
     fileprivate var searchTerm: String?
+    fileprivate var refreshControl: UIRefreshControl = ({
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.lightGray
+        refreshControl.addTarget(self, action: #selector(SearchViewController.performBasicSearch), for: .valueChanged)
+        return refreshControl
+    })()
     
     // MARK: - Computed Properties
     fileprivate var searchController: UISearchController = ({
@@ -76,6 +82,7 @@ class SearchViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        self.tableView.addSubview(refreshControl)
     }
     
     func configureObservers() {
@@ -101,7 +108,7 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: - API Calls
-    func performBasicSearch() {
+    @objc func performBasicSearch() {
         performSearch(with: searchTerm) { (searchResponse, serviceResponse) in
             self.searchResponse = searchResponse
             self.searchResults = searchResponse?.results

@@ -8,6 +8,7 @@
 
 import UIKit
 import NYTPhotoViewer
+import Kingfisher
 
 fileprivate enum TableViewSection {
     case overview
@@ -60,6 +61,11 @@ class SearchResultDetailViewController: UIViewController {
         dismissButton.isHidden = hideDismissButton
     }
     
+    deinit {
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
+    }
+    
     // MARK: - Configuration
     func positionContainer(left: CGFloat, right: CGFloat, top: CGFloat, bottom: CGFloat) {
         contentContainerViewLeadingConstraint.constant = left
@@ -83,7 +89,17 @@ class SearchResultDetailViewController: UIViewController {
     }
     
     func loadMovieData() {
-        guard let backdropPathURLString = movie.backdropPathURLString, let title = movie.title, let releaseDate = movie.releaseDate, let formattedReleaseDate = Date.new(from: releaseDate, format: "yyyy-MM-dd")?.stringWithFormat("dd/MM/yyyy"), let genresString = movie.genresString else { return }
+        guard let backdropPathURLString = movie.backdropPathURLString, let title = movie.title, let releaseDate = movie.releaseDate, let formattedReleaseDate = Date.new(from: releaseDate, format: "yyyy-MM-dd")?.stringWithFormat("dd/MM/yyyy"), let genresString = movie.genresString else {
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "An unexpected error ocurred and we could not load all the data, please retry your search later.", buttonTitle: "Ok", actionClosure: {
+                if let navigationController = self.navigationController {
+                    navigationController.popViewController(animated: true)
+                } else {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
+            return
+        }
         backdropImageView.setImage(with: backdropPathURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
         titleLabel.attributedText = attributedString(with: "Title: ", text: title)
         releaseDateLabel.attributedText = attributedString(with: "Release date: ", text: formattedReleaseDate)
@@ -126,16 +142,6 @@ class SearchResultDetailViewController: UIViewController {
     }
     
     // MARK: - Actions
-//    func addThisMovieToFavorites(){
-//        if ApplicationData.shared.addToFavorites(self.movie) {
-//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(self.movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
-//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-//        } else {
-//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
-//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-//        }
-//    }
-
     func addThisMovieToFavorites(){
         let realmMovie = RealmMovie(value: movie.dictionaryValueForRealm as Any)
         FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie, onSuccess: {
@@ -146,16 +152,6 @@ class SearchResultDetailViewController: UIViewController {
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
         })
     }
-    
-//    func removeThisMovieFromFavorites(){
-//        if ApplicationData.shared.removeFromFavorites(self.movie) {
-//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You removed \(self.movie.title ?? "a movie") from your favorites!", buttonTitle: "Ok", actionClosure: nil)
-//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-//        } else {
-//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not remove \(self.movie.title ?? "a movie") from your favorites! \nIt's was probably never there.", buttonTitle: "Ok", actionClosure: nil)
-//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-//        }
-//    }
     
     func removeThisMovieFromFavorites(){
         FavoriteMoviesDatabaseManager.shared.deleteMovie(with: self.movie.id!, onSuccess: {

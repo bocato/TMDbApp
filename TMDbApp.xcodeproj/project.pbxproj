@@ -72,7 +72,6 @@
 		E5DB962A1FF71E7B00AC1903 /* ObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96291FF71E7A00AC1903 /* ObjectExtension.swift */; };
 		E5DB962C1FF734C900AC1903 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB962B1FF734C900AC1903 /* EncodableExtension.swift */; };
 		E5ECF51E1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */; };
-		E5ECF5201FF7460400908A17 /* RealmMovieImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF51F1FF7460400908A17 /* RealmMovieImages.swift */; };
 		E5ECF5221FF747F100908A17 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF5211FF747F100908A17 /* RealmError.swift */; };
 		E5ECF5251FF748EC00908A17 /* PersistenceErrorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF5241FF748EC00908A17 /* PersistenceErrorsEnum.swift */; };
 /* End PBXBuildFile section */
@@ -170,7 +169,6 @@
 		E5DB96291FF71E7A00AC1903 /* ObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectExtension.swift; sourceTree = "<group>"; };
 		E5DB962B1FF734C900AC1903 /* EncodableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
 		E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMoviesDatabaseManager+Images.swift"; sourceTree = "<group>"; };
-		E5ECF51F1FF7460400908A17 /* RealmMovieImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMovieImages.swift; sourceTree = "<group>"; };
 		E5ECF5211FF747F100908A17 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
 		E5ECF5241FF748EC00908A17 /* PersistenceErrorsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceErrorsEnum.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -277,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				E54A00631FF5FF8A0049C7BD /* RealmMovie.swift */,
-				E5ECF51F1FF7460400908A17 /* RealmMovieImages.swift */,
 				E5ECF5211FF747F100908A17 /* RealmError.swift */,
 			);
 			path = Models;
@@ -964,7 +961,6 @@
 				E55F04B51FF2CBE00006F569 /* ServiceError.swift in Sources */,
 				E55F04951FF294AE0006F569 /* TransitionType.swift in Sources */,
 				E5BA11EE1FF67332003D1484 /* MoviesService.swift in Sources */,
-				E5ECF5201FF7460400908A17 /* RealmMovieImages.swift in Sources */,
 				E5DB96181FF6A00B00AC1903 /* ArrayExtension.swift in Sources */,
 				E54A005B1FF5C9C90049C7BD /* GenresResponse.swift in Sources */,
 				E55F04A81FF2B5540006F569 /* SearchViewController.swift in Sources */,

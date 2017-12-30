@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 fileprivate struct ViewConstants {
     static let favoriteCollectionViewCellHeight: CGFloat = 320
@@ -38,6 +39,11 @@ class FavoritesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadViewData()
+    }
+    
+    deinit {
+        KingfisherManager.shared.cache.clearMemoryCache()
+        KingfisherManager.shared.cache.clearDiskCache()
     }
     
     // MARK: - Configuration
