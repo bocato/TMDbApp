@@ -56,11 +56,21 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         return attributedString
     }
     
+    private func configureBackdrop(for movie: Movie!){
+        guard let backdropPathURLString = movie.backdropPathURLString else {
+            backdropImageView.image = UIImage.fromResource(named: .noBackdrop)
+            backdropImageView.contentMode = .scaleAspectFit
+            backdropImageView.layoutSubviews()
+            return
+        }
+        backdropImageView.setImage(with: backdropPathURLString, placeholderImage: UIImage.fromResource(named: .loadingBackdrop), imageForError: UIImage.fromResource(named: .noBackdrop), downloadedImageContentMode: .scaleToFill)
+        backdropImageView.layoutSubviews()
+    }
+    
     func configure(with movie: Movie?) {
         guard let movie = movie else { return }
-        backdropImageView.setImage(with: movie.backdropPathURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
+        configureBackdrop(for: movie)
         movieLabel.attributedText = createMovieLabelAttributedString(for: movie)
-//        movieLabel.text = "CU"
     }
     
     // MARK: - Dinamic Shadow

@@ -54,7 +54,6 @@ class SearchResultDetailViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.showAnimatedSkeleton()
         loadViewData()
     }
     
@@ -83,6 +82,17 @@ class SearchResultDetailViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
+    private func configureBackdrop(for movie: Movie!){
+        guard let backdropPathURLString = movie.backdropPathURLString else {
+            backdropImageView.image = UIImage.fromResource(named: .noBackdrop)
+            backdropImageView.contentMode = .scaleAspectFit
+            backdropImageView.layoutSubviews()
+            return
+        }
+        backdropImageView.setImage(with: backdropPathURLString, placeholderImage: UIImage.fromResource(named: .loadingBackdrop), imageForError: UIImage.fromResource(named: .noBackdrop), downloadedImageContentMode: .scaleToFill)
+        backdropImageView.layoutSubviews()
+    }
+    
     // MARK: - Helpers
     func attributedString(with title: String!, text: String!) ->  NSAttributedString{
         let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
@@ -97,7 +107,7 @@ class SearchResultDetailViewController: UIViewController {
     }
     
     func loadMovieData() {
-        guard let backdropPathURLString = movie.backdropPathURLString, let title = movie.title, let releaseDate = movie.releaseDate, let formattedReleaseDate = Date.new(from: releaseDate, format: "yyyy-MM-dd")?.stringWithFormat("dd/MM/yyyy"), let genresString = movie.genresString else {
+        guard let title = movie.title, let releaseDate = movie.releaseDate, let formattedReleaseDate = Date.new(from: releaseDate, format: "yyyy-MM-dd")?.stringWithFormat("dd/MM/yyyy"), let genresString = movie.genresString else {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "An unexpected error ocurred and we could not load all the data, please retry your search later.", buttonTitle: "Ok", actionClosure: {
                 if let navigationController = self.navigationController {
                     navigationController.popViewController(animated: true)
@@ -108,7 +118,7 @@ class SearchResultDetailViewController: UIViewController {
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
             return
         }
-        backdropImageView.setImage(with: backdropPathURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
+        configureBackdrop(for: movie)
         titleLabel.attributedText = attributedString(with: "Title: ", text: title)
         releaseDateLabel.attributedText = attributedString(with: "Release date: ", text: formattedReleaseDate)
         genresLabel.attributedText = attributedString(with: "Genres: ", text: genresString)
@@ -116,6 +126,9 @@ class SearchResultDetailViewController: UIViewController {
     
     // MARK: - API Calls
     func loadSimilarMoviesFirstPage() {
+        if let similarsCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: TableViewSection.similar.hashValue)) as? SimilarMoviesTableViewCell {
+            similarsCell.startLoading()
+        }
         fetchSimilarMovies(success: { (response, serviceResponse) in
             self.similarMoviesResponse = response
             self.similarMovies = response?.results
@@ -123,7 +136,9 @@ class SearchResultDetailViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }, completion: {
-            self.view.hideSkeleton()
+            if let similarsCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: TableViewSection.similar.hashValue)) as? SimilarMoviesTableViewCell {
+                similarsCell.stopLoading()
+            }
         })
     }
 
@@ -172,14 +187,14 @@ class SearchResultDetailViewController: UIViewController {
     func updateViewData(with movie: Movie!){
         
         self.movie = movie
-        self.view.isUserInteractionEnabled = false
+        view.isUserInteractionEnabled = false
         
         let whiteView = UIView(frame: self.view.frame)
         whiteView.backgroundColor = UIColor.white
         whiteView.alpha = 0.8
         self.view.addSubview(whiteView)
         
-        UIView.animate(withDuration: 1.0, delay: 0.0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseInOut], animations: {
             self.loadViewData()
             whiteView.alpha = 0
         }, completion: { _ in

@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,7 +31,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="130.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_movie_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="FTJ-fx-nJ6">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FTJ-fx-nJ6">
                                                     <rect key="frame" x="15" y="15.5" width="80" height="100"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="e5A-01-vWi"/>
@@ -322,12 +323,22 @@
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rec-t3-PvR">
                                                                                 <rect key="frame" x="5" y="5" width="152" height="226"/>
                                                                             </imageView>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOz-aG-lI9">
+                                                                                <rect key="frame" x="5" y="186" width="152" height="45"/>
+                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                <nil key="textColor"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
                                                                         </subviews>
                                                                     </view>
                                                                     <constraints>
+                                                                        <constraint firstItem="cOz-aG-lI9" firstAttribute="width" secondItem="Rec-t3-PvR" secondAttribute="width" id="AEE-q9-zKY"/>
                                                                         <constraint firstAttribute="bottom" secondItem="Rec-t3-PvR" secondAttribute="bottom" constant="5" id="IVg-Z5-FBH"/>
                                                                         <constraint firstItem="Rec-t3-PvR" firstAttribute="leading" secondItem="pVD-jH-KHP" secondAttribute="leading" constant="5" id="MRE-vR-EDn"/>
+                                                                        <constraint firstItem="cOz-aG-lI9" firstAttribute="bottom" secondItem="Rec-t3-PvR" secondAttribute="bottom" id="Rrg-q6-Rk4"/>
                                                                         <constraint firstItem="Rec-t3-PvR" firstAttribute="top" secondItem="pVD-jH-KHP" secondAttribute="top" constant="5" id="TWR-cq-EWL"/>
+                                                                        <constraint firstItem="cOz-aG-lI9" firstAttribute="centerX" secondItem="Rec-t3-PvR" secondAttribute="centerX" id="XGC-3c-ho0"/>
+                                                                        <constraint firstItem="cOz-aG-lI9" firstAttribute="height" secondItem="Rec-t3-PvR" secondAttribute="height" multiplier="0.2" id="Z2g-uI-JAr"/>
                                                                         <constraint firstAttribute="trailing" secondItem="Rec-t3-PvR" secondAttribute="trailing" constant="5" id="hQI-1A-me1"/>
                                                                     </constraints>
                                                                     <userDefinedRuntimeAttributes>
@@ -335,6 +346,7 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                     <connections>
                                                                         <outlet property="posterImageView" destination="Rec-t3-PvR" id="JaC-fh-WT4"/>
+                                                                        <outlet property="titleAndYearLabel" destination="cOz-aG-lI9" id="xBk-OV-42i"/>
                                                                     </connections>
                                                                 </collectionViewCell>
                                                             </cells>
@@ -419,7 +431,6 @@
     <resources>
         <image name="ic_exit" width="410" height="410"/>
         <image name="ic_magnifier_tool" width="410" height="410"/>
-        <image name="ic_movie_placeholder" width="410" height="410"/>
         <image name="ic_squared_sad_face" width="410" height="410"/>
     </resources>
 </document>

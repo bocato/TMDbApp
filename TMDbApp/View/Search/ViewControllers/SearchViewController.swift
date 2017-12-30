@@ -238,14 +238,14 @@ extension SearchViewController: SkeletonTableViewDataSource {
             return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.searchFirstLoadCellIdentifier, for: indexPath)
         case .loading:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
-            cell.showAnimatedSkeleton()
+            cell.showLoadingSkeleton()
             return cell
         case .serviceSuccess:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
             if let searchResults = searchResults, indexPath.row < searchResults.count {
                 cell.configure(with: searchResults[indexPath.row])
             }
-            cell.hideSkeleton()
+            cell.hideLoadingSkeleton()
             return cell
         case .noResults:
             return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.emptySearchCellIdentifier, for: indexPath)

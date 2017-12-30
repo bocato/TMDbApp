@@ -12,7 +12,8 @@ fileprivate let loadingViewIdentifier = 101010
 
 extension UIView {
     
-    func startLoading(_ activityIndicatorStyle: UIActivityIndicatorViewStyle = .white, tintColor: UIColor = UIColor.lightGray, backgroundColor: UIColor = UIColor.clear) {
+    func startLoading(_ activityIndicatorStyle: UIActivityIndicatorViewStyle = .gray, tintColor: UIColor = UIColor.darkGray, backgroundColor: UIColor = UIColor.clear) {
+        
         let loadingView = UIView()
         loadingView.frame = self.bounds
         loadingView.tag = loadingViewIdentifier
@@ -21,19 +22,21 @@ extension UIView {
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: activityIndicatorStyle)
         activityIndicator.frame = self.bounds
         activityIndicator.tintColor = tintColor
+        activityIndicator.configureShadow()
         activityIndicator.startAnimating()
 
         loadingView.addSubview(activityIndicator)
-
-
+        
         DispatchQueue.main.async {
             self.addSubview(loadingView)
+            self.isUserInteractionEnabled = false
         }
     }
 
     func stopLoading() {
         let holderView = self.viewWithTag(loadingViewIdentifier)
         DispatchQueue.main.async {
+            self.isUserInteractionEnabled = true
             holderView?.removeFromSuperview()
         }
     }

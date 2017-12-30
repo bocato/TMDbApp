@@ -26,9 +26,17 @@ class OverViewTableViewCell: UITableViewCell {
     }
     
     // MARK: - Configuration
+    private func configurePoster(for movie: Movie!){
+        guard let posterURLString = movie.posterURLString else {
+            posterImageView.image = UIImage.fromResource(named: .noPoster)
+            return
+        }
+        posterImageView.setImage(with: posterURLString, placeholderImage: UIImage.fromResource(named: .loadingMoviePoster), imageForError: UIImage.fromResource(named: .noPoster), downloadedImageContentMode: .scaleAspectFit)
+    }
+    
     func configure(with movie: Movie?, posterImageViewTapActionClosure: ((_ cell: OverViewTableViewCell) -> ())? = nil, addToFavoritesButtonActionClosure: ((_ cell: OverViewTableViewCell) -> ())? = nil){
-        guard let posterURLString = movie?.posterURLString, let overview = movie?.overview else { return }
-        posterImageView.setImage(with: posterURLString, placeholderImage: UIImage.fromResource(named: .moviePlaceholder))
+        guard let overview = movie?.overview else { return }
+        configurePoster(for: movie)
         overviewTextView.text = overview
         configureFavoriteButton(for: movie)
         self.posterImageViewTapActionClosure = posterImageViewTapActionClosure

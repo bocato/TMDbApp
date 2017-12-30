@@ -53,6 +53,7 @@ class SimilarMoviesTableViewCell: UITableViewCell {
     func reloadCollectionView(){
         DispatchQueue.main.async {
             self.collectionView.reloadData()
+            self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .centeredHorizontally, animated: true)
         }
     }
     
