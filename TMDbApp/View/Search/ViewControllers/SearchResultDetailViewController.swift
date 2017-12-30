@@ -50,10 +50,17 @@ class SearchResultDetailViewController: UIViewController {
         return self.tabBarController ?? self.navigationController ?? self
     }
     var hideDismissButton = true
+    fileprivate var refreshControl: UIRefreshControl = ({
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = UIColor.lightGray
+        refreshControl.addTarget(self, action: #selector(SearchResultDetailViewController.reloadMovieData), for: .valueChanged)
+        return refreshControl
+    })()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.addSubview(refreshControl)
         loadViewData()
     }
     
@@ -100,6 +107,10 @@ class SearchResultDetailViewController: UIViewController {
         return attributedString
     }
     
+    @objc func reloadMovieData(){
+        updateViewData(with: movie)
+    }
+    
     // MARK: - Data
     func loadViewData() {
         loadMovieData()
@@ -139,6 +150,7 @@ class SearchResultDetailViewController: UIViewController {
             if let similarsCell = self.tableView.cellForRow(at: IndexPath(item: 0, section: TableViewSection.similar.hashValue)) as? SimilarMoviesTableViewCell {
                 similarsCell.stopLoading()
             }
+            self.refreshControl.endRefreshing()
         })
     }
 

@@ -121,7 +121,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorites" largeTitleDisplayMode="always" id="JTf-1t-Di9"/>
+                    <navigationItem key="navigationItem" title="Favorites" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="JTf-1t-Di9"/>
                     <size key="freeformSize" width="375" height="800"/>
                     <connections>
                         <outlet property="collectionView" destination="CMR-BX-d1e" id="QmR-bg-toj"/>

@@ -35,6 +35,11 @@ class SearchViewController: UIViewController {
     fileprivate var viewState: ViewState = .noSearch {
         didSet {
             DispatchQueue.main.async {
+                if self.viewState == .serviceSuccess {
+                    self.tableView.addSubview(self.refreshControl)
+                } else {
+                    self.refreshControl.removeFromSuperview()
+                }
                 self.tableView.isScrollEnabled = self.viewState == .serviceSuccess
                 self.tableView.separatorColor = self.viewState == .serviceSuccess ? UIColor.lightGray : UIColor.clear
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
@@ -45,7 +50,7 @@ class SearchViewController: UIViewController {
     fileprivate var refreshControl: UIRefreshControl = ({
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = UIColor.lightGray
-        refreshControl.addTarget(self, action: #selector(SearchViewController.performBasicSearch), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(SearchViewController.reloadViewData), for: .valueChanged)
         return refreshControl
     })()
     fileprivate var isObservingnavigationControllerNavigationBarFrameKeyPath = false
@@ -89,7 +94,6 @@ class SearchViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        self.tableView.addSubview(refreshControl)
     }
     
     func configureObservers() {
@@ -116,7 +120,7 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: - API Calls
-    @objc func performBasicSearch() {
+    func performBasicSearch() {
         performSearch(with: searchTerm) { (searchResponse, serviceResponse) in
             self.searchResponse = searchResponse
             self.searchResults = searchResponse?.results
@@ -159,6 +163,12 @@ class SearchViewController: UIViewController {
         }, onCompletion: {
             self.refreshControl.endRefreshing()
         })
+    }
+    
+    @objc func reloadViewData(){
+        if viewState == .serviceSuccess {
+            performBasicSearch()
+        }
     }
     
     // MARK: - Actions

@@ -76,6 +76,10 @@ class FavoritesViewController: UIViewController {
         updateBarButtonItemsState()
         self.collectionView.reloadData()
     }
+    
+    @objc func reloadViewData() {
+        loadViewData(fetchLocalDatabase: true)
+    }
 
     // MARK: - Selectors
     @objc func trashBarButtonItemDidReceiveTouchUpInside(_ sender: UIBarButtonItem){
