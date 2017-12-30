@@ -9,6 +9,7 @@
 import UIKit
 import NYTPhotoViewer
 import Kingfisher
+import SkeletonView
 
 fileprivate enum TableViewSection {
     case overview
@@ -54,6 +55,7 @@ class SearchResultDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadViewData()
+        self.view.showAnimatedSkeleton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,7 +111,6 @@ class SearchResultDetailViewController: UIViewController {
     
     // MARK: - API Calls
     func loadSimilarMoviesFirstPage() {
-        SwiftyLoadingView.show(in: view, withText: "", background: false, activityIndicatorStyle: .whiteLarge, activityIndicatorColor: UIColor.blue)
         fetchSimilarMovies(success: { (response, serviceResponse) in
             self.similarMoviesResponse = response
             self.similarMovies = response?.results
@@ -117,7 +118,7 @@ class SearchResultDetailViewController: UIViewController {
                 self.tableView.reloadData()
             }
         }, completion: {
-            SwiftyLoadingView.hide(for: self.view)
+            self.view.hideSkeleton()
         })
     }
 

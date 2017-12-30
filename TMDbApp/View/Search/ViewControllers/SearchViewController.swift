@@ -146,7 +146,31 @@ class SearchViewController: UIViewController {
                 self.performBasicSearch()
             })
             self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
-        }, onCompletion: nil)
+        }, onCompletion: {
+            self.refreshControl.endRefreshing()
+        })
+    }
+    
+    // MARK: - Actions
+    func addThisMovieToFavorites(_ movie: Movie!){
+        let realmMovie = RealmMovie(value: movie.dictionaryValueForRealm as Any)
+        FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie, onSuccess: {
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+        }, onFailure: { _ in
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+        })
+    }
+    
+    func removeThisMovieFromFavorites(_ movie: Movie!){
+        FavoriteMoviesDatabaseManager.shared.deleteMovie(with: movie.id!, onSuccess: {
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You removed \(movie.title ?? "a movie") from your favorites!", buttonTitle: "Ok", actionClosure: nil)
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+        }, onFailure: { _ in
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not remove \(movie.title ?? "a movie") from your favorites! \nIt's was probably never there.", buttonTitle: "Ok", actionClosure: nil)
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+        })
     }
     
 }
@@ -208,6 +232,25 @@ extension SearchViewController: SkeletonTableViewDataSource {
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let cell = cell as? SearchResultTableViewCell else { return }
         cell.cancelDownloadTask()
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard let movie = searchResults?[indexPath.row] else { return nil }
+        var actions = [UITableViewRowAction]()
+        if !ApplicationData.isThisMovieAFavorite(movie) {
+            let addToFavoritesAction = UITableViewRowAction(style: .default, title: "Add to Favorites", handler: { (action, indexPath) in
+                self.addThisMovieToFavorites(movie)
+            })
+            addToFavoritesAction.backgroundColor = UIColor(from: "#3366ff")
+            actions.append(addToFavoritesAction)
+        } else {
+            let removeFromFavoritesAction = UITableViewRowAction(style: .default, title: "Remove from Favorites", handler: { (action, indexPath) in
+                self.removeThisMovieFromFavorites(movie)
+            })
+            removeFromFavoritesAction.backgroundColor = UIColor.red
+            actions.append(removeFromFavoritesAction)
+        }
+        return actions
     }
     
 }
