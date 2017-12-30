@@ -61,7 +61,16 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewElements()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         configureObservers()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeObserver(self, forKeyPath: ViewDefaults.navigationControllerNavigationBarFrameKeyPath)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -72,7 +81,6 @@ class SearchViewController: UIViewController {
     deinit {
         KingfisherManager.shared.cache.clearMemoryCache()
         KingfisherManager.shared.cache.clearDiskCache()
-        removeObserver(self, forKeyPath: ViewDefaults.navigationControllerNavigationBarFrameKeyPath)
     }
     
     // MARK: - Configuration

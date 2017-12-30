@@ -27,7 +27,7 @@ class NavigationRouter {
     
     
     // MARK: - Navigation Methods
-    private func move(from: UIViewController!, to: UIViewController!, transition: TransitionType!, completion: (()->Void)? = nil) {
+    private func move(from: UIViewController!, to: UIViewController!, transition: TransitionType!, completion: (()->())? = nil) {
         switch transition {
         case .push:
             from.navigationController?.pushViewController(to, animated: true)
@@ -40,25 +40,27 @@ class NavigationRouter {
         }
     }
     
-    func perform(segue: Segue!, from: UIViewController? = nil, info: Any? = nil, completion: (()->Void)? = nil) {
+    func perform(segue: Segue!, from: UIViewController? = nil, info: Any? = nil, completion: (()->())? = nil) {
         switch segue {
         case .home:
             ApplicationRouter.instance.setTabBarAsRoot()
             return
         case .searchResultDetail:
+            guard let movie = info as? Movie else { return }
             let searchResultDetailViewController = SearchResultDetailViewController.instantiate(fromStoryboard: searchStoryboard)
-            searchResultDetailViewController.movie = info as! Movie
+            searchResultDetailViewController.movie = movie
             searchResultDetailViewController.navigationItem.largeTitleDisplayMode = .never
             searchResultDetailViewController.title = "Search Details"
-            move(from: from, to: searchResultDetailViewController, transition: .push, completion: nil)
+            move(from: from, to: searchResultDetailViewController, transition: .push, completion: completion)
             return
         case .favoriteMovieDetails:
+            guard let movie = info as? Movie else { return }
             let searchResultDetailViewController = SearchResultDetailViewController.instantiate(fromStoryboard: searchStoryboard)
-            searchResultDetailViewController.movie = info as! Movie
+            searchResultDetailViewController.movie = movie
             searchResultDetailViewController.title = "Favorite Movie Details"
             searchResultDetailViewController.hideDismissButton = false
             searchResultDetailViewController.transitioningDelegate = (from as! FavoritesViewController)
-            move(from: from, to: searchResultDetailViewController, transition: .presentModally, completion: nil)
+            move(from: from, to: searchResultDetailViewController, transition: .presentModally, completion: completion)
             return
         default:
             return

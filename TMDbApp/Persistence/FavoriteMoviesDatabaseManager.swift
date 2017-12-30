@@ -10,12 +10,16 @@ import RealmSwift
 
 class FavoriteMoviesDatabaseManager {
     
+    // MARK: - Constants
+    fileprivate static let hasAnyFavoritesKey = "hasAnyFavorites"
+    
     // MARK: Singleton
     static let shared = FavoriteMoviesDatabaseManager()
     
     // MARK: Properties
     fileprivate var database: Realm?
     
+    // MARK: Initialization
     fileprivate init() {
         database = try? Realm()
     }
@@ -30,10 +34,23 @@ class FavoriteMoviesDatabaseManager {
         return nil
     }
     
+    func updateHasAnyFavoritesKey(hasAnyFavorites: Bool){
+        UserDefaults.standard.set(hasAnyFavorites, forKey: FavoriteMoviesDatabaseManager.hasAnyFavoritesKey)
+        UserDefaults.standard.synchronize()
+    }
+    
+    static func hasAnyFavorites() -> Bool {
+        return UserDefaults.standard.bool(forKey: FavoriteMoviesDatabaseManager.hasAnyFavoritesKey)
+    }
+    
     // MARK: CRUD
     func listAll() -> Results<RealmMovie>? {
-        guard let database = database else { return nil }
+        guard let database = database else {
+            updateHasAnyFavoritesKey(hasAnyFavorites: false)
+            return nil
+        }
         let results: Results<RealmMovie> = database.objects(RealmMovie.self)
+        updateHasAnyFavoritesKey(hasAnyFavorites: results.count > 0)
         return results
     }
     

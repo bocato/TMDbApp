@@ -170,7 +170,8 @@ extension FavoritesViewController: UICollectionViewDelegate {
         if let favoriteMovies = favoriteMovies, let cell = collectionView.cellForItem(at: indexPath), favoriteMovies.count > 0 {
             presentTransition.startingPoint = cell.center
             dismissTransition.animatedTransitionStartPoint = cell.center
-            NavigationRouter().perform(segue: .favoriteMovieDetails, from: self, info: favoriteMovies[indexPath.row], completion: nil)
+            let movie = favoriteMovies[indexPath.row]
+            NavigationRouter().perform(segue: .favoriteMovieDetails, from: self, info: movie, completion: nil)
         }
     }
     
