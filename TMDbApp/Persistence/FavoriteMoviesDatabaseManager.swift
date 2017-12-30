@@ -20,33 +20,57 @@ class FavoriteMoviesDatabaseManager {
         database = try? Realm()
     }
     
-    // MARK: Crud
-//    func listAll() -> Results<RealmMovie> {
-//        guard let database = database else  { return Results<RealmMovie>() }
-//        let results: Results<RealmMovie> = database.objects(RealmMovie.self)
-//        return results
-//    }
-//    
-//    func addOrUpdate(realmMovie: RealmMovie) {
-//        guard let database = database else { return }
-//        do {
-//            try database.write {
-//                database.add(realmMovie, update: true)
-//            }
-//        } catch error {
-//            throw error
-//        }
-//    }
-//    
-//    func remove(realmMovie: RealmMovie) {
-//        guard let database = database else { return }
-//        do {
-//            try database.write {
-//                database.delete(realmMovie)
-//            }
-//        } catch error {
-//            throw error
-//        }
-//    }
+    // MARK: - Helpers
+    func findMovie(with id: Int!) -> RealmMovie? {
+        guard let database = database else { return nil }
+        let object = database.objects(RealmMovie.self).filter( { $0.id == id } ).first
+        if object?.id == id {
+            return object
+        }
+        return nil
+    }
+    
+    // MARK: CRUD
+    func listAll() -> Results<RealmMovie>? {
+        guard let database = database else { return nil }
+        let results: Results<RealmMovie> = database.objects(RealmMovie.self)
+        return results
+    }
+    
+    func addOrUpdate(realmMovie: RealmMovie, onSuccess success: @escaping () -> (), onFailure failure: ((RealmError?) -> Void)? = nil) {
+        guard let database = database else {
+            failure?(RealmError(message: PersistenceErrorMessages.invalidDatabase.rawValue, code: PersistenceErrorCodes.invalidDatabase.rawValue))
+            return
+        }
+        do {
+            try database.write {
+                database.add(realmMovie, update: true)
+                success()
+            }
+        } catch let error {
+            debugPrint(error)
+            failure?(RealmError(message: PersistenceErrorMessages.couldNotSaveOrUpdateObject.rawValue, code: PersistenceErrorCodes.couldNotSaveOrUpdateObject.rawValue))
+        }
+    }
+    
+    func deleteMovie(with id: Int!, onSuccess success: @escaping () -> (), onFailure failure: ((RealmError?) -> Void)? = nil) {
+        guard let database = database else {
+            failure?(RealmError(message: PersistenceErrorMessages.invalidDatabase.rawValue, code: PersistenceErrorCodes.invalidDatabase.rawValue))
+            return
+        }
+        guard let objectToDelete = self.findMovie(with: id) else {
+            failure?(RealmError(message: PersistenceErrorMessages.objectNotFound.rawValue, code: PersistenceErrorCodes.objectNotFound.rawValue))
+            return
+        }
+        do {
+            try database.write {
+                database.delete(objectToDelete)
+                success()
+            }
+        } catch let error {
+            debugPrint(error)
+            failure?(RealmError(message: PersistenceErrorMessages.couldNotDeleteObject.rawValue, code: PersistenceErrorCodes.couldNotDeleteObject.rawValue))
+        }
+    }
     
 }

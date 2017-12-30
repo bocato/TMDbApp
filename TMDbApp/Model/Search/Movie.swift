@@ -72,6 +72,23 @@ extension Movie {
         }).joined(separator: ", ")
     }
     
+    var dictionaryValueForRealm: Dictionary<String, Any?>? {
+        return ["voteCount": voteCount,
+                "id": id,
+                "video": video,
+                "videoAverage": videoAverage,
+                "title": title,
+                "popularity": popularity,
+                "posterPath": posterPath,
+                "originalLanguage": originalLanguage,
+                "originalTitle": originalTitle,
+                "genreIds": genreIds,
+                "backdropPath": backdropPath,
+                "adult": adult,
+                "overview": overview,
+                "releaseDate": releaseDate]
+    }
+    
 }
 
 extension Movie: Equatable {

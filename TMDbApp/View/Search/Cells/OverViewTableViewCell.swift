@@ -36,7 +36,7 @@ class OverViewTableViewCell: UITableViewCell {
     }
     
     func configureFavoriteButton(for movie: Movie!){
-        let isFavorite = ApplicationData.shared.isThisMovieAFavorite(movie)
+        let isFavorite = ApplicationData.isThisMovieAFavorite(movie)
         let favoriteButtonTitle = isFavorite ? "Remove from Favorites" : "Add to Favorites"
         favoriteButton.setTitle(favoriteButtonTitle, for: UIControlState.normal)
         favoriteButton.backgroundColor = isFavorite ? UIColor.red : UIColor(from: "#3366ff")

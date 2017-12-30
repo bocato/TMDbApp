@@ -45,7 +45,7 @@ class FavoritesViewController: UIViewController {
     
     // MARK: API / LocalDatabase Calls
     func loadViewData(){
-        favoriteMovies = ApplicationData.shared.favoriteMovies
+        favoriteMovies = ApplicationData.favoriteMovies
         self.collectionView.reloadData()
     }
 

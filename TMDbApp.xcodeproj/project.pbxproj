@@ -69,6 +69,12 @@
 		E5DB961F1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */; };
 		E5DB96261FF6D8A500AC1903 /* BubbleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96251FF6D8A500AC1903 /* BubbleTransition.swift */; };
 		E5DB96281FF6DBAF00AC1903 /* DismissFavoriteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96271FF6DBAE00AC1903 /* DismissFavoriteAnimationController.swift */; };
+		E5DB962A1FF71E7B00AC1903 /* ObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96291FF71E7A00AC1903 /* ObjectExtension.swift */; };
+		E5DB962C1FF734C900AC1903 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB962B1FF734C900AC1903 /* EncodableExtension.swift */; };
+		E5ECF51E1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */; };
+		E5ECF5201FF7460400908A17 /* RealmMovieImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF51F1FF7460400908A17 /* RealmMovieImages.swift */; };
+		E5ECF5221FF747F100908A17 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF5211FF747F100908A17 /* RealmError.swift */; };
+		E5ECF5251FF748EC00908A17 /* PersistenceErrorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF5241FF748EC00908A17 /* PersistenceErrorsEnum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +167,12 @@
 		E5DB961E1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		E5DB96251FF6D8A500AC1903 /* BubbleTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleTransition.swift; sourceTree = "<group>"; };
 		E5DB96271FF6DBAE00AC1903 /* DismissFavoriteAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissFavoriteAnimationController.swift; sourceTree = "<group>"; };
+		E5DB96291FF71E7A00AC1903 /* ObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectExtension.swift; sourceTree = "<group>"; };
+		E5DB962B1FF734C900AC1903 /* EncodableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
+		E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMoviesDatabaseManager+Images.swift"; sourceTree = "<group>"; };
+		E5ECF51F1FF7460400908A17 /* RealmMovieImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmMovieImages.swift; sourceTree = "<group>"; };
+		E5ECF5211FF747F100908A17 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
+		E5ECF5241FF748EC00908A17 /* PersistenceErrorsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceErrorsEnum.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FB64AABA747F5586CFB9760A /* Pods_TMDbAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDbAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -254,7 +266,9 @@
 			isa = PBXGroup;
 			children = (
 				E54A00651FF5FFEE0049C7BD /* FavoriteMoviesDatabaseManager.swift */,
+				E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */,
 				E54A00681FF601020049C7BD /* Models */,
+				E5ECF5231FF748D400908A17 /* Enums */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -263,6 +277,8 @@
 			isa = PBXGroup;
 			children = (
 				E54A00631FF5FF8A0049C7BD /* RealmMovie.swift */,
+				E5ECF51F1FF7460400908A17 /* RealmMovieImages.swift */,
+				E5ECF5211FF747F100908A17 /* RealmError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -432,6 +448,8 @@
 				E54A005C1FF5D59B0049C7BD /* UITableViewExtension.swift */,
 				E5DB96171FF6A00B00AC1903 /* ArrayExtension.swift */,
 				E5DB961B1FF6AE1200AC1903 /* UIColorExtension.swift */,
+				E5DB96291FF71E7A00AC1903 /* ObjectExtension.swift */,
+				E5DB962B1FF734C900AC1903 /* EncodableExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -591,6 +609,14 @@
 				E5DB96271FF6DBAE00AC1903 /* DismissFavoriteAnimationController.swift */,
 			);
 			path = Animation;
+			sourceTree = "<group>";
+		};
+		E5ECF5231FF748D400908A17 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				E5ECF5241FF748EC00908A17 /* PersistenceErrorsEnum.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -904,8 +930,10 @@
 			files = (
 				E55F04DF1FF422B40006F569 /* UIImageView+Kingfisher.swift in Sources */,
 				E55F04D81FF3F6740006F569 /* SearchResponse.swift in Sources */,
+				E5DB962A1FF71E7B00AC1903 /* ObjectExtension.swift in Sources */,
 				E55F04E61FF511320006F569 /* UICollectionViewCellExtensions.swift in Sources */,
 				E5DB96261FF6D8A500AC1903 /* BubbleTransition.swift in Sources */,
+				E5DB962C1FF734C900AC1903 /* EncodableExtension.swift in Sources */,
 				E54A00591FF5C4C90049C7BD /* BottomAlertController.swift in Sources */,
 				E5DB961F1FF6B55800AC1903 /* FavoriteCollectionViewCell.swift in Sources */,
 				E55F04DA1FF40DDA0006F569 /* UIView+Loading.swift in Sources */,
@@ -916,6 +944,7 @@
 				E55F04E51FF511320006F569 /* DateExtension.swift in Sources */,
 				E55CEE381FED933000D290D6 /* JSON.swift in Sources */,
 				E5DB961A1FF6A39A00AC1903 /* TMDBNavigationViewController.swift in Sources */,
+				E5ECF51E1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift in Sources */,
 				E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */,
 				E54A00641FF5FF8A0049C7BD /* RealmMovie.swift in Sources */,
 				E55CEE2D1FED8C7B00D290D6 /* UIViewExtension.swift in Sources */,
@@ -935,6 +964,7 @@
 				E55F04B51FF2CBE00006F569 /* ServiceError.swift in Sources */,
 				E55F04951FF294AE0006F569 /* TransitionType.swift in Sources */,
 				E5BA11EE1FF67332003D1484 /* MoviesService.swift in Sources */,
+				E5ECF5201FF7460400908A17 /* RealmMovieImages.swift in Sources */,
 				E5DB96181FF6A00B00AC1903 /* ArrayExtension.swift in Sources */,
 				E54A005B1FF5C9C90049C7BD /* GenresResponse.swift in Sources */,
 				E55F04A81FF2B5540006F569 /* SearchViewController.swift in Sources */,
@@ -943,6 +973,7 @@
 				E54A00511FF5C1E10049C7BD /* Genre.swift in Sources */,
 				E5DB961C1FF6AE1200AC1903 /* UIColorExtension.swift in Sources */,
 				E55F04AE1FF2CB650006F569 /* Service.swift in Sources */,
+				E5ECF5221FF747F100908A17 /* RealmError.swift in Sources */,
 				E55F04D41FF3F36F0006F569 /* Movie.swift in Sources */,
 				E55F04D01FF3D74F0006F569 /* SearchService.swift in Sources */,
 				E55F04CC1FF3CCB30006F569 /* Environment.swift in Sources */,
@@ -950,6 +981,7 @@
 				E5BA11E81FF66261003D1484 /* OverViewTableViewCell.swift in Sources */,
 				E5BA11F31FF67B25003D1484 /* UPCarouselFlowLayout.swift in Sources */,
 				E55F04B31FF2CBCB0006F569 /* ServiceResponse.swift in Sources */,
+				E5ECF5251FF748EC00908A17 /* PersistenceErrorsEnum.swift in Sources */,
 				E55CEE3B1FED938700D290D6 /* ApplicationRouter.swift in Sources */,
 				E5DB96281FF6DBAF00AC1903 /* DismissFavoriteAnimationController.swift in Sources */,
 			);

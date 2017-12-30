@@ -126,24 +126,45 @@ class SearchResultDetailViewController: UIViewController {
     }
     
     // MARK: - Actions
+//    func addThisMovieToFavorites(){
+//        if ApplicationData.shared.addToFavorites(self.movie) {
+//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(self.movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
+//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
+//        } else {
+//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
+//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
+//        }
+//    }
+
     func addThisMovieToFavorites(){
-        if ApplicationData.shared.addToFavorites(self.movie) {
+        let realmMovie = RealmMovie(value: movie.dictionaryValueForRealm as Any)
+        FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie, onSuccess: {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(self.movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-        } else {
+        }, onFailure: { _ in
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-        }
+        })
     }
     
+//    func removeThisMovieFromFavorites(){
+//        if ApplicationData.shared.removeFromFavorites(self.movie) {
+//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You removed \(self.movie.title ?? "a movie") from your favorites!", buttonTitle: "Ok", actionClosure: nil)
+//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
+//        } else {
+//            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not remove \(self.movie.title ?? "a movie") from your favorites! \nIt's was probably never there.", buttonTitle: "Ok", actionClosure: nil)
+//            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
+//        }
+//    }
+    
     func removeThisMovieFromFavorites(){
-        if ApplicationData.shared.removeFromFavorites(self.movie) {
+        FavoriteMoviesDatabaseManager.shared.deleteMovie(with: self.movie.id!, onSuccess: {
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You removed \(self.movie.title ?? "a movie") from your favorites!", buttonTitle: "Ok", actionClosure: nil)
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-        } else {
+        }, onFailure: { _ in
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not remove \(self.movie.title ?? "a movie") from your favorites! \nIt's was probably never there.", buttonTitle: "Ok", actionClosure: nil)
             self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-        }
+        })
     }
     
     // MARK: - IBActions
@@ -177,7 +198,7 @@ extension SearchResultDetailViewController: UITableViewDataSource {
                     self.controllerToPresentAlerts?.present(photosViewController, animated: true, completion: nil)
                 }
             }, addToFavoritesButtonActionClosure: { cell in
-                if ApplicationData.shared.isThisMovieAFavorite(self.movie) {
+                if ApplicationData.isThisMovieAFavorite(self.movie) {
                     self.removeThisMovieFromFavorites()
                 } else {
                     self.addThisMovieToFavorites()
