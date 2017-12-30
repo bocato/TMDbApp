@@ -112,9 +112,11 @@ class SearchViewController: UIViewController {
         performSearch(with: searchTerm) { (searchResponse, serviceResponse) in
             self.searchResponse = searchResponse
             self.searchResults = searchResponse?.results
-            if let _ = self.searchResults, self.searchResults!.count > 0 {
+            if let _ = searchResponse, let searchResults = self.searchResults, searchResults.count > 0 {
                 self.viewState = .serviceSuccess
             } else {
+                self.searchResponse = nil
+                self.searchResults = nil
                 self.viewState = .noResults
             }
         }
@@ -189,6 +191,13 @@ extension SearchViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            resetView()
+            searchBar.resignFirstResponder()
+        }
+    }
+    
 }
 
 // MARK: - SkeletonTableViewDataSource
@@ -201,7 +210,11 @@ extension SearchViewController: SkeletonTableViewDataSource {
         case .loading:
             return Int(floor(Float(tableView.bounds.size.height)/Float(ViewDefaults.defaultSearchCellHeight))) + 1
         case .serviceSuccess:
-            return searchResults!.count
+            guard let numberOfRowsInSection = searchResults?.count else {
+                viewState = .noResults
+                return 1
+            }
+            return numberOfRowsInSection
         case .noResults:
             return 1
         }
@@ -221,7 +234,9 @@ extension SearchViewController: SkeletonTableViewDataSource {
             return cell
         case .serviceSuccess:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
-            cell.configure(with: searchResults?[indexPath.row])
+            if let searchResults = searchResults, indexPath.row < searchResults.count {
+                cell.configure(with: searchResults[indexPath.row])
+            }
             cell.hideSkeleton()
             return cell
         case .noResults:
@@ -266,8 +281,15 @@ extension SearchViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let movie = self.searchResults?[indexPath.row] else { return }
-        NavigationRouter().perform(segue: .searchResultDetail, from: self, info: movie, completion: nil)
+        if viewState == .serviceSuccess {
+            guard let movie = self.searchResults?[indexPath.row] else { return }
+            NavigationRouter().perform(segue: .searchResultDetail, from: self, info: movie, completion: nil)
+        } else if viewState == .noSearch || viewState == .noResults {
+            DispatchQueue.main.async {
+                self.searchController.searchBar.endEditing(true)
+                self.searchController.searchBar.resignFirstResponder()
+            }
+        }
     }
     
 }

@@ -14,19 +14,12 @@ extension UIViewController {
   func configureXButtonOnRightBarButtonItem() {
     if let _ = navigationController {
       navigationItem.hidesBackButton = true
-      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(didTapXButton(_:)))
+      navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(xButtonDidReceiveTouchUpInside(_:)))
     }
   }
   
-  @objc private func didTapXButton(_ sender: UIBarButtonItem) {
+  @objc private func xButtonDidReceiveTouchUpInside(_ sender: UIBarButtonItem) {
     navigationController?.dismiss(animated: true, completion: nil)
   }
-  
-  // MARK: Alerts
-//  func showAlert(for error: Error) {
-//    guard let serviceError = error as? ServiceError, let alertText = serviceError.message else { return }
-//    let bottomAlertController = BottomAlertController.instantiateNew(withText: alertText, buttonTitle: "Ok", actionClosure: nil)
-//    self.present(bottomAlertController, animated: true, completion: nil)
-//  }
   
 }

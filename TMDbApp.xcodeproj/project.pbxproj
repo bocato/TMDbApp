@@ -71,7 +71,6 @@
 		E5DB96281FF6DBAF00AC1903 /* DismissFavoriteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96271FF6DBAE00AC1903 /* DismissFavoriteAnimationController.swift */; };
 		E5DB962A1FF71E7B00AC1903 /* ObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB96291FF71E7A00AC1903 /* ObjectExtension.swift */; };
 		E5DB962C1FF734C900AC1903 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB962B1FF734C900AC1903 /* EncodableExtension.swift */; };
-		E5ECF51E1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */; };
 		E5ECF5221FF747F100908A17 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF5211FF747F100908A17 /* RealmError.swift */; };
 		E5ECF5251FF748EC00908A17 /* PersistenceErrorsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5ECF5241FF748EC00908A17 /* PersistenceErrorsEnum.swift */; };
 /* End PBXBuildFile section */
@@ -168,7 +167,6 @@
 		E5DB96271FF6DBAE00AC1903 /* DismissFavoriteAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissFavoriteAnimationController.swift; sourceTree = "<group>"; };
 		E5DB96291FF71E7A00AC1903 /* ObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectExtension.swift; sourceTree = "<group>"; };
 		E5DB962B1FF734C900AC1903 /* EncodableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
-		E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMoviesDatabaseManager+Images.swift"; sourceTree = "<group>"; };
 		E5ECF5211FF747F100908A17 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
 		E5ECF5241FF748EC00908A17 /* PersistenceErrorsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceErrorsEnum.swift; sourceTree = "<group>"; };
 		F355C54A9394525C5132B373 /* Pods-TMDbAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDbAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TMDbAppUITests/Pods-TMDbAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -264,7 +262,6 @@
 			isa = PBXGroup;
 			children = (
 				E54A00651FF5FFEE0049C7BD /* FavoriteMoviesDatabaseManager.swift */,
-				E5ECF51D1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift */,
 				E54A00681FF601020049C7BD /* Models */,
 				E5ECF5231FF748D400908A17 /* Enums */,
 			);
@@ -941,7 +938,6 @@
 				E55F04E51FF511320006F569 /* DateExtension.swift in Sources */,
 				E55CEE381FED933000D290D6 /* JSON.swift in Sources */,
 				E5DB961A1FF6A39A00AC1903 /* TMDBNavigationViewController.swift in Sources */,
-				E5ECF51E1FF745EC00908A17 /* FavoriteMoviesDatabaseManager+Images.swift in Sources */,
 				E55CEDF21FED866300D290D6 /* AppDelegate.swift in Sources */,
 				E54A00641FF5FF8A0049C7BD /* RealmMovie.swift in Sources */,
 				E55CEE2D1FED8C7B00D290D6 /* UIViewExtension.swift in Sources */,

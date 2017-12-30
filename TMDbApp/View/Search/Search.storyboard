@@ -40,13 +40,6 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_star" translatesAutoresizingMaskIntoConstraints="NO" id="UGf-aL-8kV" userLabel="Star Image View">
-                                                    <rect key="frame" x="74" y="20.5" width="16" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="H3M-nV-bJV"/>
-                                                        <constraint firstAttribute="height" constant="16" id="UEl-Rl-xcA"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fI-hd-aqQ">
                                                     <rect key="frame" x="105" y="10" width="219" height="110.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -63,18 +56,15 @@
                                             <constraints>
                                                 <constraint firstItem="FTJ-fx-nJ6" firstAttribute="leading" secondItem="26B-GG-rj6" secondAttribute="leadingMargin" id="7BE-Po-VmW"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="2fI-hd-aqQ" secondAttribute="trailing" constant="10" id="BF3-44-zEB"/>
-                                                <constraint firstItem="UGf-aL-8kV" firstAttribute="trailing" secondItem="FTJ-fx-nJ6" secondAttribute="trailing" constant="-5" id="H1g-qw-i4d"/>
                                                 <constraint firstItem="2fI-hd-aqQ" firstAttribute="leading" secondItem="FTJ-fx-nJ6" secondAttribute="trailing" constant="10" id="JY1-MJ-9QP"/>
                                                 <constraint firstItem="FTJ-fx-nJ6" firstAttribute="centerY" secondItem="26B-GG-rj6" secondAttribute="centerY" id="Qqc-3p-kfv"/>
                                                 <constraint firstAttribute="bottom" secondItem="2fI-hd-aqQ" secondAttribute="bottom" constant="10" id="SW1-Ym-ZS7"/>
-                                                <constraint firstItem="UGf-aL-8kV" firstAttribute="top" secondItem="FTJ-fx-nJ6" secondAttribute="top" constant="5" id="Uxq-oI-gOL"/>
                                                 <constraint firstItem="2fI-hd-aqQ" firstAttribute="top" secondItem="26B-GG-rj6" secondAttribute="top" constant="10" id="nAt-kr-NGY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="movieLabel" destination="2fI-hd-aqQ" id="zaF-M6-syB"/>
                                             <outlet property="posterImageView" destination="FTJ-fx-nJ6" id="0tK-Dq-zVt"/>
-                                            <outlet property="starImageView" destination="UGf-aL-8kV" id="vaz-Kw-kza"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchFirstLoadTableViewCell" rowHeight="113" id="HLq-Ae-pF4">
@@ -431,6 +421,5 @@
         <image name="ic_magnifier_tool" width="410" height="410"/>
         <image name="ic_movie_placeholder" width="410" height="410"/>
         <image name="ic_squared_sad_face" width="410" height="410"/>
-        <image name="ic_star" width="387" height="387"/>
     </resources>
 </document>

@@ -73,4 +73,19 @@ class FavoriteMoviesDatabaseManager {
         }
     }
     
+    func deleteAll(onSuccess success: @escaping () -> (), onFailure failure: ((RealmError?) -> Void)? = nil) {
+        guard let database = database else {
+            failure?(RealmError(message: PersistenceErrorMessages.invalidDatabase.rawValue, code: PersistenceErrorCodes.invalidDatabase.rawValue))
+            return
+        }
+        do {
+            try database.write {
+                database.deleteAll()
+                success()
+            }
+        } catch let error {
+            debugPrint(error)
+            failure?(RealmError(message: PersistenceErrorMessages.couldNotDropDatabase.rawValue, code: PersistenceErrorCodes.couldNotDropDatabase.rawValue))
+        }
+    }
 }

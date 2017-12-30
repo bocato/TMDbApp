@@ -24,29 +24,6 @@ class ApplicationData {
         })
     }
     
-//    func addToFavorites(_ movie: Movie!, onSuccess success: @escaping () -> (), onFailure failure: ((RealmError?) -> Void)? = nil) {
-//        guard let _ = favoriteMovies else {
-//            let realmMovie = RealmMovie(value: movie.dictionaryValueForRealm as Any)
-//            FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie)
-//            return true
-//        }
-//        if self.favoriteMovies!.contains(movie) {
-//            return false
-//        } else {
-//            let realmMovie = RealmMovie(value: movie.dictionaryValueForRealm as Any)
-//            FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie)
-//            return true
-//        }
-//    }
-    
-//    func removeFromFavorites(_ movie: Movie!, onSuccess success: @escaping () -> (), onFailure failure: ((RealmError?) -> Void)? = nil) {
-//        guard let _ = favoriteMovies, let movieId = movie.id else {
-//            return false
-//        }
-//        FavoriteMoviesDatabaseManager.shared.deleteMovie(with: movieId)
-//        return true
-//    }
-    
     // MARK: HelperMethods
     static func isThisMovieAFavorite(_ movie: Movie!) -> Bool {
         guard let favoriteMovies = ApplicationData.favoriteMovies else {

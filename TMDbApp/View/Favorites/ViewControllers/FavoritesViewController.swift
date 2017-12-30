@@ -33,7 +33,7 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        loadViewData()
+        configureNavigationBarButtonItems()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,12 +51,92 @@ class FavoritesViewController: UIViewController {
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
     }
     
+    func configureNavigationBarButtonItems() {
+        navigationItem.hidesBackButton = true
+        if let _ = navigationController {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sort", style: .done, target: self, action: #selector(FavoritesViewController.filterBarButtonItemDidReceiveTouchUpInside(_:)))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(FavoritesViewController.trashBarButtonItemDidReceiveTouchUpInside(_:)))
+        }
+    }
+    
+    func updateBarButtonItemsState() {
+        var enableBarButtonItems = false
+        if let favoriteMovies = favoriteMovies, favoriteMovies.count >  0 {
+            enableBarButtonItems = true
+        }
+        navigationItem.leftBarButtonItem?.isEnabled = enableBarButtonItems
+        navigationItem.rightBarButtonItem?.isEnabled = enableBarButtonItems
+    }
+    
     // MARK: LocalDatabase Calls
-    func loadViewData(){
-        favoriteMovies = ApplicationData.favoriteMovies
+    func loadViewData(fetchLocalDatabase: Bool = true){
+        if fetchLocalDatabase {
+            favoriteMovies = ApplicationData.favoriteMovies
+        }
+        updateBarButtonItemsState()
         self.collectionView.reloadData()
     }
 
+    // MARK: - Selectors
+    @objc func trashBarButtonItemDidReceiveTouchUpInside(_ sender: UIBarButtonItem){
+        let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Alert", text: "Do you really want to delete all your favorites?", leftButtonTitle: "No", leftButtonActionClosure: {
+            debugPrint("No touched.")
+        }, rightButtonTitle: "Yes", rightButtonActionClosure: {
+            FavoriteMoviesDatabaseManager.shared.deleteAll(onSuccess: {
+                let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You deleted all your favorites!", buttonTitle: "Ok", actionClosure: nil)
+                self.loadViewData()
+                self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            }, onFailure: { _ in
+                let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "An unexpected error ocurred and we could not delete your favorites.", buttonTitle: "Ok", actionClosure: nil)
+                self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            })
+        })
+        self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+    }
+    
+    @objc func filterBarButtonItemDidReceiveTouchUpInside(_ sender: UIBarButtonItem){
+        
+        let alertController = UIAlertController(title: "Sort By:", message: nil, preferredStyle: .actionSheet)
+        
+        let sortByTitleAction = UIAlertAction(title: "Title", style: .default) { _ in
+            if let favoriteMovies = self.favoriteMovies, favoriteMovies.count > 0{
+                self.favoriteMovies = ApplicationData.favoriteMovies?.sorted(by: { (movie1, movie2) -> Bool in
+                    guard let title1 = movie1.title, let title2 = movie2.title else {
+                        return false
+                    }
+                    return title1 < title2
+                })
+                self.loadViewData(fetchLocalDatabase: false)
+                alertController.dismiss(animated: true, completion: nil)
+            }
+        }
+        sortByTitleAction.setValue(UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0), forKey: "titleTextColor")
+        alertController.addAction(sortByTitleAction)
+        
+        let sortByReleaseDate = UIAlertAction(title: "Release Date", style: .default) { _ in
+            if let favoriteMovies = self.favoriteMovies, favoriteMovies.count > 0 {
+                self.favoriteMovies = ApplicationData.favoriteMovies?.sorted(by: { (movie1, movie2) -> Bool in
+                    guard let movie1ReleaseDate = movie1.releaseDate, let releaseDate1 = Date.new(from: movie1ReleaseDate, format: "yyyy-MM-dd"), let movie2ReleaseDate = movie2.releaseDate, let releaseDate2 = Date.new(from: movie2ReleaseDate, format: "yyyy-MM-dd") else {
+                        return false
+                    }
+                    return releaseDate1 > releaseDate2
+                })
+                self.loadViewData(fetchLocalDatabase: false)
+                alertController.dismiss(animated: true, completion: nil)
+            }
+        }
+        sortByReleaseDate.setValue(UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0), forKey: "titleTextColor")
+        alertController.addAction(sortByReleaseDate)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { _ in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+        alertController.addAction(cancelAction)
+        
+        tabBarController?.present(alertController, animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: - UICollectionViewDataSource

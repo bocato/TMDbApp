@@ -45,7 +45,7 @@ class BottomAlertController: UIViewController {
         
         // Right Button
         controller.rightButtonTitle = rightButtonTitle
-        controller.leftButtonActionClosure = leftButtonActionClosure
+        controller.rightButtonActionClosure = rightButtonActionClosure
         
         // Safety Checks...
         if leftButtonTitle == nil && rightButtonTitle == nil {

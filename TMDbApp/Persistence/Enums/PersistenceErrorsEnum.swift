@@ -13,6 +13,7 @@ public enum PersistenceErrorCodes: Int {
     case objectNotFound = -998
     case couldNotDeleteObject = -997
     case couldNotSaveOrUpdateObject = -996
+    case couldNotDropDatabase = -995
 }
 
 public enum PersistenceErrorMessages: String {
@@ -20,4 +21,5 @@ public enum PersistenceErrorMessages: String {
     case objectNotFound = "Object not found."
     case couldNotDeleteObject = "Could not delete object."
     case couldNotSaveOrUpdateObject = "Could not save or update object."
+    case couldNotDropDatabase = "Could not drop database."
 }
