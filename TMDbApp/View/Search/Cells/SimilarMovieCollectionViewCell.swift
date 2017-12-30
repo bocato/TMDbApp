@@ -15,8 +15,8 @@ class SimilarMovieCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var titleAndYearLabel: UILabel!
     
     // MARK: Constants
-    let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.white]
-    let dateAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.white]
+    let titleAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
+    let dateAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12), NSAttributedStringKey.foregroundColor: UIColor.lightGray]
     
     // MARK: Computed Properties
     var invalidInfoAttributedTitleAndYear: NSAttributedString {

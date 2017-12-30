@@ -310,7 +310,9 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDataSource
     
     func similarMoviesTableViewCell(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimilarMovieCollectionViewCell.identifier, for: indexPath) as! SimilarMovieCollectionViewCell
-        cell.configure(with: similarMovies?[indexPath.row])
+        if let similarMovies = similarMovies, indexPath.row < similarMovies.count {
+            cell.configure(with: similarMovies[indexPath.row])
+        }
         return cell
     }
     
@@ -330,8 +332,8 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
     }
     
     func similarMoviesTableViewCellScrollViewDidScroll(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, scrollView: UIScrollView) {
-        if let similarMovies = similarMovies, similarMovies.count > 0, collectionView.scrollDidReachRightEdge {
-            guard let currentPage = similarMoviesResponse?.page, let totalPages = similarMoviesResponse?.totalPages, currentPage+1 <= totalPages, !self.isFetchingSimilarMovies else { return }
+        if let similarMovies = similarMovies, similarMovies.count > 0 && collectionView.scrollDidReachRightEdge && !self.isFetchingSimilarMovies {
+            guard let lastVisibleCell = collectionView.visibleCells.last, let lastVisibleCellIndexPath = collectionView.indexPath(for: lastVisibleCell), let currentPage = similarMoviesResponse?.page, let totalPages = similarMoviesResponse?.totalPages, currentPage+1 <= totalPages else { return }
             fetchSimilarMovies(forPage: currentPage + 1, success: { (response, serviceResponse) in
                 guard let response = response, let currentSimilarMovies = self.similarMovies else { return }
                 self.similarMoviesResponse = response
@@ -339,7 +341,6 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
                     let resultsPlusNextPage = currentSimilarMovies + similarMoviesResponseResults
                     self.similarMovies = resultsPlusNextPage
                     DispatchQueue.main.async {
-                        self.isFetchingSimilarMovies = true
                         similarMoviesTableViewCell.reloadCollectionView()
                     }
                 }
