@@ -48,6 +48,7 @@ class SearchViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(SearchViewController.performBasicSearch), for: .valueChanged)
         return refreshControl
     })()
+    fileprivate var isObservingnavigationControllerNavigationBarFrameKeyPath = false
     
     // MARK: - Computed Properties
     fileprivate var searchController: UISearchController = ({
@@ -68,11 +69,6 @@ class SearchViewController: UIViewController {
         configureObservers()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        removeObserver(self, forKeyPath: ViewDefaults.navigationControllerNavigationBarFrameKeyPath)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
@@ -81,6 +77,9 @@ class SearchViewController: UIViewController {
     deinit {
         KingfisherManager.shared.cache.clearMemoryCache()
         KingfisherManager.shared.cache.clearDiskCache()
+        if isObservingnavigationControllerNavigationBarFrameKeyPath {
+            removeObserver(self, forKeyPath: ViewDefaults.navigationControllerNavigationBarFrameKeyPath)
+        }
     }
     
     // MARK: - Configuration
@@ -95,6 +94,7 @@ class SearchViewController: UIViewController {
     
     func configureObservers() {
         addObserver(self, forKeyPath: ViewDefaults.navigationControllerNavigationBarFrameKeyPath, options: NSKeyValueObservingOptions(rawValue: 0), context: nil)
+        isObservingnavigationControllerNavigationBarFrameKeyPath = true
     }
     
     // MARK: - Observers
