@@ -138,7 +138,7 @@ class FavoritesViewController: UIViewController {
                     guard let movie1ReleaseDate = movie1.releaseDate, let releaseDate1 = Date.new(from: movie1ReleaseDate, format: "yyyy-MM-dd"), let movie2ReleaseDate = movie2.releaseDate, let releaseDate2 = Date.new(from: movie2ReleaseDate, format: "yyyy-MM-dd") else {
                         return false
                     }
-                    return releaseDate1 > releaseDate2
+                    return releaseDate1 < releaseDate2
                 })
                 self.loadViewData(fetchLocalDatabase: false)
                 alertController.dismiss(animated: true, completion: nil)
