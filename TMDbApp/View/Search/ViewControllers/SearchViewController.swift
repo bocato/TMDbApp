@@ -173,14 +173,19 @@ class SearchViewController: UIViewController {
     
     // MARK: - Actions
     func addThisMovieToFavorites(_ movie: Movie!){
-        let realmMovie = RealmMovie(value: movie.dictionaryValueForRealm as Any)
-        FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie, onSuccess: {
-            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
+        if let dictionary = movie.dictionaryValueForRealm {
+            let realmMovie = RealmMovie(value: dictionary as Any)
+            FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie, onSuccess: {
+                let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
+                self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            }, onFailure: { _ in
+                let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
+                self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+            })
+        } else {
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
             self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
-        }, onFailure: { _ in
-            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
-            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
-        })
+        }
     }
     
     func removeThisMovieFromFavorites(_ movie: Movie!){

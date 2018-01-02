@@ -170,14 +170,19 @@ class SearchResultDetailViewController: UIViewController {
     
     // MARK: - Actions
     func addThisMovieToFavorites(){
-        let realmMovie = RealmMovie(value: movie.dictionaryValueForRealm as Any)
-        FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie, onSuccess: {
-            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(self.movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
-            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-        }, onFailure: { _ in
-            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
-            self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
-        })
+        if let dictionary = movie.dictionaryValueForRealm {
+            let realmMovie = RealmMovie(value: dictionary as Any)
+            FavoriteMoviesDatabaseManager.shared.addOrUpdate(realmMovie: realmMovie, onSuccess: {
+                let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Great!", text: "You added \(self.movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
+                self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
+            }, onFailure: { _ in
+                let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(self.movie.title ?? "a movie") to your favorites! \nCheck if it is not already there.", buttonTitle: "Ok", actionClosure: nil)
+                self.controllerToPresentAlerts?.present(bottomAlertController, animated: true, completion: nil)
+            })
+        }  else {
+            let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Oops!", text: "Could not add \(movie.title ?? "a movie") to your favorites!", buttonTitle: "Ok", actionClosure: nil)
+            self.tabBarController?.present(bottomAlertController, animated: true, completion: nil)
+        }
     }
     
     func removeThisMovieFromFavorites(){
@@ -333,7 +338,7 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
     
     func similarMoviesTableViewCellScrollViewDidScroll(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, scrollView: UIScrollView) {
         if let similarMovies = similarMovies, similarMovies.count > 0 && collectionView.scrollDidReachRightEdge && !self.isFetchingSimilarMovies {
-            guard let lastVisibleCell = collectionView.visibleCells.last, let lastVisibleCellIndexPath = collectionView.indexPath(for: lastVisibleCell), let currentPage = similarMoviesResponse?.page, let totalPages = similarMoviesResponse?.totalPages, currentPage+1 <= totalPages else { return }
+            guard /*let lastVisibleCell = collectionView.visibleCells.last, let lastVisibleCellIndexPath = collectionView.indexPath(for: lastVisibleCell),*/ let currentPage = similarMoviesResponse?.page, let totalPages = similarMoviesResponse?.totalPages, currentPage+1 <= totalPages else { return }
             fetchSimilarMovies(forPage: currentPage + 1, success: { (response, serviceResponse) in
                 guard let response = response, let currentSimilarMovies = self.similarMovies else { return }
                 self.similarMoviesResponse = response

@@ -13,20 +13,36 @@ import Realm
 class RealmMovie: Object {
     
     // MARK: - Properties
-    @objc dynamic var voteCount: Int = 0
-    @objc dynamic var id: Int = 0
-    @objc dynamic var video = false
-    @objc dynamic var videoAverage: Float = 0.0
-    @objc dynamic var title = ""
-    @objc dynamic var popularity: Float = 0.0
-    @objc dynamic var posterPath = ""
-    @objc dynamic var originalLanguage = ""
-    @objc dynamic var originalTitle = ""
+    var voteCount = RealmOptional<Int>()
+    var id = RealmOptional<Int>()
+    @objc dynamic var video: Bool = false
+    var videoAverage = RealmOptional<Float>()
+    @objc dynamic var title: String = ""
+    var popularity = RealmOptional<Float>()
+    @objc dynamic var posterPath: String = ""
+    @objc dynamic var originalLanguage: String = ""
+    @objc dynamic var originalTitle: String = ""
     let genreIds = List<Int>()
-    @objc dynamic var backdropPath = ""
-    @objc dynamic var adult: Bool = false
-    @objc dynamic var overview = ""
-    @objc dynamic var releaseDate = ""
+    @objc dynamic var backdropPath: String = ""
+    var adult: Bool = false
+    @objc dynamic var overview: String = ""
+    @objc dynamic var releaseDate: String = ""
+    
+    
+//    var voteCount: Int?
+//    var id: Int?
+//    var video: Bool = false
+//    var videoAverage: Float?
+//    var title: String?
+//    var popularity: Float?
+//    var posterPath: String?
+//    var originalLanguage: String?
+//    var originalTitle: String?
+//    var genreIds: [Int]?
+//    var backdropPath: String?
+//    var adult: Bool = false
+//    var overview: String?
+//    var releaseDate: String?
     
     override init(value: Any) {
         super.init(value: value)
@@ -62,7 +78,7 @@ extension RealmMovie {
             genreIds.append(genreId)
         }
         
-        return Movie(voteCount: voteCount, id: id, video: video, videoAverage: videoAverage, title: title, popularity: popularity, posterPath: posterPath, originalLanguage: originalLanguage, originalTitle: originalTitle, genreIds: genreIds, backdropPath: backdropPath, adult: adult, overview: overview, releaseDate: releaseDate)
+        return Movie(voteCount: voteCount.value, id: id.value, video: video, videoAverage: videoAverage.value, title: title, popularity: popularity.value, posterPath: posterPath, originalLanguage: originalLanguage, originalTitle: originalTitle, genreIds: genreIds, backdropPath: backdropPath, adult: adult, overview: overview, releaseDate: releaseDate)
     }
     
 }

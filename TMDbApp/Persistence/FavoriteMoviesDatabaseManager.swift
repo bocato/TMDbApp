@@ -27,9 +27,10 @@ class FavoriteMoviesDatabaseManager {
     // MARK: - Helpers
     func findMovie(with id: Int!) -> RealmMovie? {
         guard let database = database else { return nil }
-        let object = database.objects(RealmMovie.self).filter( { $0.id == id } ).first
-        if object?.id == id {
-            return object
+        if let object = database.objects(RealmMovie.self).filter( { $0.id.value == id } ).first{
+            if object.id.value == id {
+                return object
+            }
         }
         return nil
     }
