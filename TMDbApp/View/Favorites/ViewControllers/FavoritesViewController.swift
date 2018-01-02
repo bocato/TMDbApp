@@ -27,7 +27,6 @@ class FavoritesViewController: UIViewController {
         transition.bubbleColor = UIColor.white
         return transition
     })()
-    private let dismissTransition = DismissFavoriteAnimationController()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -188,7 +187,6 @@ extension FavoritesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let favoriteMovies = favoriteMovies, let cell = collectionView.cellForItem(at: indexPath), favoriteMovies.count > 0 {
             presentTransition.startingPoint = cell.center
-            dismissTransition.animatedTransitionStartPoint = cell.center
             let movie = favoriteMovies[indexPath.row]
             NavigationRouter().perform(segue: .favoriteMovieDetails, from: self, info: movie, completion: nil)
         }
@@ -212,10 +210,6 @@ extension FavoritesViewController: UIViewControllerTransitioningDelegate {
 
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return presentTransition
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return dismissTransition
     }
     
 }

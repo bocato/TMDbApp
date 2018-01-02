@@ -25,7 +25,6 @@ class NavigationRouter {
     // MARK: - Storyboards
     fileprivate lazy var searchStoryboard: UIStoryboard = UIStoryboard(name: "Search", bundle: nil)
     
-    
     // MARK: - Navigation Methods
     private func move(from: UIViewController!, to: UIViewController!, transition: TransitionType!, completion: (()->())? = nil) {
         switch transition {

@@ -338,7 +338,7 @@ extension SearchResultDetailViewController: SimilarMoviesTableViewCellDelegate {
     
     func similarMoviesTableViewCellScrollViewDidScroll(_ similarMoviesTableViewCell: SimilarMoviesTableViewCell, collectionView: UICollectionView, scrollView: UIScrollView) {
         if let similarMovies = similarMovies, similarMovies.count > 0 && collectionView.scrollDidReachRightEdge && !self.isFetchingSimilarMovies {
-            guard /*let lastVisibleCell = collectionView.visibleCells.last, let lastVisibleCellIndexPath = collectionView.indexPath(for: lastVisibleCell),*/ let currentPage = similarMoviesResponse?.page, let totalPages = similarMoviesResponse?.totalPages, currentPage+1 <= totalPages else { return }
+            guard let currentPage = similarMoviesResponse?.page, let totalPages = similarMoviesResponse?.totalPages, currentPage+1 <= totalPages else { return }
             fetchSimilarMovies(forPage: currentPage + 1, success: { (response, serviceResponse) in
                 guard let response = response, let currentSimilarMovies = self.similarMovies else { return }
                 self.similarMoviesResponse = response
