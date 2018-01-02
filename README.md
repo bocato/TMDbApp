@@ -8,8 +8,6 @@ Kingfisher: for image caching.
 
 NYTPhotoViewer: image viewer for the posters.
 
-SnapKit: easy autolayout for viewcode.
-
 RealmSwift: local database / persistence.
 
 # ScreenShots
