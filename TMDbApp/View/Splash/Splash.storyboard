@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="e3O-Fe-W0d">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="isG-6D-5JJ">
+            <objects>
+                <viewController storyboardIdentifier="SplashViewController" modalPresentationStyle="overFullScreen" id="e3O-Fe-W0d" customClass="SplashViewController" customModule="TMDbApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aMM-oh-NBU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eiT-JZ-hSq">
+                                <rect key="frame" x="0.0" y="257.5" width="0.0" height="173.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_film" translatesAutoresizingMaskIntoConstraints="NO" id="CdJ-WC-PeZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="ApM-C5-mSb"/>
+                                            <constraint firstAttribute="height" constant="72" id="HC9-Dr-qeR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Movie Database APP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgZ-9n-D6f">
+                                        <rect key="frame" x="0.0" y="82" width="0.0" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bh3-UZ-D7o">
+                                        <rect key="frame" x="0.0" y="123.5" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="51G-Au-wbv"/>
+                                            <constraint firstAttribute="width" constant="50" id="ibs-gR-eoi"/>
+                                        </constraints>
+                                        <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eiT-JZ-hSq" firstAttribute="centerY" secondItem="dQt-zS-gtb" secondAttribute="centerY" id="3bw-iO-Ajy"/>
+                            <constraint firstItem="eiT-JZ-hSq" firstAttribute="leading" secondItem="dQt-zS-gtb" secondAttribute="leading" constant="20" id="Kqr-VU-51b"/>
+                            <constraint firstItem="dQt-zS-gtb" firstAttribute="trailing" secondItem="eiT-JZ-hSq" secondAttribute="trailing" constant="20" id="XF9-pI-DXf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dQt-zS-gtb"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Bh3-UZ-D7o" id="nm9-9Z-lnH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OD0-hj-aHI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="356" y="174.96251874062969"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_film" width="47" height="47"/>
+    </resources>
+</document>

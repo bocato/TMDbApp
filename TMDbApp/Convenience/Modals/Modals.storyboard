@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="NotoSans-Regular.ttf">
+            <string>NotoSans-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Bottom Alert Controller-->
+        <scene sceneID="gdY-34-oZ1">
+            <objects>
+                <viewController storyboardIdentifier="BottomAlertController" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nzk-oe-3Ho" customClass="BottomAlertController" customModule="TMDbApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RDD-9Q-DYN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEW-Wd-Y0S" userLabel="Alert Content Container View">
+                                <rect key="frame" x="0.0" y="467" width="375" height="200"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="CES-v5-ZZD" userLabel="Buttons Stack View">
+                                        <rect key="frame" x="0.0" y="156" width="375" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MA9-8y-46R">
+                                                <rect key="frame" x="0.0" y="0.0" width="187.5" height="44"/>
+                                                <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="15"/>
+                                                <state key="normal" title="Left Button"/>
+                                                <connections>
+                                                    <action selector="leftButtonDidReceiveTouchUpInside:" destination="nzk-oe-3Ho" eventType="touchUpInside" id="63y-Wl-4Io"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGG-my-hKi">
+                                                <rect key="frame" x="187.5" y="0.0" width="187.5" height="44"/>
+                                                <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="15"/>
+                                                <state key="normal" title="Right Button"/>
+                                                <connections>
+                                                    <action selector="rightButtonDidReceiveTouchUpInside:" destination="nzk-oe-3Ho" eventType="touchUpInside" id="wwR-o1-tG4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="eV4-yQ-MR2"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yCQ-vX-f1z">
+                                        <rect key="frame" x="10" y="20" width="355" height="126"/>
+                                        <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="17"/>
+                                        <color key="textColor" red="0.79991227389999997" green="0.80005055670000003" blue="0.79990351199999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="yCQ-vX-f1z" firstAttribute="leading" secondItem="dEW-Wd-Y0S" secondAttribute="leading" constant="10" id="04H-Yn-oDW"/>
+                                    <constraint firstItem="CES-v5-ZZD" firstAttribute="top" secondItem="yCQ-vX-f1z" secondAttribute="bottom" constant="10" id="2d7-yF-tWh"/>
+                                    <constraint firstItem="yCQ-vX-f1z" firstAttribute="top" secondItem="dEW-Wd-Y0S" secondAttribute="top" constant="20" id="5ZK-dF-8Jh"/>
+                                    <constraint firstAttribute="trailing" secondItem="CES-v5-ZZD" secondAttribute="trailing" id="Cmv-eK-VVK"/>
+                                    <constraint firstAttribute="bottom" secondItem="CES-v5-ZZD" secondAttribute="bottom" id="VMW-ap-eZ7"/>
+                                    <constraint firstItem="CES-v5-ZZD" firstAttribute="leading" secondItem="dEW-Wd-Y0S" secondAttribute="leading" id="slR-2e-Lwv"/>
+                                    <constraint firstAttribute="trailing" secondItem="yCQ-vX-f1z" secondAttribute="trailing" constant="10" id="xfQ-Lh-Vkn"/>
+                                </constraints>
+                            </view>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uhq-PN-XBt" userLabel="Separator View">
+                                <rect key="frame" x="0.0" y="466" width="375" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="WAE-2M-Imn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="leading" secondItem="Ubr-mB-uQA" secondAttribute="leading" id="1lf-6N-NUS"/>
+                            <constraint firstItem="Ubr-mB-uQA" firstAttribute="trailing" secondItem="Uhq-PN-XBt" secondAttribute="trailing" id="5Bj-St-Aks"/>
+                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="height" relation="lessThanOrEqual" secondItem="RDD-9Q-DYN" secondAttribute="height" multiplier="0.8" priority="999" id="AcB-X0-2Xo"/>
+                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="trailing" secondItem="Ubr-mB-uQA" secondAttribute="trailing" id="CmQ-hM-6gJ"/>
+                            <constraint firstItem="Ubr-mB-uQA" firstAttribute="bottom" secondItem="dEW-Wd-Y0S" secondAttribute="bottom" id="OKQ-58-n9r"/>
+                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="top" secondItem="Uhq-PN-XBt" secondAttribute="bottom" id="R6g-fT-dXp"/>
+                            <constraint firstItem="Uhq-PN-XBt" firstAttribute="leading" secondItem="Ubr-mB-uQA" secondAttribute="leading" id="jWm-sO-7ra"/>
+                            <constraint firstItem="dEW-Wd-Y0S" firstAttribute="height" relation="greaterThanOrEqual" secondItem="RDD-9Q-DYN" secondAttribute="height" multiplier="0.3" id="nnd-1b-ON5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ubr-mB-uQA"/>
+                    </view>
+                    <connections>
+                        <outlet property="leftButton" destination="MA9-8y-46R" id="6qq-vt-ef9"/>
+                        <outlet property="rightButton" destination="aGG-my-hKi" id="D9d-Sa-qwi"/>
+                        <outlet property="textLabel" destination="yCQ-vX-f1z" id="RK8-Hc-y10"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QvC-wk-Oje" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1271" y="-90"/>
+        </scene>
+    </scenes>
+</document>
