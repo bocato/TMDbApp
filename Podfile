@@ -6,7 +6,6 @@ target 'TMDbApp' do
   use_frameworks!
 
   # Pods for TMDbApp
-  pod 'SkeletonView', '~> 1.0.4'
   pod 'Kingfisher', '~> 4.0'
   pod 'NYTPhotoViewer', '~> 1.1.0'
   pod 'RealmSwift', '~> 3.0.2'

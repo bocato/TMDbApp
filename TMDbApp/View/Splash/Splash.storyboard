@@ -18,38 +18,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eiT-JZ-hSq">
-                                <rect key="frame" x="0.0" y="257.5" width="0.0" height="173.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tt4-rT-z3I" userLabel="Splash Content View">
+                                <rect key="frame" x="87" y="243.5" width="200" height="200"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_film" translatesAutoresizingMaskIntoConstraints="NO" id="CdJ-WC-PeZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                        <rect key="frame" x="64" y="0.0" width="72" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="72" id="ApM-C5-mSb"/>
                                             <constraint firstAttribute="height" constant="72" id="HC9-Dr-qeR"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Movie Database APP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgZ-9n-D6f">
-                                        <rect key="frame" x="0.0" y="82" width="0.0" height="31.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bh3-UZ-D7o">
-                                        <rect key="frame" x="0.0" y="123.5" width="50" height="50"/>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bh3-UZ-D7o">
+                                        <rect key="frame" x="75" y="72" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="51G-Au-wbv"/>
                                             <constraint firstAttribute="width" constant="50" id="ibs-gR-eoi"/>
                                         </constraints>
                                         <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Movie Database APP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SgZ-9n-D6f">
+                                        <rect key="frame" x="0.0" y="122" width="200" height="78"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Bh3-UZ-D7o" firstAttribute="top" secondItem="CdJ-WC-PeZ" secondAttribute="bottom" id="0Nn-kN-68B"/>
+                                    <constraint firstItem="SgZ-9n-D6f" firstAttribute="top" secondItem="Bh3-UZ-D7o" secondAttribute="bottom" id="8EC-1x-Him"/>
+                                    <constraint firstAttribute="bottom" secondItem="SgZ-9n-D6f" secondAttribute="bottom" id="EOn-5w-bvR"/>
+                                    <constraint firstAttribute="trailing" secondItem="SgZ-9n-D6f" secondAttribute="trailing" id="HWw-Gc-6JB"/>
+                                    <constraint firstItem="CdJ-WC-PeZ" firstAttribute="centerX" secondItem="Tt4-rT-z3I" secondAttribute="centerX" id="Pxj-jC-TBC"/>
+                                    <constraint firstItem="SgZ-9n-D6f" firstAttribute="leading" secondItem="Tt4-rT-z3I" secondAttribute="leading" id="QsI-2x-vF6"/>
+                                    <constraint firstAttribute="width" constant="200" id="Vn8-oY-XSr"/>
+                                    <constraint firstItem="Bh3-UZ-D7o" firstAttribute="centerX" secondItem="CdJ-WC-PeZ" secondAttribute="centerX" id="ZjV-27-LHz"/>
+                                    <constraint firstItem="CdJ-WC-PeZ" firstAttribute="top" secondItem="Tt4-rT-z3I" secondAttribute="top" id="nHW-Kd-voy"/>
+                                    <constraint firstAttribute="height" constant="200" id="rfb-P4-h3f"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eiT-JZ-hSq" firstAttribute="centerY" secondItem="dQt-zS-gtb" secondAttribute="centerY" id="3bw-iO-Ajy"/>
-                            <constraint firstItem="eiT-JZ-hSq" firstAttribute="leading" secondItem="dQt-zS-gtb" secondAttribute="leading" constant="20" id="Kqr-VU-51b"/>
-                            <constraint firstItem="dQt-zS-gtb" firstAttribute="trailing" secondItem="eiT-JZ-hSq" secondAttribute="trailing" constant="20" id="XF9-pI-DXf"/>
+                            <constraint firstItem="Tt4-rT-z3I" firstAttribute="centerX" secondItem="dQt-zS-gtb" secondAttribute="centerX" id="TAs-wm-t3E"/>
+                            <constraint firstItem="Tt4-rT-z3I" firstAttribute="centerY" secondItem="dQt-zS-gtb" secondAttribute="centerY" id="TqI-aO-qTw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dQt-zS-gtb"/>
                     </view>

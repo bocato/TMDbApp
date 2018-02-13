@@ -25,7 +25,7 @@ class SimilarMovieCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Configuration
     private func createMovieLabelAttributedString(for movie: Movie!) -> NSAttributedString {
-        guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy")else { return invalidInfoAttributedTitleAndYear }
+        guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy") else { return invalidInfoAttributedTitleAndYear }
         let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
         attributedString.append(NSAttributedString(string: " (\(year))", attributes: dateAttributes))
         return attributedString

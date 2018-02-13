@@ -24,9 +24,13 @@ class SearchResultTableViewCell: UITableViewCell {
         return NSAttributedString(string: "Unknown", attributes: titleAttributes)
     }
 
+    // MARK: - Lifecycle
+    deinit {
+        posterImageView.cancelDownloadTask()
+    }
+    
     // MARK: - Configuration    
     private func createMovieLabelAttributedString(for movie: Movie!) -> NSAttributedString {
-        // TODO: Add Genres
         guard let title = movie.title, let year = Date.new(from: movie.releaseDate!, format: "yyyy-MM-dd")?.stringWithFormat("yyyy"), let genresString = movie.genresString else { return invalidInfoAttributedTitleAndYear }
         let attributedString = NSMutableAttributedString(string: title, attributes: titleAttributes)
         attributedString.append(NSAttributedString(string: " (\(year))", attributes: dateAttributes))
@@ -46,22 +50,6 @@ class SearchResultTableViewCell: UITableViewCell {
         guard let movie = movie else { return }
         configurePoster(for: movie)
         movieLabel.attributedText = createMovieLabelAttributedString(for: movie)
-    }
-    
-    // MARK: KingFisher
-    func cancelDownloadTask() {
-        posterImageView.cancelDownloadTask()
-    }
-    
-    // MARK: Skeleton View
-    func showLoadingSkeleton(){
-        posterImageView.showAnimatedSkeleton()
-        movieLabel.showAnimatedSkeleton()
-    }
-    
-    func hideLoadingSkeleton(){
-        posterImageView.hideSkeleton()
-        movieLabel.hideSkeleton()
     }
     
 }

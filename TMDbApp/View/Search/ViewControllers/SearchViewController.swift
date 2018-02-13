@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkeletonView
 import Kingfisher
 
 fileprivate enum ViewState {
@@ -21,6 +20,7 @@ fileprivate struct ViewDefaults {
     static let defaultSearchCellHeight = CGFloat(120)
     static let searchFirstLoadCellIdentifier = "SearchFirstLoadTableViewCell"
     static let emptySearchCellIdentifier = "EmptySearchTableViewCell"
+    static let searchResultTableViewCellSkeletonIdentifier = "SearchResultTableViewCellSkeleton"
     static let navigationControllerNavigationBarFrameKeyPath = "navigationController.navigationBar.frame"
 }
 
@@ -229,7 +229,7 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 // MARK: - SkeletonTableViewDataSource
-extension SearchViewController: SkeletonTableViewDataSource {
+extension SearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch viewState {
@@ -248,33 +248,22 @@ extension SearchViewController: SkeletonTableViewDataSource {
         }
     }
     
-    func collectionSkeletonView(_ skeletonView: UITableView, cellIdenfierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
-        return SearchResultTableViewCell.identifier
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewState {
         case .noSearch:
             return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.searchFirstLoadCellIdentifier, for: indexPath)
         case .loading:
-            let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
-            cell.showLoadingSkeleton()
+            let cell = tableView.dequeueReusableCell(withIdentifier: ViewDefaults.searchResultTableViewCellSkeletonIdentifier, for: indexPath)
             return cell
         case .serviceSuccess:
             let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as! SearchResultTableViewCell
             if let searchResults = searchResults, indexPath.row < searchResults.count {
                 cell.configure(with: searchResults[indexPath.row])
             }
-            cell.hideLoadingSkeleton()
             return cell
         case .noResults:
             return tableView.dequeueReusableCell(withIdentifier: ViewDefaults.emptySearchCellIdentifier, for: indexPath)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = cell as? SearchResultTableViewCell else { return }
-        cell.cancelDownloadTask()
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

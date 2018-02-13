@@ -9,7 +9,6 @@
 import UIKit
 import NYTPhotoViewer
 import Kingfisher
-import SkeletonView
 
 fileprivate enum TableViewSection {
     case overview

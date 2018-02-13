@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,8 +68,67 @@
                                             <outlet property="posterImageView" destination="FTJ-fx-nJ6" id="0tK-Dq-zVt"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SearchResultTableViewCellSkeleton" rowHeight="131" id="74w-T4-3RU" customClass="SearchResultTableViewCell" customModule="TMDbApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="159" width="375" height="131"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="74w-T4-3RU" id="Qb6-e8-CvT">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="131"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KPd-z1-BK9" userLabel="ImageView Skeleton">
+                                                    <rect key="frame" x="15" y="15" width="80" height="100"/>
+                                                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="i0m-qX-3yZ"/>
+                                                        <constraint firstAttribute="height" constant="100" id="iGs-qz-Hq5"/>
+                                                    </constraints>
+                                                </view>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="0LQ-2R-wcW">
+                                                    <rect key="frame" x="105" y="25" width="227" height="80"/>
+                                                    <subviews>
+                                                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ref-um-sx8" userLabel="Text SkeletonView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="227" height="10"/>
+                                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="10" id="C49-hB-VK8"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tHT-Sa-b4k" userLabel="Text SkeletonView">
+                                                            <rect key="frame" x="0.0" y="23.5" width="227" height="10"/>
+                                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="10" id="pLD-i7-Gic"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7N-2v-2jC" userLabel="Text SkeletonView">
+                                                            <rect key="frame" x="0.0" y="46.5" width="227" height="10"/>
+                                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="10" id="i7n-1d-x7H"/>
+                                                            </constraints>
+                                                        </view>
+                                                        <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1c-De-iaG" userLabel="Text SkeletonView">
+                                                            <rect key="frame" x="0.0" y="70" width="227" height="10"/>
+                                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="10" id="w5W-l5-VGD"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="0LQ-2R-wcW" firstAttribute="height" secondItem="KPd-z1-BK9" secondAttribute="height" multiplier="0.8" id="PSN-rP-05w"/>
+                                                <constraint firstItem="0LQ-2R-wcW" firstAttribute="leading" secondItem="KPd-z1-BK9" secondAttribute="trailing" constant="10" id="Pk6-9L-hnm"/>
+                                                <constraint firstItem="0LQ-2R-wcW" firstAttribute="centerY" secondItem="KPd-z1-BK9" secondAttribute="centerY" id="aak-05-z0Y"/>
+                                                <constraint firstItem="KPd-z1-BK9" firstAttribute="centerY" secondItem="Qb6-e8-CvT" secondAttribute="centerY" id="bEX-sI-Rig"/>
+                                                <constraint firstItem="KPd-z1-BK9" firstAttribute="leading" secondItem="Qb6-e8-CvT" secondAttribute="leadingMargin" id="dRq-1z-OoJ"/>
+                                                <constraint firstAttribute="trailing" secondItem="0LQ-2R-wcW" secondAttribute="trailing" constant="10" id="mKB-yc-bEZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchFirstLoadTableViewCell" rowHeight="113" id="HLq-Ae-pF4">
-                                        <rect key="frame" x="0.0" y="159" width="375" height="113"/>
+                                        <rect key="frame" x="0.0" y="290" width="375" height="113"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HLq-Ae-pF4" id="HA0-tR-sIE">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
@@ -89,7 +149,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EmptySearchTableViewCell" rowHeight="147" id="haz-8Z-K4d">
-                                        <rect key="frame" x="0.0" y="272" width="375" height="147"/>
+                                        <rect key="frame" x="0.0" y="403" width="375" height="147"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="haz-8Z-K4d" id="jxA-Fu-LbB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>

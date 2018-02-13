@@ -14,7 +14,6 @@ extension UIImageView {
     
     // MARK: - Kingfisher Methods
     func cancelDownloadTask() {
-        stopLoading()
         kf.cancelDownloadTask()
     }
     
@@ -24,8 +23,13 @@ extension UIImageView {
             return
         }
         self.contentMode = .scaleAspectFit
-        startLoading()
-        kf.setImage(with: url, placeholder: placeholderImage, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { (image, error, _, _) in
+        kf.setImage(with: url, placeholder: placeholderImage, options: [.transition(ImageTransition.fade(1))], progressBlock: { (receivedSize, totalSize) in
+            if receivedSize == totalSize {
+                DispatchQueue.main.async {
+                    
+                }
+            }
+        }, completionHandler: { (image, error, _, _) in
             DispatchQueue.main.async {
                 if let _ = error {
                     guard let imageForError = imageForError else {
@@ -40,8 +44,7 @@ extension UIImageView {
                     }
                 }
             }
-            self.stopLoading()
-        }
+        })
     }
     
 }
