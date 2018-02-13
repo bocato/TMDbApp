@@ -31,7 +31,8 @@ class SplashViewController: UIViewController {
             ApplicationData.shared.movieGenres = movieGenres
             NavigationRouter().perform(segue: .home)
         }, onFailure: { (serviceResponse) in
-            let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
+            self.activityIndicator.stopAnimating()
+            let message = serviceResponse?.serviceError?.statusMessage ?? ErrorMessage.unexpected.rawValue
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: nil, rightButtonTitle: "Retry", rightButtonActionClosure: {
                 self.loadGenres()
             })

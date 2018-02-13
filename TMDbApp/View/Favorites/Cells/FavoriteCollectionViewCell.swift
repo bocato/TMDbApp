@@ -63,7 +63,7 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
             backdropImageView.layoutSubviews()
             return
         }
-        backdropImageView.setImage(with: backdropPathURLString, placeholderImage: UIImage.fromResource(named: .loadingBackdrop), imageForError: UIImage.fromResource(named: .noBackdrop), downloadedImageContentMode: .scaleToFill)
+        backdropImageView.setImage(with: backdropPathURLString, imageForError: UIImage.fromResource(named: .noBackdrop), downloadedImageContentMode: .scaleToFill)
         backdropImageView.layoutSubviews()
     }
     

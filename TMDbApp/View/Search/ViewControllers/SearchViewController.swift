@@ -40,8 +40,7 @@ class SearchViewController: UIViewController {
                 } else {
                     self.refreshControl.removeFromSuperview()
                 }
-                self.tableView.isScrollEnabled = self.viewState == .serviceSuccess
-                self.tableView.separatorColor = self.viewState == .serviceSuccess ? UIColor.lightGray : UIColor.clear
+                self.configureTableViewForViewState()
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
             }
         }
@@ -88,6 +87,12 @@ class SearchViewController: UIViewController {
     }
     
     // MARK: - Configuration
+    func configureTableViewForViewState() {
+        self.tableView.isScrollEnabled = self.viewState == .serviceSuccess
+        self.tableView.separatorStyle = self.viewState == .serviceSuccess ? .singleLine : .none
+        self.tableView.separatorColor = self.viewState == .serviceSuccess ? UIColor.lightGray : UIColor.clear
+    }
+    
     func configureViewElements() {
         searchController.searchBar.delegate = self
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -153,7 +158,7 @@ class SearchViewController: UIViewController {
         }, onFailure: { (serviceResponse) in
             self.viewState = .noResults
             self.searchController.dismiss(animated: false, completion: nil)
-            let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
+            let message = serviceResponse?.serviceError?.statusMessage ?? ErrorMessage.unexpected.rawValue
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: {
                 debugPrint("Cancel touched.")
             }, rightButtonTitle: "Retry", rightButtonActionClosure: {

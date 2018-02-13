@@ -14,14 +14,13 @@ extension UIImageView {
     
     // MARK: - Kingfisher Methods
     func cancelDownloadTask() {
-        kf.cancelDownloadTask()
         stopLoading()
+        kf.cancelDownloadTask()
     }
     
     func setImage(with urlString: String?,
                   placeholderImage: UIImage? = nil, imageForError: UIImage? = nil, downloadedImageContentMode: UIViewContentMode? = .scaleAspectFit) {
         guard let urlString = urlString, let url = URL(string: urlString) else {
-            image = placeholderImage
             return
         }
         self.contentMode = .scaleAspectFit
@@ -40,8 +39,8 @@ extension UIImageView {
                         self.contentMode = downloadedImageContentMode
                     }
                 }
-                self.stopLoading()
             }
+            self.stopLoading()
         }
     }
     

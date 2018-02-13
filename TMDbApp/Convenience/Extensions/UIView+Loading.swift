@@ -1,43 +1,86 @@
 //
 //  UIView+Loading.swift
-//  TMDbApp
+//  Loading
 //
-//  Created by Eduardo Sanches Bocato on 28/12/17.
-//  Copyright © 2017 Eduardo Sanches Bocato. All rights reserved.
+//  Created by Eduardo Sanches Bocato on 02/02/18.
+//  Copyright © 2018 Eduardo Sanches Bocato. All rights reserved.
 //
 
 import UIKit
 
-fileprivate let loadingViewIdentifier = 101010
+// MARK: Constants
+fileprivate let loadingViewTag = 11111
 
 extension UIView {
     
-    func startLoading(_ activityIndicatorStyle: UIActivityIndicatorViewStyle = .gray, tintColor: UIColor = UIColor.darkGray, backgroundColor: UIColor = UIColor.clear) {
-        
-        let loadingView = UIView()
-        loadingView.frame = self.bounds
-        loadingView.tag = loadingViewIdentifier
-        loadingView.backgroundColor = backgroundColor
-
-        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: activityIndicatorStyle)
-        activityIndicator.frame = self.bounds
-        activityIndicator.tintColor = tintColor
-        activityIndicator.configureShadow()
-        activityIndicator.startAnimating()
-
-        loadingView.addSubview(activityIndicator)
-        
-        DispatchQueue.main.async {
-            self.addSubview(loadingView)
-            self.isUserInteractionEnabled = false
-        }
+    // MARK: Enum
+    enum LoadingContext {
+        case fullScreen
+        case component
     }
-
+    
+    // MARK: - Loading View Components
+    private func createBlurView(_ style: UIBlurEffectStyle = .light, alpha: CGFloat = 0.85)  -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: style)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.alpha = alpha
+        return blurEffectView
+    }
+    
+    private func createActivityIndicator(_ style: UIActivityIndicatorViewStyle = .whiteLarge, color: UIColor = UIColor.lightGray) -> UIActivityIndicatorView  {
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: style)
+        activityIndicatorView.color = color
+        return activityIndicatorView
+    }
+    
+    // MARK: - Loading Methods
+    func startLoading(in context: LoadingContext = .component, blur: Bool = false, backgroundColor: UIColor = UIColor.clear, activityIndicatorViewStyle: UIActivityIndicatorViewStyle? = nil, activityIndicatorColor: UIColor = UIColor.lightGray) {
+        
+        guard let parentView = context == .fullScreen ? (UIApplication.shared.delegate)!.window! : self else { return }
+        
+        // Create Loading view
+        let loadingView = UIView(frame: parentView.frame)
+        loadingView.backgroundColor = backgroundColor
+        loadingView.tag = loadingViewTag
+        loadingView.center = parentView.center
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        parentView.addSubview(loadingView)
+        // Configure loadingView autolayout
+        loadingView.centerXAnchor.constraint(equalTo: parentView.centerXAnchor).isActive = true
+        loadingView.centerYAnchor.constraint(equalTo: parentView.centerYAnchor).isActive = true
+        
+        // Create blurView if needed
+        if blur {
+            let blurView = createBlurView()
+            blurView.frame = loadingView.frame
+            blurView.center = loadingView.center
+            blurView.translatesAutoresizingMaskIntoConstraints = false
+            loadingView.addSubview(blurView)
+        }
+        
+        // Create activityIndicatorView
+        var activityIndicatorStyle: UIActivityIndicatorViewStyle = context == .fullScreen ? .whiteLarge : .white
+        if let activityIndicatorViewStyle = activityIndicatorViewStyle {
+            activityIndicatorStyle = activityIndicatorViewStyle
+        }
+        let activityIndicator = createActivityIndicator(activityIndicatorStyle, color: activityIndicatorColor)
+        activityIndicator.frame = loadingView.frame
+        activityIndicator.startAnimating()
+        loadingView.addSubview(activityIndicator)
+        // Configure activityIndicator autolayout
+        activityIndicator.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor).isActive = true
+        
+    }
+    
     func stopLoading() {
-        let holderView = self.viewWithTag(loadingViewIdentifier)
+        let holderView = (UIApplication.shared.delegate)!.window!!.viewWithTag(loadingViewTag)
         DispatchQueue.main.async {
-            self.isUserInteractionEnabled = true
-            holderView?.removeFromSuperview()
+            UIView.animate(withDuration: 0.2, animations: {
+                holderView?.alpha = 0
+            }, completion: { (completed) in
+                holderView?.removeFromSuperview()
+            })
         }
     }
     

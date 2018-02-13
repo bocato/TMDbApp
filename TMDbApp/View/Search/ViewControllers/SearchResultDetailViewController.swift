@@ -96,7 +96,7 @@ class SearchResultDetailViewController: UIViewController {
             backdropImageView.layoutSubviews()
             return
         }
-        backdropImageView.setImage(with: backdropPathURLString, placeholderImage: UIImage.fromResource(named: .loadingBackdrop), imageForError: UIImage.fromResource(named: .noBackdrop), downloadedImageContentMode: .scaleToFill)
+        backdropImageView.setImage(with: backdropPathURLString, imageForError: UIImage.fromResource(named: .noBackdrop), downloadedImageContentMode: .scaleToFill)
         backdropImageView.layoutSubviews()
     }
     
@@ -156,7 +156,7 @@ class SearchResultDetailViewController: UIViewController {
             success(response, serviceResponse)
         }, onFailure:  { (serviceResponse) in
             self.isFetchingSimilarMovies = false
-            let message = serviceResponse?.serviceError?.statusMessage ?? "An unexpected error ocurred."
+            let message = serviceResponse?.serviceError?.statusMessage ?? ErrorMessage.unexpected.rawValue
             let bottomAlertController = BottomAlertController.instantiateNew(withTitle: "Error", text: message, leftButtonTitle: "Cancel", leftButtonActionClosure: {
                 self.navigationController?.popViewController(animated: true)
             }, rightButtonTitle: "Retry", rightButtonActionClosure: {

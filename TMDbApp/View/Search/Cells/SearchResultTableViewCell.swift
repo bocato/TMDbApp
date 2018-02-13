@@ -36,10 +36,10 @@ class SearchResultTableViewCell: UITableViewCell {
     
     private func configurePoster(for movie: Movie!){
         guard let posterURLString = movie.posterURLString else {
-            posterImageView.image = UIImage.fromResource(named: .noPoster)
+            posterImageView.image = UIImage.fromResource(named: .moviePlaceholder)
             return
         }
-        posterImageView.setImage(with: posterURLString, placeholderImage: UIImage.fromResource(named: .loadingMoviePoster), imageForError: UIImage.fromResource(named: .noPoster), downloadedImageContentMode: .scaleAspectFit)
+        posterImageView.setImage(with: posterURLString, imageForError: UIImage.fromResource(named: .moviePlaceholder), downloadedImageContentMode: .scaleAspectFit)
     }
     
     func configure(with movie: Movie?) {

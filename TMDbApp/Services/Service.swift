@@ -53,32 +53,36 @@ class Service {
 // handle HTTPURLResponse and dispatch the request
 extension URLRequest {
     
-    private func setUnknowErrorFor(serviceResponse: inout ServiceResponse) {
-        serviceResponse.serviceError = ServiceError(statusMessage: "An unexpected error has occured. Check your internet connection and try again.", statusCode: -999)
+    private func setUnknowErrorFor(serviceResponse: inout ServiceResponse, error: Error?) {
+        if let error = error, error.isNetworkConnectionError {
+            serviceResponse.serviceError = ErrorFactory.buildServiceError(with: .unexpected)
+            return
+        }
+        serviceResponse.serviceError = ErrorFactory.buildServiceError(with: .unknown)
     }
     
     private func mapErrors(statusCode: Int, error: Error?, serviceResponse: inout ServiceResponse) {
         
         guard error == nil else {
-            setUnknowErrorFor(serviceResponse: &serviceResponse)
+            setUnknowErrorFor(serviceResponse: &serviceResponse, error: error)
             return
         }
         
         guard 400...499 ~= statusCode, let data = serviceResponse.data, let jsonString = String(data: data, encoding: .utf8),
             let serializedValue = try? JSONDecoder().decode(ServiceError.self, from: data) else {
-                setUnknowErrorFor(serviceResponse: &serviceResponse)
+                setUnknowErrorFor(serviceResponse: &serviceResponse, error: error)
                 return
         }
         
         serviceResponse.rawResponse = jsonString
         
         if serializedValue.statusMessage == nil {
-            setUnknowErrorFor(serviceResponse: &serviceResponse)
+            setUnknowErrorFor(serviceResponse: &serviceResponse, error: error)
         } else {
             serviceResponse.serviceError = serializedValue
         }
     }
-
+    
     // Dispatch URLRequest instance
     private func dispatch(onCompleted completion: @escaping (ServiceResponse) -> Void) {
         
@@ -95,7 +99,7 @@ extension URLRequest {
             }
             
             guard let statusCode = serviceResponse.response?.statusCode else {
-                self.setUnknowErrorFor(serviceResponse: &serviceResponse)
+                self.setUnknowErrorFor(serviceResponse: &serviceResponse, error: error)
                 completion(serviceResponse)
                 return
             }
