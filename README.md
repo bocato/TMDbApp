@@ -1,9 +1,9 @@
 # TMDbApp
 TMDb POC App
 
-# Dependencies
-SkeletonView: to get a good look and feel when loading tableviews.
+This app enables the user to search movies in the TMDb database and set as favorites, with offline access.
 
+# Dependencies
 Kingfisher: for image caching.
 
 NYTPhotoViewer: image viewer for the posters.
