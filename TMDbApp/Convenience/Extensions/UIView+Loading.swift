@@ -74,12 +74,12 @@ extension UIView {
     }
     
     func stopLoading() {
-        let holderView = (UIApplication.shared.delegate)!.window!!.viewWithTag(loadingViewTag)
+        let loadingView = viewWithTag(loadingViewTag)
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2, animations: {
-                holderView?.alpha = 0
+                loadingView?.alpha = 0
             }, completion: { (completed) in
-                holderView?.removeFromSuperview()
+                loadingView?.removeFromSuperview()
             })
         }
     }

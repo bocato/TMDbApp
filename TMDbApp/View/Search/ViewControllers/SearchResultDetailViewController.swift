@@ -66,8 +66,15 @@ class SearchResultDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureDismissButton()
-        self.tableView.setAndLayoutTableHeaderView(header: self.tableViewHeader)
+        
     }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        self.tableView.setAndLayoutTableHeaderView(header: self.tableViewHeader)
+    }
+    
     
     deinit {
         KingfisherManager.shared.cache.clearMemoryCache()

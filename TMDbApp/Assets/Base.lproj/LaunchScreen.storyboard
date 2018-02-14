@@ -28,16 +28,8 @@
                                             <constraint firstAttribute="width" constant="72" id="rXE-yA-n5u"/>
                                         </constraints>
                                     </imageView>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="9M7-WX-YkH">
-                                        <rect key="frame" x="75" y="72" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="E6w-oL-P0t"/>
-                                            <constraint firstAttribute="width" constant="50" id="qvp-q9-4hu"/>
-                                        </constraints>
-                                        <color key="color" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
-                                    </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Movie Database APP" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5l-dl-XRc">
-                                        <rect key="frame" x="0.0" y="122" width="200" height="78"/>
+                                        <rect key="frame" x="0.0" y="137.5" width="200" height="62.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                         <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -45,14 +37,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="V5l-dl-XRc" firstAttribute="top" secondItem="9M7-WX-YkH" secondAttribute="bottom" id="4fx-Ga-rIy"/>
                                     <constraint firstAttribute="trailing" secondItem="V5l-dl-XRc" secondAttribute="trailing" id="5FN-SV-hvA"/>
                                     <constraint firstItem="QqR-ss-WEI" firstAttribute="top" secondItem="w9m-Ii-gQv" secondAttribute="top" id="8LC-bO-oaO"/>
                                     <constraint firstAttribute="bottom" secondItem="V5l-dl-XRc" secondAttribute="bottom" id="Pyt-l4-nzh"/>
                                     <constraint firstItem="QqR-ss-WEI" firstAttribute="centerX" secondItem="w9m-Ii-gQv" secondAttribute="centerX" id="VUk-i3-3mN"/>
-                                    <constraint firstItem="9M7-WX-YkH" firstAttribute="top" secondItem="QqR-ss-WEI" secondAttribute="bottom" id="WHa-Nr-8fF"/>
                                     <constraint firstAttribute="width" constant="200" id="juu-md-OcA"/>
-                                    <constraint firstItem="9M7-WX-YkH" firstAttribute="centerX" secondItem="QqR-ss-WEI" secondAttribute="centerX" id="wkX-sm-fga"/>
                                     <constraint firstAttribute="height" constant="200" id="zFq-b4-2HF"/>
                                     <constraint firstItem="V5l-dl-XRc" firstAttribute="leading" secondItem="w9m-Ii-gQv" secondAttribute="leading" id="zGs-LX-8pY"/>
                                 </constraints>

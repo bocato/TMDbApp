@@ -9,11 +9,11 @@
 import UIKit
 import Kingfisher
 
-
 extension UIImageView {
     
     // MARK: - Kingfisher Methods
     func cancelDownloadTask() {
+        self.stopLoading()
         kf.cancelDownloadTask()
     }
     
@@ -22,11 +22,12 @@ extension UIImageView {
         guard let urlString = urlString, let url = URL(string: urlString) else {
             return
         }
+        startLoading()
         self.contentMode = .scaleAspectFit
         kf.setImage(with: url, placeholder: placeholderImage, options: [.transition(ImageTransition.fade(1))], progressBlock: { (receivedSize, totalSize) in
             if receivedSize == totalSize {
                 DispatchQueue.main.async {
-                    
+                    self.stopLoading()
                 }
             }
         }, completionHandler: { (image, error, _, _) in
@@ -43,6 +44,7 @@ extension UIImageView {
                         self.contentMode = downloadedImageContentMode
                     }
                 }
+                self.stopLoading()
             }
         })
     }
